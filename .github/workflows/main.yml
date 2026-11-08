@@ -11,39 +11,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout project
         uses: actions/checkout@v4
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK
+        run: |
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.7
-
-      - name: Extract Android project
-        run: |
-          mkdir -p extracted
-          unzip -o app.zip -d extracted
-          APP_GRADLE="$(find extracted -type f -path '*/app/build.gradle' -print -quit)"
-          if [ -z "$APP_GRADLE" ]; then
-            echo "app/build.gradle not found"
-            find extracted -maxdepth 5 -type f
-            exit 1
-          fi
-          PROJECT_DIR="${APP_GRADLE%/app/build.gradle}"
-         chmod -R u+rwX extracted
-         cp -r "$PROJECT_DIR"/. .
-         chmod -R u+rwX app
-      - name: Build APK
-        run: gradle assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: CARE-FOR-U-APK
-          path: app/build/outputs/apk/debug/*.apk
+       
