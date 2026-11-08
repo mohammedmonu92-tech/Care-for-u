@@ -27,11 +27,10 @@ jobs:
 
       - name: Extract project
         run: unzip -o app.zip -d . && chmod -R u+rwX app
-      - name: Get SHA fingerprints
-        run: gradle :app:signingReport
       - name: Build APK
         run: gradle assembleDebug
-
+      - name: Get SHA fingerprints
+        run: gradle :app:signingReport
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
