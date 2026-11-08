@@ -26,8 +26,17 @@ jobs:
           gradle-version: 8.7
 
       - name: Extract Android project
-        run: unzip -o app.zip -d .
-
+        run: |
+          mkdir -p extracted
+          unzip -o app.zip -d extracted
+          APP_GRADLE="$(find extracted -type f -path '*/app/build.gradle' -print -quit)"
+          if [ -z "$APP_GRADLE" ]; then
+            echo "app/build.gradle not found"
+            find extracted -maxdepth 5 -type f
+            exit 1
+          fi
+          PROJECT_DIR="${APP_GRADLE%/app/build.gradle}"
+          cp -a "$PROJECT_DIR"/. .
       - name: Build APK
         run: gradle assembleDebug
 
