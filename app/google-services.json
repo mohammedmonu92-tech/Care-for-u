@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "285689521772",
+    "project_id": "care-for-u-85695",
+    "storage_bucket": "care-for-u-85695.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285689521772:android:bc5cfa7e2ac4bab6ebda49",
+        "android_client_info": {
+          "package_name": "com.careforu.shop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdx2w4dN7e7G7F4xcaF2-FHhQd-NbMDm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
