@@ -25,6 +25,15 @@ jobs:
         with:
           gradle-version: '8.9'
 
+      - name: Extract Android project
+        run: unzip -o app.zip -d . && chmod -R u+rwX app
+
+      - name: Restore updated login files
+        run: |
+          git checkout -- app/src/main/assets/index.html
+          git checkout -- app/src/main/java/com/careforu/shop/MainActivity.java
+          git checkout -- app/google-services.json
+
       - name: Build APK
         run: gradle assembleDebug
 
