@@ -34,6 +34,8 @@ jobs:
           git checkout -- app/src/main/java/com/careforu/shop/MainActivity.java
           git checkout -- app/google-services.json
           git checkout -- app/build.gradle
+          git checkout -- build.gradle
+          git checkout -- settings.gradle
       - name: Build APK
         run: gradle assembleDebug
 
