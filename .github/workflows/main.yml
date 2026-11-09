@@ -30,16 +30,22 @@ jobs:
 
       - name: Restore updated login files
         run: |
-          git checkout -- app/src/main/assets/index.html
-          git checkout -- app/src/main/java/com/careforu/shop/MainActivity.java
-          git checkout -- app/google-services.json
-          git checkout -- app/build.gradle
-          git checkout -- build.gradle
-          git checkout -- settings.gradle
-          git checkout -- app/src/main/res/drawable/ic_launcher.xml
-          git checkout -- app/src/main/AndroidManifest.xml
+          for file in \
+            app/src/main/assets/index.html \
+            app/src/main/java/com/careforu/shop/MainActivity.java \
+            app/google-services.json \
+            app/build.gradle \
+            build.gradle \
+            settings.gradle \
+            app/src/main/res/drawable/ic_launcher.xml \
+            app/src/main/AndroidManifest.xml
+          do
+            if git ls-files --error-unmatch "$file" >/dev/null 2>&1; then
+              git checkout -- "$file"
+            fi
+          done
       - name: Build APK
-        run: gradle assembleDebug
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
