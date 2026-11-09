@@ -5,139 +5,117 @@ import android.os.Bundle;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
+import android.webkit.ConsoleMessage;
 import android.graphics.Color;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthOptions;
-import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken;
-
-import java.util.concurrent.TimeUnit;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
     private WebView webView;
-    private FirebaseAuth auth;
-    private String verificationId;
+    private static final String TAG = "CARE_FOR_U";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        auth = FirebaseAuth.getInstance();
 
         getWindow().setStatusBarColor(Color.rgb(194, 24, 104));
         getWindow().setNavigationBarColor(Color.rgb(80, 12, 47));
 
         webView = new WebView(this);
         webView.setBackgroundColor(Color.WHITE);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setDomStorageEnabled(true);
-        webView.getSettings().setAllowFileAccess(true);
 
-        webView.addJavascriptInterface(new AndroidBridge(), "Android");
+        WebSettings settings = webView.getSettings();
 
-        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient());
+        // JavaScript and storage
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+
+        // Local HTML access
+        settings.setAllowFileAccess(true);
+        settings.setAllowContentAccess(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(false);
+        settings.setSupportMultipleWindows(false);
+
+        // Security
+        settings.setAllowFileAccessFromFileURLs(false);
+        settings.setAllowUniversalAccessFromFileURLs(false);
+        settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
+
+        // Debug and page handling
+        webView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                Log.d(TAG, "Page loaded: " + url);
+            }
+
+            @Override
+            public void onReceivedError(
+                    WebView view,
+                    android.webkit.WebResourceRequest request,
+                    android.webkit.WebResourceError error) {
+
+                super.onReceivedError(view, request, error);
+
+                if (request.isForMainFrame()) {
+                    Log.e(TAG, "Page error: " + error.getDescription());
+                    Toast.makeText(
+                            MainActivity.this,
+                            "App page load error",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            }
+        });
+
+        webView.setWebChromeClient(new WebChromeClient() {
+
+            @Override
+            public boolean onConsoleMessage(ConsoleMessage message) {
+
+                Log.e(TAG,
+                        "JavaScript: " + message.message()
+                        + " | Line: " + message.lineNumber()
+                        + " | Source: " + message.sourceId());
+
+                return true;
+            }
+        });
+
+        webView.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
         setContentView(webView);
+
         webView.loadUrl("file:///android_asset/index.html");
-    }
-
-    private void sendToPage(String script) {
-        runOnUiThread(() -> webView.evaluateJavascript(script, null));
-    }
-
-    private void showError(String message) {
-        sendToPage("window.onLoginError && window.onLoginError("
-                + org.json.JSONObject.quote(message) + ")");
-    }
-
-    private class AndroidBridge {
-
-        @JavascriptInterface
-        public void startPhoneLogin(String phone) {
-            String number = phone.trim();
-
-            if (number.matches("[0-9]{10}")) {
-                number = "+91" + number;
-            }
-
-            if (!number.matches("\\+[0-9]{10,15}")) {
-                showError("Please enter a valid phone number.");
-                return;
-            }
-
-            PhoneAuthOptions options =
-                    PhoneAuthOptions.newBuilder(auth)
-                    .setPhoneNumber(number)
-                    .setTimeout(60L, TimeUnit.SECONDS)
-                    .setActivity(MainActivity.this)
-                    .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-                        @Override
-                        public void onVerificationCompleted(PhoneAuthCredential credential) {
-                            signIn(credential);
-                        }
-
-                        @Override
-                        public void onVerificationFailed(
-                                com.google.firebase.FirebaseException e) {
-                            showError(e.getMessage());
-                        }
-
-                        @Override
-                        public void onCodeSent(
-                                String id,
-                                ForceResendingToken token) {
-                            verificationId = id;
-                            sendToPage("window.onOtpSent && window.onOtpSent()");
-                        }
-                    })
-                    .build();
-
-            runOnUiThread(() -> {
-                try {
-                    PhoneAuthProvider.verifyPhoneNumber(options);
-                } catch (Exception e) {
-                    showError("OTP error: " + e.getMessage());
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void verifyOtp(String code) {
-            if (verificationId == null) {
-                showError("Please request an OTP first.");
-                return;
-            }
-
-            PhoneAuthCredential credential =
-                    PhoneAuthProvider.getCredential(verificationId, code.trim());
-
-            signIn(credential);
-        }
-    }
-
-    private void signIn(PhoneAuthCredential credential) {
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        sendToPage("window.onLoginSuccess && window.onLoginSuccess()");
-                    } else {
-                        showError("OTP verification failed. Please try again.");
-                    }
-                });
     }
 
     @Override
     public void onBackPressed() {
+
         if (webView != null && webView.canGoBack()) {
             webView.goBack();
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        if (webView != null) {
+            webView.stopLoading();
+            webView.loadUrl("about:blank");
+            webView.clearHistory();
+            webView.removeAllViews();
+            webView.destroy();
+            webView = null;
+        }
+
+        super.onDestroy();
     }
 }
