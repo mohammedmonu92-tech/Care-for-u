@@ -1,473 +1,350 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CARE FOR U</title>
+
 <style>
-:root{--pink:#c21868;--light:#fff0f6;--dark:#6b123d;--gold:#c99a45}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#fff7fa;color:#29212a}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer;border:0;border-radius:9px;padding:11px 14px}
-.primary{background:var(--pink);color:white}
-.secondary{background:#ffe0ed;color:var(--dark)}
-header{background:white;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 9px #0001;position:sticky;top:0;z-index:5}
-.logo{font-size:21px;font-weight:bold;color:var(--pink);cursor:pointer}
-.logo small{display:block;font-size:9px;letter-spacing:1px;color:#777}
-nav{display:flex;gap:7px;overflow:auto;padding:10px;background:white}
-nav button{white-space:nowrap;background:#ffe8f1;color:#83164c}
-input,select,textarea{width:100%;padding:12px;margin:6px 0;border:1px solid #e8cbd8;border-radius:9px;background:white}
-.page{display:none;padding:14px;max-width:1000px;margin:auto}
-.page.active{display:block}
-.search{padding:12px;background:white}
-.categories{display:flex;gap:8px;overflow:auto;padding:10px 0}
-.categories button{white-space:nowrap;background:#ffe0ed;color:#83164c}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 9px #0001}
-.card img{width:100%;height:145px;object-fit:contain;background:#fff0f6}
-.cardbody{padding:10px}
-.price{color:var(--pink);font-weight:bold;font-size:17px}
-.old{color:#888;text-decoration:line-through;font-size:12px}
-.muted{color:#777;font-size:13px}
-.row{display:flex;gap:8px;align-items:center}
-.row>*{flex:1}
-.bigimg{width:100%;height:260px;object-fit:contain;background:#fff0f6;border-radius:12px}
-.box{background:white;padding:14px;border-radius:12px;margin:10px 0;box-shadow:0 2px 8px #0001}
-.actions{display:flex;gap:8px;margin-top:10px}
-.actions button{flex:1}
-footer{text-align:center;padding:25px;color:#888;font-size:12px}
-hr{border:0;border-top:1px solid #eee;margin:14px 0}
+body{margin:0;background:#fff6fa;color:#39202e;font-family:Arial}
+header{background:#e60070;color:white;padding:16px;font-size:22px;font-weight:bold;display:flex;justify-content:space-between}
+main{padding:14px;max-width:700px;margin:auto}
+.card{background:white;padding:14px;margin:12px 0;border-radius:15px;box-shadow:0 2px 8px #eac7d7}
+input,textarea,select{width:100%;padding:12px;margin:6px 0;border:1px solid #e6b9ce;border-radius:9px}
+button{background:#e60070;color:white;border:0;padding:12px;border-radius:10px;font-weight:bold;margin:4px}
+.secondary{background:#ffe0ef;color:#a00050}
+.danger{background:#8b174b}
 .hidden{display:none!important}
-.badge{background:#ffe0ed;color:#9b1554;padding:4px 7px;border-radius:7px;font-size:11px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.product img{width:100%;height:145px;object-fit:contain}
+.price{font-size:19px;color:#b00058;font-weight:bold}
+.hero{text-align:center;background:#ffe0ef;padding:20px;border-radius:16px}
+.nav{position:sticky;bottom:0;background:white;display:flex;justify-content:space-around;padding:8px}
+.nav button{background:white;color:#a00050}
+.thumb{width:65px;height:65px;object-fit:cover;margin:4px}
 </style>
 </head>
+
 <body>
 
 <header>
- <div class="logo" onclick="logoTap()">CARE FOR U<small>Care That Makes You Feel Special.</small></div>
- <div>
-  <button class="secondary" onclick="go('cart')">🛒 <span id="cartCount">0</span></button>
-  <button class="secondary" onclick="go('profile')">👤</button>
- </div>
+<span onclick="adminEntry()">🛍️ CARE FOR U</span>
+<button class="secondary" onclick="show('cart')">Cart 🛒 <span id="count">0</span></button>
 </header>
 
-<div id="login" class="page">
- <div class="box" style="margin-top:45px;text-align:center">
-  <h1 style="color:#c21868">CARE FOR U ❤️</h1>
-  <p>Welcome! Login to start shopping.</p>
-  <input id="loginName" placeholder="Your name">
-  <input id="loginPhone" placeholder="Mobile number" type="tel" maxlength="10">
-  <button class="primary" style="width:100%" onclick="loginUser()">Continue</button>
-  <p class="muted">Demo login. OTP verification is not connected.</p>
- </div>
+<section id="login" class="wrap">
+<main>
+<div class="hero">
+<h1>🛍️ CARE FOR U</h1>
+<b>Shop Smart • Live Better</b>
+<p>Care That Makes You Feel Special.</p>
+</div>
+<div class="card">
+<div id="loginForm">
+<h2>Customer Login</h2>
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<button class="secondary" onclick="signupForm()">New User</button>
+<button class="secondary" onclick="forgot()">Forgot Password?</button>
+</div>
+<div id="signupForm" class="hidden">
+<h2>Create Account</h2>
+<input id="newname" placeholder="Username">
+<input id="newmobile" placeholder="Mobile Number">
+<input id="newpass" type="password" placeholder="Password">
+<input id="confirm" type="password" placeholder="Confirm Password">
+<button onclick="signup()">Create Account</button>
+<button class="secondary" onclick="backLogin()">Back to Login</button>
+</div>
+</div>
+</main>
+</section>
+
+<main id="app" class="hidden">
+
+<section id="home">
+<div class="hero">
+<h2>Welcome to CARE FOR U ❤️</h2>
+<p>Shop Baby Care, Fashion, Beauty & More</p>
+</div>
+<input id="search" placeholder="Search products..." oninput="render()">
+<div id="categories"></div>
+<h3>Popular Products</h3>
+<div id="products" class="grid"></div>
+</section>
+
+<section id="detail" class="hidden"></section>
+
+<section id="cart" class="hidden">
+<h2>My Cart</h2>
+<div id="cartItems"></div>
+<h3 id="total"></h3>
+<button onclick="checkout()">Place Order (Demo COD)</button>
+</section>
+
+<section id="orders" class="hidden">
+<h2>My Orders</h2>
+<div id="myOrders"></div>
+</section>
+
+<section id="profile" class="hidden">
+<h2>My Profile</h2>
+<div id="profileInfo"></div>
+<button onclick="logout()">Logout</button>
+</section>
+
+<section id="admin" class="hidden">
+<h2>Admin Panel</h2>
+
+<div class="card">
+<h3>Add New Product</h3>
+<input id="pname" placeholder="Product Name">
+<input id="pprice" type="number" placeholder="Selling Price">
+<input id="pmrp" type="number" placeholder="MRP">
+<input id="pstock" type="number" placeholder="Stock">
+<input id="pcat" placeholder="Category">
+<textarea id="pdesc" placeholder="Product Description"></textarea>
+
+<input id="pvariants" placeholder="Sizes: NB,S,M,L,XL,XXL">
+<input id="pcolors" placeholder="Colours: Pink,Blue,Black">
+
+<label>Upload multiple product photos</label>
+<input id="photos" type="file" accept="image/*" multiple onchange="previewPhotos(event)">
+<div id="preview"></div>
+
+<button onclick="addProduct()">Save Product</button>
 </div>
 
-<div id="store" class="page">
- <div class="search">
-  <input id="search" placeholder="🔍 Search products..." oninput="renderProducts()">
- </div>
- <h2>Welcome to CARE FOR U ❤️</h2>
- <p class="muted">Shop everything you need, all in one place.</p>
- <div class="categories" id="categories"></div>
- <div class="row">
-  <h3>Popular Products</h3>
-  <select id="sort" onchange="renderProducts()">
-   <option value="">Sort</option>
-   <option value="low">Price: Low to High</option>
-   <option value="high">Price: High to Low</option>
-  </select>
- </div>
- <div class="grid" id="products"></div>
-</div>
+<h3>Manage Stock</h3>
+<div id="inventory"></div>
 
-<div id="detail" class="page">
- <button class="secondary" onclick="go('store')">← Back</button>
- <div id="detailContent"></div>
-</div>
+<h3>Customer Orders (This Phone Only)</h3>
+<div id="adminOrders"></div>
 
-<div id="cart" class="page">
- <h2>My Shopping Cart 🛒</h2>
- <div id="cartItems"></div>
- <div id="cartTotal"></div>
- <button class="primary" style="width:100%" onclick="go('checkout')">Proceed to Checkout</button>
-</div>
+<h3>Customer Reviews</h3>
+<div id="adminReviews"></div>
 
-<div id="checkout" class="page">
- <h2>Checkout</h2>
- <div class="box">
-  <input id="aName" placeholder="Full name">
-  <input id="aPhone" placeholder="Mobile number" type="tel">
-  <textarea id="aAddress" placeholder="Full delivery address"></textarea>
-  <input id="aPin" placeholder="PIN code">
-  <select id="pay">
-   <option>Cash on Delivery</option>
-   <option>UPI (demo only)</option>
-   <option>Card (demo only)</option>
-  </select>
-  <p class="muted">UPI and card options are demo selections. No payment will be collected.</p>
-  <button class="primary" style="width:100%" onclick="placeOrder()">Place Order</button>
- </div>
-</div>
+<button class="danger" onclick="logout()">Admin Logout</button>
+</section>
 
-<div id="orders" class="page">
- <h2>My Orders</h2>
- <div id="orderList"></div>
-</div>
+</main>
 
-<div id="wishlist" class="page">
- <h2>My Wishlist ❤️</h2>
- <div class="grid" id="wishList"></div>
+<div id="nav" class="nav hidden">
+<button onclick="show('home')">Home</button>
+<button onclick="show('cart')">Cart</button>
+<button onclick="show('orders')">Orders</button>
+<button onclick="show('profile')">Profile</button>
 </div>
-
-<div id="profile" class="page">
- <h2>My Account</h2>
- <div class="box" id="profileInfo"></div>
- <button class="secondary" onclick="go('orders')">My Orders</button>
- <button class="secondary" onclick="go('wishlist')">My Wishlist</button>
- <button class="primary" onclick="logout()">Logout</button>
-</div>
-
-<div id="admin" class="page">
- <h2>🔐 Admin Dashboard</h2>
- <div class="box">
-  <h3>Add New Product</h3>
-  <input id="pName" placeholder="Product name">
-  <select id="pCat"></select>
-  <div class="row">
-   <input id="pPrice" type="number" placeholder="Selling price">
-   <input id="pMrp" type="number" placeholder="MRP">
-  </div>
-  <input id="pStock" type="number" placeholder="Stock quantity">
-  <input id="pImage" placeholder="Product photo direct URL (optional)">
-  <textarea id="pDesc" placeholder="Product description"></textarea>
-  <button class="primary" style="width:100%" onclick="addProduct()">Add Product</button>
- </div>
- <div class="box">
-  <h3>Manage Products</h3>
-  <div id="adminProducts"></div>
- </div>
- <div class="box">
-  <h3>Customer Reviews</h3>
-  <div id="adminReviews"></div>
- </div>
- <div class="box">
-  <h3>Customer Orders (this device only)</h3>
-  <div id="adminOrders"></div>
- </div>
- <button class="secondary" onclick="go('store')">Back to Shop</button>
-</div>
-
-<footer>
- CARE FOR U ❤️<br>
- Care That Makes You Feel Special.<br>
- Shop No. 2, Calicut, Port Blair, Andaman & Nicobar Islands – 744105<br>
- WhatsApp: 9332594564
-</footer>
 
 <script>
-const CATS=[
-"All","Baby Care","Women Hygiene","Beauty","Fashion","Footwear",
-"Home & Kitchen","Grocery","Electronics","Toys & Kids","Health",
-"Bags","Daily Essentials"
-];
+const load=(k,d)=>JSON.parse(localStorage.getItem(k)||JSON.stringify(d));
+const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 
-const initialProducts=[
-{id:1,name:"Baby Diapers",cat:"Baby Care",price:499,mrp:599,stock:20,desc:"Soft and comfortable baby diapers for everyday use.",image:"",rating:4.5},
-{id:2,name:"Baby Wipes",cat:"Baby Care",price:149,mrp:199,stock:30,desc:"Gentle wipes for baby care.",image:"",rating:4.2},
-{id:3,name:"Sanitary Pads",cat:"Women Hygiene",price:99,mrp:130,stock:40,desc:"Comfortable sanitary pads for daily hygiene.",image:"",rating:4.4},
-{id:4,name:"Face Wash",cat:"Beauty",price:199,mrp:249,stock:15,desc:"A refreshing face wash for daily use.",image:"",rating:4.1},
-{id:5,name:"Women's Kurti",cat:"Fashion",price:599,mrp:899,stock:10,desc:"Comfortable everyday fashion wear.",image:"",rating:4.3},
-{id:6,name:"Kitchen Storage Box",cat:"Home & Kitchen",price:249,mrp:299,stock:12,desc:"Useful storage for your kitchen.",image:"",rating:4.0},
-{id:7,name:"Kids Toy",cat:"Toys & Kids",price:299,mrp:399,stock:8,desc:"Fun toy for children.",image:"",rating:4.2},
-{id:8,name:"Daily Grocery Pack",cat:"Grocery",price:199,mrp:230,stock:25,desc:"Daily essentials for your home.",image:"",rating:4.0}
-];
+let users=load('users',[]);
+let products=load('products',[
+{id:1,name:'Baby Diapers',price:499,mrp:599,stock:20,cat:'Baby Care',desc:'Soft and comfortable baby diapers.',sizes:['NB','S','M','L','XL','XXL'],colors:['Blue'],images:[]},
+{id:2,name:'Sanitary Pads',price:199,mrp:249,stock:30,cat:'Women Hygiene',desc:'Comfortable sanitary pads.',sizes:['Regular','XL','XXL'],colors:['Pink'],images:[]},
+{id:3,name:'Kids Clothing',price:299,mrp:399,stock:15,cat:'Fashion',desc:'Comfortable daily wear.',sizes:['S','M','L','XL','XXL'],colors:['Pink','Blue'],images:[]},
+{id:4,name:'Footwear',price:599,mrp:699,stock:10,cat:'Footwear',desc:'Comfortable footwear.',sizes:['5','6','7','8','9','10'],colors:['Black'],images:[]}
+]);
 
-function read(key, fallback){
- try{return JSON.parse(localStorage.getItem(key)) ?? fallback}
- catch(e){return fallback}
-}
-function save(key,value){
- try{localStorage.setItem(key,JSON.stringify(value));return true}
- catch(e){alert("Phone storage full. Please remove some saved data.");return false}
-}
-let products=read("cfu_products",initialProducts);
-let cart=read("cfu_cart",[]);
-let wishlist=read("cfu_wishlist",[]);
-let orders=read("cfu_orders",[]);
-let reviews=read("cfu_reviews",[]);
-let user=read("cfu_user",null);
-let selectedCat="All",currentProduct=null,adminOk=false,logoClicks=0,logoTimer;
+let cart=load('cart',[]);
+let orders=load('orders',[]);
+let reviews=load('reviews',[]);
+let current=load('current',null);
+let photos=[];
+let activeProduct=null;
+let clicks=0;
 
-function go(id){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- if(id==="store")renderProducts();
- if(id==="cart")renderCart();
- if(id==="orders")renderOrders();
- if(id==="wishlist")renderWishlist();
- if(id==="profile")renderProfile();
- if(id==="admin"){
-  if(!adminOk){adminLogin();return}
-  renderAdmin();
- }
- window.scrollTo(0,0);
+function signupForm(){
+loginForm.classList.add('hidden');
+document.getElementById('signupForm').classList.remove('hidden');
 }
-function loginUser(){
- let name=document.getElementById("loginName").value.trim();
- let phone=document.getElementById("loginPhone").value.trim();
- if(!name||!/^[0-9]{10}$/.test(phone)){alert("Enter your name and valid 10-digit mobile number.");return}
- user={name,phone};
- save("cfu_user",user);
- go("store");
+function backLogin(){
+loginForm.classList.remove('hidden');
+document.getElementById('signupForm').classList.add('hidden');
+}
+function signup(){
+let n=newname.value.trim(),m=newmobile.value.trim(),p=newpass.value;
+if(!n||!m||!p)return alert('Please fill all fields');
+if(p!==confirm.value)return alert('Passwords do not match');
+if(users.some(u=>u.name===n))return alert('Username already exists');
+users.push({name:n,mobile:m,pass:p});
+save('users',users);
+alert('Account created. Please login.');
+backLogin();
+}
+function login(){
+let u=users.find(x=>x.name===username.value.trim()&&x.pass===password.value);
+if(!u)return alert('Incorrect username or password');
+current=u;save('current',current);enter();
+}
+function forgot(){
+let n=prompt('Enter username');
+let m=prompt('Registered mobile number');
+let u=users.find(x=>x.name===n&&x.mobile===m);
+if(!u)return alert('Details do not match');
+let p=prompt('Enter new password');
+if(p){u.pass=p;save('users',users);alert('Password changed on this phone. OTP is not used in this demo.')}
+}
+function enter(){
+login.classList.add('hidden');
+app.classList.remove('hidden');
+nav.classList.remove('hidden');
+render();
+show('home');
 }
 function logout(){
- user=null;save("cfu_user",null);go("login");
+current=null;save('current',null);
+app.classList.add('hidden');
+nav.classList.add('hidden');
+login.classList.remove('hidden');
+backLogin();
 }
-function logoTap(){
- logoClicks++;
- clearTimeout(logoTimer);
- logoTimer=setTimeout(()=>logoClicks=0,1500);
- if(logoClicks>=5){
-  logoClicks=0;
-  go("admin");
- }
+function show(id){
+['home','detail','cart','orders','profile','admin'].forEach(x=>
+document.getElementById(x).classList.toggle('hidden',x!==id));
+nav.classList.toggle('hidden',id==='detail'||id==='admin');
+if(id==='cart')renderCart();
+if(id==='orders')renderOrders();
+if(id==='profile')profileInfo.innerHTML='Logged in as '+(current?.name||'Admin');
+if(id==='admin')renderAdmin();
+window.scrollTo(0,0);
 }
-function adminLogin(){
- let pass=prompt("Admin password:");
- if(pass==="ChangeMe@123"){adminOk=true;go("admin")}
- else{alert("Incorrect admin password.");go("store")}
+function adminEntry(){
+clicks++;
+if(clicks>=5){
+clicks=0;
+if(prompt('Admin Password')==='ChangeMe@123')show('admin');
+else alert('Wrong password');
 }
-function makeCategories(){
- document.getElementById("categories").innerHTML=CATS.map(c=>
- `<button onclick="selectedCat=${JSON.stringify(c)};renderProducts()">${c}</button>`
- ).join("");
- document.getElementById("pCat").innerHTML=CATS.filter(c=>c!=="All").map(c=>
- `<option>${c}</option>`).join("");
 }
-function safe(s){
- return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function render(){
+let q=search.value.toLowerCase();
+let cats=[...new Set(products.map(p=>p.cat))];
+categories.innerHTML=cats.map(c=>`<button class="secondary" onclick="search.value='${c}';render()">${c}</button>`).join('');
+let list=products.filter(p=>(p.name+' '+p.cat).toLowerCase().includes(q));
+productsDiv.innerHTML='';
 }
-function image(p){
- return p.image
- ? `<img src="${safe(p.image)}" onerror="this.style.display='none'" alt="${safe(p.name)}">`
- : `<div style="height:145px;display:grid;place-items:center;background:#fff0f6;font-size:55px">🛍️</div>`;
-}
-function renderProducts(){
- let q=document.getElementById("search").value.toLowerCase();
- let list=products.filter(p=>
- (selectedCat==="All"||p.cat===selectedCat)&&
- (p.name.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q))
- );
- let sort=document.getElementById("sort").value;
- if(sort==="low")list.sort((a,b)=>a.price-b.price);
- if(sort==="high")list.sort((a,b)=>b.price-a.price);
- document.getElementById("products").innerHTML=list.map(p=>`
- <div class="card">
-  <div onclick="openProduct(${p.id})">${image(p)}</div>
-  <div class="cardbody">
-   <b onclick="openProduct(${p.id})">${safe(p.name)}</b>
-   <p class="price">₹${p.price} <span class="old">₹${p.mrp}</span></p>
-   <p class="muted">⭐ ${p.rating||"New"} · ${p.stock} in stock</p>
-   <div class="actions">
-    <button class="primary" onclick="addCart(${p.id})">Add</button>
-    <button class="secondary" onclick="toggleWish(${p.id})">♡</button>
-   </div>
-  </div>
- </div>`).join("")||"<p>No products found.</p>";
- updateCount();
+const productsDiv=document.getElementById('products');
+function render(){
+let q=search.value.toLowerCase();
+categories.innerHTML=[...new Set(products.map(p=>p.cat))].map(c=>
+`<button class="secondary" onclick="search.value='${c}';render()">${c}</button>`).join('');
+let list=products.filter(p=>(p.name+' '+p.cat).toLowerCase().includes(q));
+productsDiv.innerHTML=list.map(p=>`
+<div class="card product" onclick="openProduct(${p.id})">
+${p.images?.length?`<img src="${p.images[0]}">`:'<div style="font-size:60px;text-align:center">🛍️</div>'}
+<b>${p.name}</b><p class="price">₹${p.price}</p>
+<small>Stock: ${p.stock}</small>
+</div>`).join('');
+count.innerText=cart.reduce((s,x)=>s+x.qty,0);
 }
 function openProduct(id){
- currentProduct=products.find(p=>p.id===id);
- if(!currentProduct)return;
- let p=currentProduct;
- let rv=reviews.filter(r=>r.pid===id&&r.approved);
- document.getElementById("detailContent").innerHTML=`
- <div class="box">
- ${image(p)}
- <h2>${safe(p.name)}</h2>
- <div class="price">₹${p.price} <span class="old">₹${p.mrp}</span></div>
- <p>⭐ ${p.rating||"New"} / 5</p>
- <p>${safe(p.desc)}</p>
- <p class="muted">Category: ${safe(p.cat)} · Stock: ${p.stock}</p>
- <div class="actions">
- <button class="primary" onclick="addCart(${p.id});go('cart')">Buy Now</button>
- <button class="secondary" onclick="addCart(${p.id})">Add to Cart</button>
- </div>
- </div>
- <div class="box">
- <h3>Customer Reviews (${rv.length})</h3>
- ${rv.map(r=>`<p>⭐ ${r.stars}/5 — ${safe(r.name)}<br>${safe(r.text)}</p><hr>`).join("")||"<p class='muted'>No approved reviews yet.</p>"}
- <h4>Write a Review</h4>
- <select id="reviewStars"><option value="5">5 Stars</option><option value="4">4 Stars</option><option value="3">3 Stars</option><option value="2">2 Stars</option><option value="1">1 Star</option></select>
- <textarea id="reviewText" placeholder="Write your review"></textarea>
- <button class="primary" onclick="submitReview(${p.id})">Submit Review</button>
- <p class="muted">Reviews appear after admin approval.</p>
- </div>`;
- go("detail");
-}
-function submitReview(id){
- if(!user){alert("Please login first.");return}
- let text=document.getElementById("reviewText").value.trim();
- if(!text){alert("Write your review first.");return}
- reviews.push({id:Date.now(),pid:id,name:user.name,stars:+document.getElementById("reviewStars").value,text,approved:false});
- save("cfu_reviews",reviews);
- alert("Review submitted for approval.");
- openProduct(id);
+activeProduct=products.find(p=>p.id===id);
+let p=activeProduct;
+show('detail');
+detail.innerHTML=`
+<button class="secondary" onclick="show('home')">Back</button>
+<div class="card">
+${(p.images||[]).map(src=>`<img class="thumb" src="${src}" onclick="big.src=this.src">`).join('')}
+<img id="big" style="width:100%;height:220px;object-fit:contain" src="${p.images?.[0]||''}">
+<h2>${p.name}</h2><p class="price">₹${p.price}</p>
+<p>${p.desc}</p>
+<label>Size</label>
+<select id="size">${(p.sizes||['Standard']).map(x=>`<option>${x}</option>`)}</select>
+<label>Colour</label>
+<select id="colour">${(p.colors||['Default']).map(x=>`<option>${x}</option>`)}</select>
+<p>Stock: ${p.stock}</p>
+<button onclick="addCart(${p.id})">Add to Cart</button>
+<button class="secondary" onclick="addCart(${p.id});show('cart')">Buy Now</button>
+</div>
+<div class="card">
+<h3>Customer Reviews</h3>
+${reviews.filter(r=>r.pid===id).map(r=>`<p>⭐${r.stars} ${r.text}<br>${r.photo?`<img class="thumb" src="${r.photo}">`:''}</p>`).join('')}
+<h3>Write Review</h3>
+<select id="stars"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select>
+<textarea id="reviewText" placeholder="Write your review"></textarea>
+<input id="reviewPhoto" type="file" accept="image/*">
+<button onclick="submitReview(${id})">Submit Review</button>
+</div>`;
 }
 function addCart(id){
- let p=products.find(x=>x.id===id);
- if(!p||p.stock<1){alert("Product out of stock.");return}
- let item=cart.find(x=>x.id===id);
- if(item){
-  if(item.qty>=p.stock){alert("Available stock limit reached.");return}
-  item.qty++;
- }else cart.push({id,qty:1});
- save("cfu_cart",cart);updateCount();alert("Added to cart!");
-}
-function updateCount(){
- document.getElementById("cartCount").textContent=cart.reduce((s,x)=>s+x.qty,0);
+let p=products.find(x=>x.id===id);
+if(p.stock<1)return alert('Out of stock');
+let v=size?.value||'Standard',c=colour?.value||'Default';
+let item=cart.find(x=>x.id===id&&x.size===v&&x.colour===c);
+if(item)item.qty++;else cart.push({id,size:v,colour:c,qty:1});
+save('cart',cart);render();alert('Added to cart');
 }
 function renderCart(){
- let html=cart.map(x=>{
- let p=products.find(y=>y.id===x.id);
- if(!p)return "";
- return `<div class="box">
- <b>${safe(p.name)}</b><p>₹${p.price} × ${x.qty}</p>
- <button onclick="changeQty(${p.id},-1)">−</button>
- <button onclick="changeQty(${p.id},1)">+</button>
- <button class="secondary" onclick="removeCart(${p.id})">Remove</button>
- </div>`;
- }).join("");
- document.getElementById("cartItems").innerHTML=html||"<p>Your cart is empty.</p>";
- let total=cart.reduce((s,x)=>s+(products.find(p=>p.id===x.id)?.price||0)*x.qty,0);
- document.getElementById("cartTotal").innerHTML=`<h3>Total: ₹${total}</h3>`;
+let total=0;
+cartItems.innerHTML=cart.map((x,i)=>{
+let p=products.find(p=>p.id===x.id);
+if(!p)return '';
+total+=p.price*x.qty;
+return `<div class="card"><b>${p.name}</b><p>${x.size} / ${x.colour}</p>₹${p.price} × ${x.qty}
+<button onclick="cart[${i}].qty++;save('cart',cart);renderCart()">+</button>
+<button onclick="cart[${i}].qty--;if(cart[${i}].qty<=0)cart.splice(${i},1);save('cart',cart);renderCart()">−</button>
+<button class="danger" onclick="cart.splice(${i},1);save('cart',cart);renderCart()">Remove</button></div>`;
+}).join('')||'Cart is empty';
+document.getElementById('total').innerText='Total: ₹'+total;
 }
-function changeQty(id,n){
- let x=cart.find(a=>a.id===id),p=products.find(a=>a.id===id);
- if(!x)return;
- x.qty+=n;
- if(x.qty<1)cart=cart.filter(a=>a.id!==id);
- if(p&&x.qty>p.stock){x.qty=p.stock;alert("Stock limit reached.")}
- save("cfu_cart",cart);renderCart();updateCount();
-}
-function removeCart(id){
- cart=cart.filter(x=>x.id!==id);save("cfu_cart",cart);renderCart();updateCount();
-}
-function placeOrder(){
- if(!cart.length){alert("Your cart is empty.");return}
- let name=document.getElementById("aName").value.trim();
- let phone=document.getElementById("aPhone").value.trim();
- let address=document.getElementById("aAddress").value.trim();
- let pin=document.getElementById("aPin").value.trim();
- if(!name||!/^[0-9]{10}$/.test(phone)||!address||!/^[0-9]{6}$/.test(pin)){
-  alert("Please enter valid delivery details and 6-digit PIN code.");return
- }
- for(let x of cart){
-  let p=products.find(a=>a.id===x.id);
-  if(!p||p.stock<x.qty){alert("Some products do not have enough stock.");return}
- }
- let items=cart.map(x=>{
-  let p=products.find(a=>a.id===x.id);
-  p.stock-=x.qty;
-  return {name:p.name,price:p.price,qty:x.qty};
- });
- let total=items.reduce((s,x)=>s+x.price*x.qty,0);
- orders.push({
-  id:"CFU"+Date.now(),name,phone,address,pin,
-  payment:document.getElementById("pay").value,
-  items,total,status:"Order placed",date:new Date().toLocaleString()
- });
- save("cfu_products",products);
- save("cfu_orders",orders);
- cart=[];save("cfu_cart",cart);updateCount();
- alert("Order placed! Order ID: "+orders[orders.length-1].id);
- go("orders");
+function checkout(){
+if(!cart.length)return alert('Cart is empty');
+let name=prompt('Delivery name'),phone=prompt('Mobile number'),address=prompt('Full address and PIN code');
+if(!name||!phone||!address)return;
+let total=cart.reduce((s,x)=>s+(products.find(p=>p.id===x.id)?.price||0)*x.qty,0);
+orders.push({id:'CFU'+Date.now(),user:current?.name,name,phone,address,total,status:'Order Placed',items:cart});
+cart.forEach(x=>{let p=products.find(p=>p.id===x.id);if(p)p.stock=Math.max(0,p.stock-x.qty)});
+cart=[];save('cart',cart);save('orders',orders);save('products',products);
+alert('Demo order placed');show('orders');
 }
 function renderOrders(){
- document.getElementById("orderList").innerHTML=orders.filter(o=>user&&o.phone===user.phone).map(o=>`
- <div class="box"><b>Order ${safe(o.id)}</b><p>${safe(o.date)}</p>
- <p>${o.items.map(i=>safe(i.name)+" × "+i.qty).join("<br>")}</p>
- <p>Total: ₹${o.total}</p><span class="badge">${safe(o.status)}</span></div>
- `).join("")||"<p>No orders yet.</p>";
+myOrders.innerHTML=orders.filter(o=>o.user===current?.name).map(o=>
+`<div class="card"><b>${o.id}</b><p>₹${o.total} · ${o.status}</p>${o.date||''}</div>`).join('')||'No orders yet';
 }
-function toggleWish(id){
- if(wishlist.includes(id))wishlist=wishlist.filter(x=>x!==id);
- else wishlist.push(id);
- save("cfu_wishlist",wishlist);alert("Wishlist updated!");
-}
-function renderWishlist(){
- document.getElementById("wishList").innerHTML=products.filter(p=>wishlist.includes(p.id)).map(p=>`
- <div class="card">${image(p)}<div class="cardbody"><b>${safe(p.name)}</b><p>₹${p.price}</p><button class="primary" onclick="openProduct(${p.id})">View</button><button class="secondary" onclick="toggleWish(${p.id});renderWishlist()">Remove</button></div></div>
- `).join("")||"<p>Your wishlist is empty.</p>";
-}
-function renderProfile(){
- document.getElementById("profileInfo").innerHTML=user?
- `<h3>${safe(user.name)}</h3><p>Mobile: ${safe(user.phone)}</p>`:"Please login.";
+function previewPhotos(e){
+photos=[];
+let files=[...e.target.files].slice(0,5);
+Promise.all(files.map(f=>new Promise(resolve=>{
+let r=new FileReader();
+r.onload=()=>{let im=new Image();im.onload=()=>{
+let c=document.createElement('canvas'),k=Math.min(1,850/Math.max(im.width,im.height));
+c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+resolve(c.toDataURL('image/jpeg',.7));
+};im.src=r.result;};r.readAsDataURL(f);
+}))).then(a=>{photos=a;preview.innerHTML=a.map(x=>`<img class="thumb" src="${x}">`).join('')});
 }
 function addProduct(){
- let name=document.getElementById("pName").value.trim();
- let cat=document.getElementById("pCat").value;
- let price=+document.getElementById("pPrice").value;
- let mrp=+document.getElementById("pMrp").value;
- let stock=+document.getElementById("pStock").value;
- let image=document.getElementById("pImage").value.trim();
- let desc=document.getElementById("pDesc").value.trim();
- if(!name||price<=0||stock<0){alert("Enter product name, valid price and stock.");return}
- products.push({id:Date.now(),name,cat,price,mrp:mrp||price,stock,image,desc,rating:"New"});
- save("cfu_products",products);
- ["pName","pPrice","pMrp","pStock","pImage","pDesc"].forEach(id=>document.getElementById(id).value="");
- renderAdmin();alert("Product added!");
-}
-function deleteProduct(id){
- if(!confirm("Delete this product?"))return;
- products=products.filter(p=>p.id!==id);
- save("cfu_products",products);renderAdmin();
-}
-function updateStock(id,value){
- let p=products.find(x=>x.id===id);
- if(!p)return;
- p.stock=Math.max(0,+value||0);
- save("cfu_products",products);
-}
-function approveReview(id,approved){
- let r=reviews.find(x=>x.id===id);
- if(!r)return;
- r.approved=approved;
- save("cfu_reviews",reviews);renderAdmin();
-}
-function deleteReview(id){
- reviews=reviews.filter(x=>x.id!==id);
- save("cfu_reviews",reviews);renderAdmin();
+let name=pname.value.trim(),price=Number(pprice.value),stock=Number(pstock.value);
+if(!name||!price||stock<0)return alert('Enter product name, price and stock');
+products.push({id:Date.now(),name,price,mrp:Number(pmrp.value)||price,stock,cat:pcat.value||'Daily Essentials',desc:pdesc.value,sizes:pvariants.value.split(',').map(x=>x.trim()).filter(Boolean),colors:pcolors.value.split(',').map(x=>x.trim()).filter(Boolean),images:photos});
+save('products',products);
+alert('Product saved');
+renderAdmin();
 }
 function renderAdmin(){
- document.getElementById("adminProducts").innerHTML=products.map(p=>`
- <div class="box"><b>${safe(p.name)}</b><p>₹${p.price} · ${safe(p.cat)}</p>
- <label>Stock</label><input type="number" value="${p.stock}" onchange="updateStock(${p.id},this.value)">
- <button class="secondary" onclick="deleteProduct(${p.id})">Delete Product</button></div>
- `).join("");
- document.getElementById("adminReviews").innerHTML=reviews.map(r=>`
- <div class="box"><b>${safe(r.name)}</b> · ${r.stars} stars
- <p>${safe(r.text)}</p>
- <p>Status: ${r.approved?"Approved":"Pending"}</p>
- <button class="primary" onclick="approveReview(${r.id},true)">Approve</button>
- <button class="secondary" onclick="deleteReview(${r.id})">Delete</button>
- </div>`).join("")||"<p>No reviews.</p>";
- document.getElementById("adminOrders").innerHTML=orders.map(o=>`
- <div class="box"><b>${safe(o.id)}</b><p>${safe(o.name)} · ${safe(o.phone)}</p>
- <p>${safe(o.address)}, ${safe(o.pin)}</p>
- <p>Total: ₹${o.total}</p><p>Status: ${safe(o.status)}</p>
- <select onchange="changeOrderStatus('${o.id}',this.value)">
- ${["Order placed","Confirmed","Packed","Shipped","Delivered","Cancelled"].map(s=>`<option ${o.status===s?"selected":""}>${s}</option>`).join("")}
- </select></div>`).join("")||"<p>No orders.</p>";
+inventory.innerHTML=products.map(p=>`<div class="card"><b>${p.name}</b> ₹${p.price} · Stock ${p.stock}
+<input type="number" id="stock${p.id}" value="${p.stock}">
+<button onclick="updateStock(${p.id})">Update Stock</button>
+<button class="danger" onclick="deleteProduct(${p.id})">Delete</button></div>`).join('');
+adminOrders.innerHTML=orders.map(o=>`<div class="card">${o.id}<p>${o.name} · ${o.phone}</p><p>${o.address}</p>₹${o.total}
+<select onchange="setStatus('${o.id}',this.value)">${['Order Placed','Processing','Shipped','Out for Delivery','Delivered','Cancelled'].map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`)}</select></div>`).join('')||'No orders on this phone';
+adminReviews.innerHTML=reviews.map((r,i)=>`<div class="card">⭐${r.stars} ${r.text}<button class="danger" onclick="reviews.splice(${i},1);save('reviews',reviews);renderAdmin()">Remove</button></div>`).join('');
 }
-function changeOrderStatus(id,status){
- let o=orders.find(x=>x.id===id);
- if(o){o.status=status;save("cfu_orders",orders);renderAdmin()}
+function updateStock(id){let p=products.find(x=>x.id===id);p.stock=Number(document.getElementById('stock'+id).value);save('products',products);renderAdmin()}
+function deleteProduct(id){if(confirm('Delete product?')){products=products.filter(p=>p.id!==id);save('products',products);renderAdmin()}}
+function setStatus(id,s){let o=orders.find(x=>x.id===id);if(o)o.status=s;save('orders',orders)}
+function submitReview(id){
+let text=reviewText.value.trim(),file=reviewPhoto.files[0];
+if(!text)return alert('Write your review');
+let done=photo=>{reviews.push({pid:id,text,stars:Number(stars.value),photo,user:current?.name||'Customer'});save('reviews',reviews);openProduct(id)};
+if(file){let r=new FileReader();r.onload=()=>done(r.result);r.readAsDataURL(file)}else done('');
 }
-makeCategories();
-updateCount();
-if(user)go("store");else go("login");
+if(current)enter();else render();
 </script>
 </body>
 </html>
