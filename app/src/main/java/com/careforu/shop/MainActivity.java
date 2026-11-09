@@ -99,7 +99,7 @@ public class MainActivity extends Activity {
                     .build();
 
             runOnUiThread(() -> PhoneAuthProvider.verifyPhoneNumber(options));
-
+        }
         @JavascriptInterface
         public void verifyOtp(String code) {
             if (verificationId == null) {
