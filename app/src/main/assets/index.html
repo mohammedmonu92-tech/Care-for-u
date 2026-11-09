@@ -60,10 +60,49 @@ render();
     const password = prompt("Enter Admin Password:");
 
     if (password === "Mohammed@92") {
-        alert("Admin login successful! ❤️");
+        document.getElementById('loginBox').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
     } else {
         alert("Wrong password!");
     }
+}
+  function addAdminProduct() {
+    const name = document.getElementById('newName').value.trim();
+    const brand = document.getElementById('newBrand').value.trim();
+    const price = Number(document.getElementById('newPrice').value);
+    const stock = Number(document.getElementById('newStock').value);
+    const category = document.getElementById('newCategory').value;
+
+    if (!name || !brand || price <= 0 || stock < 0) {
+        alert("Please enter valid product details.");
+        return;
+    }
+
+    const product = {
+        id: Date.now(),
+        cat: category,
+        brand: brand,
+        name: name,
+        detail: "CARE FOR U product",
+        price: price,
+        icon: category === 'baby' ? '🍼' : '🌸',
+        stock: stock
+    };
+
+    products.push(product);
+    render();
+
+    document.getElementById('adminProducts').innerHTML =
+        products.map(p =>
+            `<p>${p.name} — ₹${p.price} — Stock: ${p.stock ?? 'Not set'}</p>`
+        ).join('');
+
+    document.getElementById('newName').value = '';
+    document.getElementById('newBrand').value = '';
+    document.getElementById('newPrice').value = '';
+    document.getElementById('newStock').value = '';
+
+    alert("Product added successfully! ❤️");
   }
   function demoLogin() {
     const phone = document.getElementById('phoneNumber').value.trim();
@@ -81,4 +120,32 @@ render();
 
 
 if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
-</script></body></html>
+</script>
+
+<div id="adminPanel" style="display:none;max-width:600px;margin:25px auto;padding:20px;background:#fff5fa;border:1px solid #f0dce6;border-radius:15px;">
+    <h2 style="color:#c21868;">CARE FOR U - Admin Panel ❤️</h2>
+    <h3>Product Management</h3>
+    <input id="newName" placeholder="Product Name" style="width:100%;padding:12px;margin:6px 0;box-sizing:border-box;">
+
+<input id="newBrand" placeholder="Brand Name" style="width:100%;padding:12px;margin:6px 0;box-sizing:border-box;">
+
+<input id="newPrice" type="number" placeholder="Product Price ₹" style="width:100%;padding:12px;margin:6px 0;box-sizing:border-box;">
+
+<input id="newStock" type="number" placeholder="Stock Quantity" style="width:100%;padding:12px;margin:6px 0;box-sizing:border-box;">
+
+<select id="newCategory" style="width:100%;padding:12px;margin:6px 0;">
+    <option value="baby">Baby Care</option>
+    <option value="women">Women's Care</option>
+</select>
+
+<button onclick="addAdminProduct()" style="width:100%;padding:14px;background:#c21868;color:white;border:0;border-radius:10px;">
+    Add Product
+</button>
+
+<div id="adminProducts"></div>
+    <button onclick="document.getElementById('adminPanel').style.display='none';document.getElementById('loginBox').style.display='block';">
+        Logout
+    </button>
+</div>
+
+</body></html>
