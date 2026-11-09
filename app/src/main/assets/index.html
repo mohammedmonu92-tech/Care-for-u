@@ -36,6 +36,7 @@
 <div class="modal" id="modal"><div class="panel"><div class="panelhead"><h2 id="cartTitle">Your cart</h2><button class="close" id="closeCart">✕</button></div><div id="cartItems"></div><div class="cartline"><strong id="totalLabel">Total</strong><strong id="total">₹0</strong></div><button class="cta checkout" id="checkout">Continue to checkout</button><p class="note" id="checkoutNote">Demo only: payment gateway, live inventory, delivery fees and order notifications must be connected before accepting real orders.</p></div></div>
 <script>
 const products=[
+  products.forEach(p => p.stock = 100);
 {id:1,cat:'baby',brand:'Pampers',name:'Baby-Dry Diapers · Medium',detail:'Illustrative pack · 48 pcs',price:899,icon:'🧷'},
 {id:2,cat:'baby',brand:'Huggies',name:'Wonder Pants · Large',detail:'Illustrative pack · 36 pcs',price:849,icon:'🍼'},
 {id:3,cat:'baby',brand:'MamyPoko',name:'Extra Absorb Pants',detail:'Illustrative pack · 42 pcs',price:799,icon:'👶'},
@@ -46,8 +47,25 @@ const products=[
 {id:8,cat:'women',brand:'Women’s care',name:'Daily Hygiene Essentials',detail:'Sample listing',price:159,icon:'🎀'}];
 let cart={},filter='all',hindi=false;
 const money=n=>'₹'+n.toLocaleString('en-IN');
-function render(){let q=document.getElementById('search').value.toLowerCase();let list=products.filter(p=>(filter==='all'||p.cat===filter)&&[p.name,p.brand,p.detail].join(' ').toLowerCase().includes(q));document.getElementById('grid').innerHTML=list.map(p=>`<article class="product"><div class="photo">${p.icon}</div><span class="tag">${p.brand}</span><h3>${p.name}</h3><div class="sub">${p.detail}</div><div class="price">${money(p.price)}</div><button class="add" onclick="add(${p.id})">${hindi?'कार्ट में जोड़ें':'Add to cart'}</button></article>`).join('')||'<div class="empty">No products found.</div>';document.getElementById('count').textContent=Object.values(cart).reduce((a,b)=>a+b,0)}
-function add(id){cart[id]=(cart[id]||0)+1;render()}
+function render(){let q=document.getElementById('search').value.toLowerCase();let list=products.filter(p=>(filter==='all'||p.cat===filter)&&[p.name,p.brand,p.detail].join(' ').toLowerCase().includes(q));document.getElementById('grid').innerHTML=list.map(p=>`<article class="product"><div class="photo">${p.icon}</div><span class="tag">${p.brand}</span><h3>${p.name}</h3><div class="sub">${p.detail}</div><div class="price">${money(p.price)}</div><div class="sub">
+${p.stock === undefined ? 'Stock not set' : p.stock <= 0 ? '❌ Out of Stock' : '✅ Stock: ' + p.stock}
+</div><button class="add" onclick="add(${p.id})">${hindi?'कार्ट में जोड़ें':'Add to cart'}</button></article>`).join('')||'<div class="empty">No products found.</div>';document.getElementById('count').textContent=Object.values(cart).reduce((a,b)=>a+b,0)}
+function add(id) {
+    const product = products.find(p => p.id === id);
+
+    if (product.stock !== undefined && product.stock <= 0) {
+        alert("Sorry! This product is Out of Stock.");
+        return;
+    }
+
+    if (product.stock !== undefined && (cart[id] || 0) >= product.stock) {
+        alert("Available stock is limited!");
+        return;
+    }
+
+    cart[id] = (cart[id] || 0) + 1;
+    render();
+}
 function setFilter(f){filter=f;document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.filter===f));render();document.getElementById('products').scrollIntoView({behavior:'smooth'})}
 document.querySelectorAll('.filter').forEach(b=>b.onclick=()=>setFilter(b.dataset.filter));document.getElementById('search').oninput=render;
 function showCart(){let items=Object.entries(cart).filter(([id,n])=>n>0);document.getElementById('cartItems').innerHTML=items.length?items.map(([id,n])=>{let p=products.find(x=>x.id==id);return `<div class="cartline"><div><strong>${p.brand} · ${p.name}</strong><div class="sub">${money(p.price)} each</div></div><div class="qty"><button onclick="change(${id},-1)">−</button> ${n} <button onclick="change(${id},1)">+</button></div></div>`}).join(''):'<div class="empty">Your cart is waiting for some care 💗</div>';document.getElementById('total').textContent=money(items.reduce((s,[id,n])=>s+products.find(p=>p.id==id).price*n,0));document.getElementById('modal').style.display='flex'}
