@@ -1,4 +1,4 @@
-package com.careforu.shop;
+tßpackage com.careforu.shop;
 import com.google.firebase.auth.PhoneAuthProvider;
 import android.app.Activity;
 import android.os.Bundle;
@@ -98,8 +98,13 @@ public class MainActivity extends Activity {
                     })
                     .build();
 
-            runOnUiThread(() -> PhoneAuthProvider.verifyPhoneNumber(options));
-        }
+            runOnUiThread(() -> {
+    try {
+        PhoneAuthProvider.verifyPhoneNumber(options);
+    } catch (Exception e) {
+        showError("OTP error: " + e.getMessage());
+    }
+});
         @JavascriptInterface
         public void verifyOtp(String code) {
             if (verificationId == null) {
