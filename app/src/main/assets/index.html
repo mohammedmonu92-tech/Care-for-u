@@ -1,182 +1,866 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#c21868"><meta name="description" content="CARE FOR U — Baby care and women's hygiene shopping across Andaman & Nicobar.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#c21868">
+<meta name="description" content="CARE FOR U — Baby care and women's hygiene shopping across Andaman & Nicobar.">
 <link rel="manifest" href="manifest.json">
 <title>CARE FOR U | Baby & Women's Care</title>
+
 <style>
-:root{--pink:#c21868;--pink2:#f8d9e8;--rose:#fff5fa;--ink:#29202a;--muted:#756b74;--line:#f0dce6;--white:#fff;--shadow:0 12px 35px #7d285018}
-*{box-sizing:border-box}body{margin:0;background:#fffafd;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}button,input{font:inherit}button{cursor:pointer}.top{background:#8f104d;color:#fff;text-align:center;padding:8px 12px;font-size:12px;letter-spacing:.2px}.wrap{max-width:1180px;margin:auto;padding:0 22px}.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;gap:16px}.brand{display:flex;align-items:center;gap:10px;font-weight:850;color:var(--pink);font-size:21px;letter-spacing:-.7px}.mark{width:43px;height:43px;border-radius:15px;background:linear-gradient(145deg,#e83d91,#a90d59);display:grid;place-items:center;color:#fff;font-size:23px;box-shadow:0 6px 15px #c2186840}.brand small{display:block;font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.4px}.navright{display:flex;align-items:center;gap:10px}.pill,.cartbtn{border:1px solid var(--line);background:white;border-radius:999px;padding:10px 14px;color:var(--ink)}.cartbtn{background:var(--pink);color:#fff;border:0}.hero{background:linear-gradient(115deg,#ffe5f0,#fff4f9 55%,#fce8f1);border:1px solid #f5d5e4;border-radius:28px;padding:42px 44px;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;overflow:hidden;position:relative;box-shadow:var(--shadow)}.eyebrow{color:var(--pink);font-weight:800;font-size:12px;letter-spacing:1.5px;text-transform:uppercase}.hero h1{font-size:clamp(34px,5vw,58px);line-height:1.03;letter-spacing:-2px;margin:12px 0}.hero p{color:#655763;max-width:480px;line-height:1.65}.cta{background:var(--pink);color:white;border:0;border-radius:999px;padding:13px 22px;font-weight:750;box-shadow:0 8px 18px #c2186830}.heroart{font-size:130px;text-align:center;filter:drop-shadow(0 14px 12px #b52d6a20)}.trust{display:flex;gap:20px;flex-wrap:wrap;margin-top:22px;color:#6b5965;font-size:12px;font-weight:650}.sectionhead{display:flex;justify-content:space-between;align-items:end;margin:34px 0 15px}.sectionhead h2{margin:0;font-size:24px;letter-spacing:-.6px}.sectionhead p{margin:5px 0 0;color:var(--muted);font-size:13px}.cats{display:grid;grid-template-columns:1fr 1fr;gap:15px}.cat{border:1px solid var(--line);border-radius:20px;background:white;padding:19px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);text-align:left}.cat strong{display:block;font-size:17px}.cat span{color:var(--muted);font-size:12px}.cat b{font-size:38px}.toolbar{display:flex;gap:10px;align-items:center;margin:16px 0;flex-wrap:wrap}.search{flex:1;min-width:180px;border:1px solid var(--line);border-radius:999px;padding:12px 16px;background:white;outline:none}.filter{border:1px solid var(--line);border-radius:999px;padding:10px 14px;background:#fff;color:#5d4d57}.filter.active{background:#ffe3f0;border-color:#e9a6c7;color:#a50e57}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.product{background:white;border:1px solid var(--line);border-radius:19px;padding:13px;box-shadow:var(--shadow);min-width:0}.photo{height:140px;border-radius:14px;background:linear-gradient(145deg,#fff0f7,#fce2ed);display:grid;place-items:center;font-size:64px}.tag{font-size:10px;color:#a50e57;background:#ffedf5;border-radius:99px;padding:5px 8px;display:inline-block;margin:11px 0 5px;font-weight:800}.product h3{font-size:14px;margin:3px 0 5px;min-height:36px}.sub{font-size:11px;color:var(--muted)}.price{font-weight:850;margin:10px 0}.price del{font-size:11px;color:#a99ca5;font-weight:500;margin-left:5px}.add{width:100%;background:#fff;border:1px solid #df8ab3;color:#ae155f;border-radius:11px;padding:9px;font-weight:750}.add:hover{background:var(--pink);color:white}.foot{margin-top:42px;background:#351927;color:#fff;padding:28px 0}.footrow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.foot p{color:#e9cad9;font-size:12px;line-height:1.6}.modal{position:fixed;inset:0;background:#24121db0;display:none;align-items:center;justify-content:center;padding:15px;z-index:5}.panel{background:#fff;border-radius:22px;padding:22px;width:min(480px,100%);max-height:85vh;overflow:auto}.panelhead{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#f8e6ef;border-radius:50%;width:34px;height:34px}.cartline{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px}.qty button{border:1px solid var(--line);background:white;border-radius:7px;padding:2px 8px}.checkout{width:100%;margin-top:15px}.note{font-size:11px;color:var(--muted);line-height:1.5}.empty{text-align:center;color:var(--muted);padding:25px}@media(max-width:760px){.wrap{padding:0 14px}.hero{padding:28px 22px;grid-template-columns:1fr}.heroart{font-size:85px;position:absolute;right:12px;top:25px;opacity:.22}.hero h1{max-width:310px}.grid{grid-template-columns:repeat(2,1fr);gap:10px}.photo{height:115px}.nav{padding:13px 0}.brand{font-size:18px}.pill.location{display:none}.trust{gap:10px}.cats{gap:9px}.cat{padding:13px}.cat b{font-size:29px}} 
-</style></head>
+:root {
+--pink:#c21868;
+--pink2:#f8d9e8;
+--rose:#fff5fa;
+--ink:#29202a;
+--muted:#756b74;
+--line:#f0dce6;
+--white:#fff;
+--shadow:0 12px 35px #7d285018;
+}
+
+*{box-sizing:border-box}
+body{
+margin:0;
+background:#fffafd;
+color:var(--ink);
+font-family:Arial,system-ui,sans-serif
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+
+.top{
+background:#8f104d;
+color:white;
+text-align:center;
+padding:8px;
+font-size:12px
+}
+
+.wrap{max-width:1180px;margin:auto;padding:0 22px}
+
+.nav{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:18px 0;
+gap:12px
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:850;
+color:var(--pink);
+font-size:21px
+}
+
+.mark{
+width:43px;
+height:43px;
+border-radius:15px;
+background:linear-gradient(145deg,#e83d91,#a90d59);
+display:grid;
+place-items:center;
+color:white;
+font-size:23px
+}
+
+.brand small{
+display:block;
+font-size:10px;
+color:var(--muted)
+}
+
+.navright{
+display:flex;
+align-items:center;
+gap:8px;
+flex-wrap:wrap
+}
+
+.pill,.cartbtn{
+border:1px solid var(--line);
+background:white;
+border-radius:999px;
+padding:10px 13px;
+color:var(--ink)
+}
+
+.cartbtn{
+background:var(--pink);
+color:white;
+border:0
+}
+
+.hero{
+background:linear-gradient(115deg,#ffe5f0,#fff4f9 55%,#fce8f1);
+border:1px solid #f5d5e4;
+border-radius:28px;
+padding:42px;
+display:grid;
+grid-template-columns:1.15fr .85fr;
+align-items:center;
+box-shadow:var(--shadow)
+}
+
+.eyebrow{
+color:var(--pink);
+font-weight:800;
+font-size:12px
+}
+
+.hero h1{
+font-size:clamp(34px,5vw,58px);
+line-height:1.03;
+margin:12px 0
+}
+
+.hero p{
+color:#655763;
+max-width:480px;
+line-height:1.65
+}
+
+.cta{
+background:var(--pink);
+color:white;
+border:0;
+border-radius:999px;
+padding:13px 22px;
+font-weight:750
+}
+
+.heroart{
+font-size:110px;
+text-align:center
+}
+
+.trust{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+margin-top:22px;
+color:#6b5965;
+font-size:12px
+}
+
+.sectionhead{
+display:flex;
+justify-content:space-between;
+align-items:end;
+margin:34px 0 15px
+}
+
+.sectionhead h2{margin:0;font-size:24px}
+.sectionhead p{color:var(--muted);font-size:13px}
+
+.cats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px
+}
+
+.cat{
+border:1px solid var(--line);
+border-radius:20px;
+background:white;
+padding:19px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+text-align:left
+}
+
+.cat strong{display:block;font-size:17px}
+.cat span{color:var(--muted);font-size:12px}
+.cat b{font-size:38px}
+
+.toolbar{
+display:flex;
+gap:10px;
+align-items:center;
+margin:16px 0;
+flex-wrap:wrap
+}
+
+.search{
+flex:1;
+min-width:180px;
+border:1px solid var(--line);
+border-radius:999px;
+padding:12px 16px
+}
+
+.filter{
+border:1px solid var(--line);
+border-radius:999px;
+padding:10px 14px;
+background:white
+}
+
+.filter.active{
+background:#ffe3f0;
+border-color:#e9a6c7;
+color:#a50e57
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px
+}
+
+.product{
+background:white;
+border:1px solid var(--line);
+border-radius:19px;
+padding:13px;
+box-shadow:var(--shadow);
+min-width:0
+}
+
+.photo{
+height:130px;
+border-radius:14px;
+background:linear-gradient(145deg,#fff0f7,#fce2ed);
+display:grid;
+place-items:center;
+font-size:60px
+}
+
+.tag{
+font-size:10px;
+color:#a50e57;
+background:#ffedf5;
+border-radius:99px;
+padding:5px 8px;
+display:inline-block;
+margin:11px 0 5px
+}
+
+.product h3{font-size:14px;margin:5px 0}
+.sub{font-size:11px;color:var(--muted)}
+.price{font-weight:850;margin:10px 0}
+
+.add{
+width:100%;
+background:white;
+border:1px solid #df8ab3;
+color:#ae155f;
+border-radius:11px;
+padding:9px;
+font-weight:750
+}
+
+.add:disabled{
+background:#eee;
+color:#888;
+border-color:#ddd;
+cursor:not-allowed
+}
+
+.foot{
+margin-top:42px;
+background:#351927;
+color:white;
+padding:28px 0
+}
+
+.footrow{
+display:flex;
+justify-content:space-between;
+gap:20px;
+flex-wrap:wrap
+}
+
+.foot p{
+color:#e9cad9;
+font-size:12px;
+line-height:1.6
+}
+
+.modal{
+position:fixed;
+inset:0;
+background:#24121db0;
+display:none;
+align-items:center;
+justify-content:center;
+padding:15px;
+z-index:10
+}
+
+.panel{
+background:white;
+border-radius:22px;
+padding:22px;
+width:min(480px,100%);
+max-height:85vh;
+overflow:auto
+}
+
+.panelhead{
+display:flex;
+justify-content:space-between;
+align-items:center
+}
+
+.close{
+border:0;
+background:#f8e6ef;
+border-radius:50%;
+width:34px;
+height:34px
+}
+
+.cartline{
+display:flex;
+justify-content:space-between;
+gap:10px;
+padding:13px 0;
+border-bottom:1px solid var(--line);
+font-size:13px
+}
+
+.qty button{
+border:1px solid var(--line);
+background:white;
+border-radius:7px;
+padding:3px 9px
+}
+
+.checkout{width:100%;margin-top:15px}
+.note{font-size:11px;color:var(--muted);line-height:1.5}
+.empty{text-align:center;color:var(--muted);padding:25px}
+
+.loginbox,.adminbox{
+max-width:600px;
+margin:20px auto;
+padding:22px;
+border:1px solid var(--line);
+border-radius:20px;
+background:var(--rose)
+}
+
+.forminput{
+width:100%;
+padding:12px;
+margin:6px 0;
+border:1px solid var(--line);
+border-radius:9px
+}
+
+.adminitem{
+padding:13px;
+margin:10px 0;
+background:white;
+border:1px solid var(--line);
+border-radius:12px
+}
+
+.adminitem button{
+padding:8px 12px;
+margin:5px 4px 0 0;
+border:0;
+border-radius:8px;
+background:var(--pink);
+color:white
+}
+
+.adminitem input{
+width:110px;
+padding:8px;
+border:1px solid var(--line);
+border-radius:8px
+}
+
+.adminTitle{color:var(--pink)}
+
+@media(max-width:760px){
+.wrap{padding:0 14px}
+.hero{padding:27px 20px;grid-template-columns:1fr}
+.heroart{font-size:65px}
+.grid{grid-template-columns:repeat(2,1fr);gap:10px}
+.photo{height:105px}
+.nav{padding:13px 0}
+.brand{font-size:16px}
+.cats{gap:9px}
+.cat{padding:13px}
+.cat b{font-size:29px}
+}
+</style>
+</head>
+
 <body>
-<div class="top" id="topline">Island-wide service • Andaman & Nicobar Islands</div>
-<header class="wrap nav"><div class="brand"><div class="mark">♡</div><div>CARE FOR U<small>CARE THAT MAKES YOU FEEL SPECIAL</small></div></div><div class="navright"><button class="pill location">📍 Andaman & Nicobar</button><button class="pill" id="lang">हिंदी</button><button class="cartbtn" id="openCart">Cart (<span id="count">0</span>)</button><button class="pill" onclick="showAdminLogin()">Admin</button>  </div></header>
-  <section id="loginBox" style="max-width:450px;margin:20px auto;padding:22px;border:1px solid #f0dce6;border-radius:20px;background:#fff5fa;">
-    <h2 style="color:#c21868;">Welcome to CARE FOR U ❤️</h2>
-    <p>Login with your mobile number</p>
 
-    <input id="phoneNumber" type="tel"
-    placeholder="Enter 10-digit mobile number"
-    maxlength="10"
-    style="width:100%;padding:13px;box-sizing:border-box;">
-<button onclick="demoLogin()"
-    style="width:100%;margin-top:12px;padding:13px;background:#c21868;color:white;border:0;border-radius:10px;">
-        Continue
-    </button>
-
-    <p id="loginMessage" style="color:#c21868;"></p>
-  </section>
-<main class="wrap">
-<section class="hero"><div><div class="eyebrow" id="eyebrow">A little care goes a long way</div><h1 id="heroTitle">Everyday care.<br>Delivered with love.</h1><p id="heroText">Thoughtfully selected baby diapers and women's hygiene essentials, all in one friendly island store.</p><button class="cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})" id="shopBtn">Shop essentials →</button><div class="trust"><span>✓ Trusted branded products</span><span>✓ Secure checkout-ready design</span><span>✓ Island-wide delivery options</span></div></div><div class="heroart">🧸💗</div></section>
-<section><div class="sectionhead"><div><h2 id="catTitle">Shop by care</h2><p id="catSub">Choose what you need</p></div></div><div class="cats"><button class="cat" onclick="setFilter('baby')"><div><strong id="babyTitle">Baby care</strong><span id="babySub">Diapers & daily essentials</span></div><b>🍼</b></button><button class="cat" onclick="setFilter('women')"><div><strong id="womenTitle">Women's care</strong><span id="womenSub">Pads & hygiene essentials</span></div><b>🌷</b></button></div></section>
-<section id="products"><div class="sectionhead"><div><h2 id="productTitle">Popular essentials</h2><p id="productSub">Demo catalogue — replace with your actual stock and prices</p></div></div><div class="toolbar"><input class="search" id="search" placeholder="Search diapers, pads, brands…"><button class="filter active" data-filter="all" id="allFilter">All</button><button class="filter" data-filter="baby" id="babyFilter">Baby</button><button class="filter" data-filter="women" id="womenFilter">Women</button></div><div class="grid" id="grid"></div></section>
-</main>
-<footer class="foot"><div class="wrap footrow"><div><strong>CARE FOR U ♡</strong><p>Baby Care | Women's Care<br>Andaman & Nicobar Islands</p></div><div><strong>Need help?</strong><p>Contact details will be added before launch.<br>Delivery availability depends on island, PIN code and courier access.</p></div><div><strong>Shop with confidence</strong><p>Branded products • Clear pricing • Helpful support</p></div></div></footer>
-<div class="modal" id="modal"><div class="panel"><div class="panelhead"><h2 id="cartTitle">Your cart</h2><button class="close" id="closeCart">✕</button></div><div id="cartItems"></div><div class="cartline"><strong id="totalLabel">Total</strong><strong id="total">₹0</strong></div><button class="cta checkout" id="checkout">Continue to checkout</button><p class="note" id="checkoutNote">Demo only: payment gateway, live inventory, delivery fees and order notifications must be connected before accepting real orders.</p></div></div>
-<script>
-const products=[
-  products.forEach(p => p.stock = 100);
-{id:1,cat:'baby',brand:'Pampers',name:'Baby-Dry Diapers · Medium',detail:'Illustrative pack · 48 pcs',price:899,icon:'🧷'},
-{id:2,cat:'baby',brand:'Huggies',name:'Wonder Pants · Large',detail:'Illustrative pack · 36 pcs',price:849,icon:'🍼'},
-{id:3,cat:'baby',brand:'MamyPoko',name:'Extra Absorb Pants',detail:'Illustrative pack · 42 pcs',price:799,icon:'👶'},
-{id:4,cat:'baby',brand:'Baby care',name:'Gentle Baby Wipes',detail:'Illustrative pack · 72 wipes',price:199,icon:'🧼'},
-{id:5,cat:'women',brand:'Whisper',name:'Ultra Soft XL Pads',detail:'Illustrative pack · 30 pcs',price:349,icon:'🌸'},
-{id:6,cat:'women',brand:'Stayfree',name:'Secure Nights · XL',detail:'Illustrative pack · 24 pads',price:229,icon:'🌷'},
-{id:7,cat:'women',brand:'Sofy',name:'Bodyfit Overnight Pads',detail:'Illustrative pack · 20 pads',price:279,icon:'💗'},
-{id:8,cat:'women',brand:'Women’s care',name:'Daily Hygiene Essentials',detail:'Sample listing',price:159,icon:'🎀'}];
-let cart={},filter='all',hindi=false;
-const money=n=>'₹'+n.toLocaleString('en-IN');
-function render(){let q=document.getElementById('search').value.toLowerCase();let list=products.filter(p=>(filter==='all'||p.cat===filter)&&[p.name,p.brand,p.detail].join(' ').toLowerCase().includes(q));document.getElementById('grid').innerHTML=list.map(p=>`<article class="product"><div class="photo">${p.icon}</div><span class="tag">${p.brand}</span><h3>${p.name}</h3><div class="sub">${p.detail}</div><div class="price">${money(p.price)}</div><div class="sub">
-${p.stock === undefined ? 'Stock not set' : p.stock <= 0 ? '❌ Out of Stock' : '✅ Stock: ' + p.stock}
-</div><button class="add" onclick="add(${p.id})">${hindi?'कार्ट में जोड़ें':'Add to cart'}</button></article>`).join('')||'<div class="empty">No products found.</div>';document.getElementById('count').textContent=Object.values(cart).reduce((a,b)=>a+b,0)}
-function add(id) {
-    const product = products.find(p => p.id === id);
-
-    if (product.stock !== undefined && product.stock <= 0) {
-        alert("Sorry! This product is Out of Stock.");
-        return;
-    }
-
-    if (product.stock !== undefined && (cart[id] || 0) >= product.stock) {
-        alert("Available stock is limited!");
-        return;
-    }
-
-    cart[id] = (cart[id] || 0) + 1;
-    render();
-}
-function setFilter(f){filter=f;document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.filter===f));render();document.getElementById('products').scrollIntoView({behavior:'smooth'})}
-document.querySelectorAll('.filter').forEach(b=>b.onclick=()=>setFilter(b.dataset.filter));document.getElementById('search').oninput=render;
-function showCart(){let items=Object.entries(cart).filter(([id,n])=>n>0);document.getElementById('cartItems').innerHTML=items.length?items.map(([id,n])=>{let p=products.find(x=>x.id==id);return `<div class="cartline"><div><strong>${p.brand} · ${p.name}</strong><div class="sub">${money(p.price)} each</div></div><div class="qty"><button onclick="change(${id},-1)">−</button> ${n} <button onclick="change(${id},1)">+</button></div></div>`}).join(''):'<div class="empty">Your cart is waiting for some care 💗</div>';document.getElementById('total').textContent=money(items.reduce((s,[id,n])=>s+products.find(p=>p.id==id).price*n,0));document.getElementById('modal').style.display='flex'}
-function change(id,n){cart[id]=Math.max(0,(cart[id]||0)+n);if(!cart[id])delete cart[id];render();showCart()}
-document.getElementById('openCart').onclick=showCart;document.getElementById('closeCart').onclick=()=>document.getElementById('modal').style.display='none';document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')e.target.style.display='none'};
-document.getElementById('checkout').onclick=()=>alert(hindi?'यह डेमो ऐप है। असली ऑर्डर लेने से पहले पेमेंट और डिलीवरी सिस्टम जोड़ना होगा।':'This is a demo app. Connect payment and delivery systems before accepting real orders.');
-document.getElementById('lang').onclick=()=>{hindi=!hindi;document.getElementById('lang').textContent=hindi?'English':'हिंदी';document.getElementById('topline').textContent=hindi?'अंडमान और निकोबार द्वीपसमूह में सेवा':'Island-wide service • Andaman & Nicobar Islands';document.getElementById('eyebrow').textContent=hindi?'थोड़ी सी देखभाल, ढेर सारी खुशी':'A little care goes a long way';document.getElementById('heroTitle').innerHTML=hindi?'हर दिन की देखभाल।<br>प्यार के साथ डिलीवरी।':'Everyday care.<br>Delivered with love.';document.getElementById('heroText').textContent=hindi?'बच्चों के डायपर और महिलाओं की स्वच्छता से जुड़े भरोसेमंद ब्रांडेड उत्पाद।':'Thoughtfully selected baby diapers and women’s hygiene essentials, all in one friendly island store.';document.getElementById('shopBtn').textContent=hindi?'खरीदारी शुरू करें →':'Shop essentials →';document.getElementById('catTitle').textContent=hindi?'देखभाल के अनुसार खरीदें':'Shop by care';document.getElementById('catSub').textContent=hindi?'अपनी ज़रूरत चुनें':'Choose what you need';document.getElementById('babyTitle').textContent=hindi?'बेबी केयर':'Baby care';document.getElementById('babySub').textContent=hindi?'डायपर और रोज़मर्रा की ज़रूरतें':'Diapers & daily essentials';document.getElementById('womenTitle').textContent=hindi?'महिलाओं की देखभाल':'Women’s care';document.getElementById('womenSub').textContent=hindi?'पैड और हाइजीन उत्पाद':'Pads & hygiene essentials';document.getElementById('productTitle').textContent=hindi?'लोकप्रिय उत्पाद':'Popular essentials';document.getElementById('cartTitle').textContent=hindi?'आपकी कार्ट':'Your cart';document.getElementById('totalLabel').textContent=hindi?'कुल':'Total';document.getElementById('checkout').textContent=hindi?'चेकआउट जारी रखें':'Continue to checkout';render()};
-render();
-  function showAdminLogin() {
-    const password = prompt("Enter Admin Password:");
-
-    if (password === "Mohammed@92") {
-        document.getElementById('loginBox').style.display = 'none';
-        document.getElementById('adminPanel').style.display = 'block';
-      showAdminProducts();
-    } else {
-        alert("Wrong password!");
-    }
-}
-  function addAdminProduct() {
-    const name = document.getElementById('newName').value.trim();
-    const brand = document.getElementById('newBrand').value.trim();
-    const price = Number(document.getElementById('newPrice').value);
-    const stock = Number(document.getElementById('newStock').value);
-    const category = document.getElementById('newCategory').value;
-
-    if (!name || !brand || price <= 0 || stock < 0) {
-        alert("Please enter valid product details.");
-        return;
-    }
-
-    const product = {
-        id: Date.now(),
-        cat: category,
-        brand: brand,
-        name: name,
-        detail: "CARE FOR U product",
-        price: price,
-        icon: category === 'baby' ? '🍼' : '🌸',
-        stock: stock
-    };
-
-    products.push(product);
-    render();
-
-    document.getElementById('adminProducts').innerHTML =
-    products.map(p => `
-        <div style="padding:12px;margin:10px 0;background:white;border:1px solid #f0dce6;border-radius:10px;">
-            <strong>${p.name}</strong>
-            <p>Price: ₹${p.price}</p>
-            <p>Stock: ${p.stock}</p>
-
-            <input type="number" id="stock${p.id}" placeholder="New Stock" style="padding:8px;width:100px;">
-
-            <button onclick="updateStock(${p.id})">Update Stock</button>
-
-            <button onclick="deleteProduct(${p.id})" style="background:#c21868;color:white;">
-                Delete
-            </button>
-        </div>
-    `).join('');
-
-    document.getElementById('newName').value = '';
-    document.getElementById('newBrand').value = '';
-    document.getElementById('newPrice').value = '';
-    document.getElementById('newStock').value = '';
-
-    alert("Product added successfully! ❤️");
-  }
-  function demoLogin() {
-    const phone = document.getElementById('phoneNumber').value.trim();
-
-    if (!/^[0-9]{10}$/.test(phone)) {
-        document.getElementById('loginMessage').textContent =
-            'Please enter a valid 10-digit mobile number.';
-        return;
-    }
-
-    document.getElementById('loginBox').innerHTML =
-        '<h2 style="color:#c21868;">Login successful! ❤️</h2>' +
-        '<p>Welcome to CARE FOR U.</p>';
-  }
-
-
-if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
-</script>
-
-<div id="adminPanel" style="display:none;max-width:600px;margin:25px auto;padding:20px;background:#fff5fa;border:1px solid #f0dce6;border-radius:15px;">
-    <h2 style="color:#c21868;">CARE FOR U - Admin Panel ❤️</h2>
-    <h3>Product Management</h3>
-    <input id="newName" placeholder="Product Name" style="width:100%;padding:12px;margin:6px 0;box-sizing:border-box;">
-
-<input id="newBrand" placeholder="Brand Name" style="width:100%;padding:12px;margin:6px 0;box-sizing:border-box;">
-
-<input id="newPrice" type="number" placeholder="Product Price ₹" style="width:100%;padding:12px;margin:6px 0;box-sizing:border-box;">
-
-<input id="newStock" type="number" placeholder="Stock Quantity" style="width:100%;padding:12px;margin:6px 0;box-sizing:border-box;">
-
-<select id="newCategory" style="width:100%;padding:12px;margin:6px 0;">
-    <option value="baby">Baby Care</option>
-    <option value="women">Women's Care</option>
-</select>
-
-<button onclick="addAdminProduct()" style="width:100%;padding:14px;background:#c21868;color:white;border:0;border-radius:10px;">
-    Add Product
-</button>
-
-<div id="adminProducts"></div>
-    <button onclick="document.getElementById('adminPanel').style.display='none';document.getElementById('loginBox').style.display='block';">
-        Logout
-    </button>
+<div class="top" id="topline">
+Island-wide service • Andaman & Nicobar Islands
 </div>
 
-</body></html>
+<header class="wrap nav">
+<div class="brand">
+<div class="mark">♡</div>
+<div>CARE FOR U
+<small>CARE THAT MAKES YOU FEEL SPECIAL</small>
+</div>
+</div>
+
+<div class="navright">
+<button class="pill">📍 Andaman & Nicobar</button>
+<button class="pill" id="lang">हिंदी</button>
+<button class="cartbtn" id="openCart">Cart (<span id="count">0</span>)</button>
+<button class="pill" onclick="showAdminLogin()">Admin</button>
+</div>
+</header>
+
+<section id="loginBox" class="loginbox">
+<h2 class="adminTitle">Welcome to CARE FOR U ❤️</h2>
+<p>Login with your mobile number</p>
+<input id="phoneNumber" class="forminput" type="tel" maxlength="10" placeholder="Enter 10-digit mobile number">
+<button class="cta" style="width:100%" onclick="demoLogin()">Continue</button>
+<p id="loginMessage" style="color:#c21868"></p>
+</section>
+
+<main class="wrap">
+
+<section class="hero">
+<div>
+<div class="eyebrow" id="eyebrow">A little care goes a long way</div>
+<h1 id="heroTitle">Everyday care.<br>Delivered with love.</h1>
+<p id="heroText">Thoughtfully selected baby diapers and women's hygiene essentials, all in one friendly island store.</p>
+<button class="cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})" id="shopBtn">Shop essentials →</button>
+<div class="trust">
+<span>✓ Trusted branded products</span>
+<span>✓ Clear pricing</span>
+<span>✓ Island-wide delivery options</span>
+</div>
+</div>
+<div class="heroart">🧸💗</div>
+</section>
+
+<section>
+<div class="sectionhead">
+<div>
+<h2 id="catTitle">Shop by care</h2>
+<p id="catSub">Choose what you need</p>
+</div>
+</div>
+
+<div class="cats">
+<button class="cat" onclick="setFilter('baby')">
+<div><strong id="babyTitle">Baby care</strong><span id="babySub">Diapers & daily essentials</span></div>
+<b>🍼</b>
+</button>
+
+<button class="cat" onclick="setFilter('women')">
+<div><strong id="womenTitle">Women's care</strong><span id="womenSub">Pads & hygiene essentials</span></div>
+<b>🌷</b>
+</button>
+</div>
+</section>
+
+<section id="products">
+<div class="sectionhead">
+<div>
+<h2 id="productTitle">Popular essentials</h2>
+<p>Shop baby and women's care products</p>
+</div>
+</div>
+
+<div class="toolbar">
+<input class="search" id="search" placeholder="Search diapers, pads, brands…">
+<button class="filter active" data-filter="all">All</button>
+<button class="filter" data-filter="baby">Baby</button>
+<button class="filter" data-filter="women">Women</button>
+</div>
+
+<div class="grid" id="grid"></div>
+</section>
+</main>
+
+<footer class="foot">
+<div class="wrap footrow">
+<div><strong>CARE FOR U ♡</strong><p>Baby Care | Women's Care<br>Andaman & Nicobar Islands</p></div>
+<div><strong>Need help?</strong><p>Contact: 9332594564<br>Shop No. 2, Calicut, Port Blair</p></div>
+<div><strong>Shop with confidence</strong><p>Branded products • Clear pricing • Helpful support</p></div>
+</div>
+</footer>
+
+<!-- CUSTOMER CART -->
+<div class="modal" id="modal">
+<div class="panel">
+<div class="panelhead">
+<h2 id="cartTitle">Your cart</h2>
+<button class="close" id="closeCart">✕</button>
+</div>
+<div id="cartItems"></div>
+<div class="cartline">
+<strong id="totalLabel">Total</strong>
+<strong id="total">₹0</strong>
+</div>
+<button class="cta checkout" id="checkout">Continue to checkout</button>
+<p class="note">Demo only: real payment and delivery systems are not connected.</p>
+</div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div class="modal" id="adminLoginModal">
+<div class="panel">
+<div class="panelhead">
+<h2 class="adminTitle">Admin Login ❤️</h2>
+<button class="close" onclick="closeAdminLogin()">✕</button>
+</div>
+<p>Enter your admin password</p>
+<input id="adminPasswordInput" class="forminput" type="password" placeholder="Admin password">
+<p id="adminLoginMessage" style="color:#c21868"></p>
+<button class="cta" style="width:100%" onclick="submitAdminLogin()">Login</button>
+</div>
+</div>
+
+<!-- ADMIN PANEL -->
+<section id="adminPanel" class="adminbox" style="display:none">
+<h2 class="adminTitle">CARE FOR U - Admin Panel ❤️</h2>
+<h3>Add New Product</h3>
+
+<input id="newName" class="forminput" placeholder="Product Name">
+<input id="newBrand" class="forminput" placeholder="Brand Name">
+<input id="newPrice" class="forminput" type="number" min="1" placeholder="Product Price ₹">
+<input id="newStock" class="forminput" type="number" min="0" placeholder="Stock Quantity">
+
+<select id="newCategory" class="forminput">
+<option value="baby">Baby Care</option>
+<option value="women">Women's Care</option>
+</select>
+
+<button class="cta" style="width:100%" onclick="addAdminProduct()">Add Product</button>
+
+<h3>Manage Products & Stock</h3>
+<div id="adminProducts"></div>
+
+<button class="pill" onclick="adminLogout()">Logout</button>
+</section>
+
+<script>
+
+// CHANGE THIS TO A NEW PRIVATE PASSWORD BEFORE COMMITTING.
+const ADMIN_PASSWORD = "Mohammed@92";
+
+// DEFAULT PRODUCTS
+const defaultProducts = [
+{id:1,cat:'baby',brand:'Pampers',name:'Baby-Dry Diapers · Medium',detail:'Illustrative pack · 48 pcs',price:899,icon:'🧷',stock:100},
+{id:2,cat:'baby',brand:'Huggies',name:'Wonder Pants · Large',detail:'Illustrative pack · 36 pcs',price:849,icon:'🍼',stock:100},
+{id:3,cat:'baby',brand:'MamyPoko',name:'Extra Absorb Pants',detail:'Illustrative pack · 42 pcs',price:799,icon:'👶',stock:100},
+{id:4,cat:'baby',brand:'Baby care',name:'Gentle Baby Wipes',detail:'Illustrative pack · 72 wipes',price:199,icon:'🧼',stock:100},
+{id:5,cat:'women',brand:'Whisper',name:'Ultra Soft XL Pads',detail:'Illustrative pack · 30 pcs',price:349,icon:'🌸',stock:100},
+{id:6,cat:'women',brand:'Stayfree',name:'Secure Nights · XL',detail:'Illustrative pack · 24 pads',price:229,icon:'🌷',stock:100},
+{id:7,cat:'women',brand:'Sofy',name:'Bodyfit Overnight Pads',detail:'Illustrative pack · 20 pads',price:279,icon:'💗',stock:100},
+{id:8,cat:'women',brand:'Women’s care',name:'Daily Hygiene Essentials',detail:'Sample listing',price:159,icon:'🎀',stock:100}
+];
+
+// LOAD SAVED PRODUCTS
+function loadProducts(){
+try{
+const saved = localStorage.getItem('careForUProducts');
+if(saved){
+const parsed = JSON.parse(saved);
+if(Array.isArray(parsed)) return parsed;
+}
+}catch(error){
+console.log('Could not load saved products',error);
+}
+return defaultProducts.map(p=>({...p}));
+}
+
+const products = loadProducts();
+let cart = {};
+let filter = 'all';
+let hindi = false;
+
+function saveProducts(){
+try{
+localStorage.setItem('careForUProducts',JSON.stringify(products));
+}catch(error){
+alert('Could not save products on this device.');
+}
+}
+
+const money = n => '₹' + Number(n).toLocaleString('en-IN');
+
+function render(){
+const searchBox = document.getElementById('search');
+const q = searchBox.value.toLowerCase();
+
+const list = products.filter(p =>
+(filter === 'all' || p.cat === filter) &&
+[p.name,p.brand,p.detail].join(' ').toLowerCase().includes(q)
+);
+
+document.getElementById('grid').innerHTML = list.map(p => `
+<article class="product">
+<div class="photo">${p.icon || '🛍️'}</div>
+<span class="tag">${p.brand}</span>
+<h3>${p.name}</h3>
+<div class="sub">${p.detail || ''}</div>
+<div class="price">${money(p.price)}</div>
+<div class="sub">
+${p.stock <= 0 ? '❌ Out of Stock' : '✅ Stock: ' + p.stock}
+</div>
+<button class="add" onclick="add(${p.id})" ${p.stock <= 0 ? 'disabled' : ''}>
+${p.stock <= 0 ? 'Out of Stock' : (hindi ? 'कार्ट में जोड़ें' : 'Add to cart')}
+</button>
+</article>
+`).join('') || '<div class="empty">No products found.</div>';
+
+document.getElementById('count').textContent =
+Object.values(cart).reduce((a,b)=>a+b,0);
+}
+
+function add(id){
+const product = products.find(p=>p.id===id);
+if(!product) return;
+
+if(product.stock <= 0){
+alert('Sorry! This product is Out of Stock.');
+return;
+}
+
+if((cart[id] || 0) >= product.stock){
+alert('Available stock is limited!');
+return;
+}
+
+cart[id] = (cart[id] || 0) + 1;
+render();
+}
+
+function setFilter(f){
+filter = f;
+document.querySelectorAll('.filter').forEach(b=>{
+b.classList.toggle('active',b.dataset.filter===f);
+});
+render();
+document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
+
+document.querySelectorAll('.filter').forEach(b=>{
+b.onclick = ()=>setFilter(b.dataset.filter);
+});
+
+document.getElementById('search').oninput = render;
+
+// CART
+function showCart(){
+const items = Object.entries(cart).filter(([id,n])=>n>0 && products.some(p=>p.id==id));
+
+document.getElementById('cartItems').innerHTML = items.length ?
+items.map(([id,n])=>{
+const p = products.find(x=>x.id==id);
+return `
+<div class="cartline">
+<div><strong>${p.brand} · ${p.name}</strong>
+<div class="sub">${money(p.price)} each</div></div>
+<div class="qty">
+<button onclick="change(${id},-1)">−</button>
+${n}
+<button onclick="change(${id},1)">+</button>
+</div>
+</div>`;
+}).join('') :
+'<div class="empty">Your cart is waiting for some care 💗</div>';
+
+const total = items.reduce((s,[id,n])=>{
+const p = products.find(x=>x.id==id);
+return s + p.price*n;
+},0);
+
+document.getElementById('total').textContent = money(total);
+document.getElementById('modal').style.display = 'flex';
+}
+
+function change(id,n){
+const p = products.find(x=>x.id==id);
+if(!p) return;
+
+if(n>0 && (cart[id] || 0)>=p.stock){
+alert('Available stock is limited!');
+return;
+}
+
+cart[id] = Math.max(0,(cart[id] || 0)+n);
+if(!cart[id]) delete cart[id];
+render();
+showCart();
+}
+
+document.getElementById('openCart').onclick = showCart;
+document.getElementById('closeCart').onclick = ()=>document.getElementById('modal').style.display='none';
+
+document.getElementById('modal').onclick = e=>{
+if(e.target.id==='modal') e.target.style.display='none';
+};
+
+document.getElementById('checkout').onclick = ()=>{
+alert('This is a demo app. Real payment and delivery systems are not connected yet.');
+};
+
+// CUSTOMER LOGIN
+function demoLogin(){
+const phone = document.getElementById('phoneNumber').value.trim();
+
+if(!/^[0-9]{10}$/.test(phone)){
+document.getElementById('loginMessage').textContent =
+'Please enter a valid 10-digit mobile number.';
+return;
+}
+
+document.getElementById('loginBox').innerHTML =
+'<h2 style="color:#c21868">Login successful! ❤️</h2>' +
+'<p>Welcome to CARE FOR U.</p>';
+}
+
+// ADMIN LOGIN
+function showAdminLogin(){
+document.getElementById('adminPasswordInput').value='';
+document.getElementById('adminLoginMessage').textContent='';
+document.getElementById('adminLoginModal').style.display='flex';
+}
+
+function closeAdminLogin(){
+document.getElementById('adminLoginModal').style.display='none';
+}
+
+function submitAdminLogin(){
+const password = document.getElementById('adminPasswordInput').value;
+
+if(password !== ADMIN_PASSWORD){
+document.getElementById('adminLoginMessage').textContent='Wrong password. Please try again.';
+return;
+}
+
+closeAdminLogin();
+document.getElementById('loginBox').style.display='none';
+document.getElementById('adminPanel').style.display='block';
+showAdminProducts();
+document.getElementById('adminPanel').scrollIntoView({behavior:'smooth'});
+}
+
+function adminLogout(){
+document.getElementById('adminPanel').style.display='none';
+document.getElementById('loginBox').style.display='block';
+}
+
+// ADD PRODUCT
+function addAdminProduct(){
+const name = document.getElementById('newName').value.trim();
+const brand = document.getElementById('newBrand').value.trim();
+const price = Number(document.getElementById('newPrice').value);
+const stockValue = document.getElementById('newStock').value;
+const stock = Number(stockValue);
+const category = document.getElementById('newCategory').value;
+
+if(!name || !brand || !Number.isFinite(price) || price<=0 ||
+stockValue==='' || !Number.isInteger(stock) || stock<0){
+alert('Please enter valid product details.');
+return;
+}
+
+const product = {
+id:Date.now(),
+cat:category,
+brand:brand,
+name:name,
+detail:'CARE FOR U product',
+price:price,
+icon:category==='baby'?'🍼':'🌸',
+stock:stock
+};
+
+products.push(product);
+saveProducts();
+render();
+showAdminProducts();
+
+document.getElementById('newName').value='';
+document.getElementById('newBrand').value='';
+document.getElementById('newPrice').value='';
+document.getElementById('newStock').value='';
+
+alert('Product added successfully! ❤️');
+}
+
+// DISPLAY ADMIN PRODUCTS
+function showAdminProducts(){
+document.getElementById('adminProducts').innerHTML =
+products.map(p=>`
+<div class="adminitem">
+<strong>${p.brand} — ${p.name}</strong>
+<p>Price: ${money(p.price)}</p>
+<p>Current Stock: ${p.stock}</p>
+<input type="number" min="0" id="stock${p.id}" placeholder="New stock">
+<button onclick="updateStock(${p.id})">Update Stock</button>
+<button onclick="deleteProduct(${p.id})">Delete</button>
+</div>
+`).join('') || '<p>No products available.</p>';
+}
+
+// UPDATE STOCK
+function updateStock(id){
+const input = document.getElementById('stock'+id);
+const value = input.value;
+const quantity = Number(value);
+
+if(value==='' || !Number.isInteger(quantity) || quantity<0){
+alert('Enter a valid stock quantity.');
+return;
+}
+
+const product = products.find(p=>p.id===id);
+if(!product) return;
+
+product.stock = quantity;
+saveProducts();
+render();
+showAdminProducts();
+
+alert('Stock updated successfully! ❤️');
+}
+
+// DELETE PRODUCT
+function deleteProduct(id){
+if(!confirm('Are you sure you want to delete this product?')) return;
+
+const index = products.findIndex(p=>p.id===id);
+if(index===-1) return;
+
+products.splice(index,1);
+delete cart[id];
+
+saveProducts();
+render();
+showAdminProducts();
+
+alert('Product deleted successfully.');
+}
+
+// LANGUAGE
+document.getElementById('lang').onclick = ()=>{
+hindi = !hindi;
+document.getElementById('lang').textContent = hindi ? 'English' : 'हिंदी';
+document.getElementById('topline').textContent = hindi ?
+'अंडमान और निकोबार द्वीपसमूह में सेवा' :
+'Island-wide service • Andaman & Nicobar Islands';
+
+document.getElementById('eyebrow').textContent = hindi ?
+'थोड़ी सी देखभाल, ढेर सारी खुशी' :
+'A little care goes a long way';
+
+document.getElementById('heroTitle').innerHTML = hindi ?
+'हर दिन की देखभाल।<br>प्यार के साथ डिलीवरी।' :
+'Everyday care.<br>Delivered with love.';
+
+document.getElementById('heroText').textContent = hindi ?
+'बच्चों के डायपर और महिलाओं की स्वच्छता से जुड़े भरोसेमंद ब्रांडेड उत्पाद।' :
+"T
