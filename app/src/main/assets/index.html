@@ -20,8 +20,7 @@
     placeholder="Enter 10-digit mobile number"
     maxlength="10"
     style="width:100%;padding:13px;box-sizing:border-box;">
-
-    <button onclick="demoLogin()"
+<button onclick="demoLogin()"
     style="width:100%;margin-top:12px;padding:13px;background:#c21868;color:white;border:0;border-radius:10px;">
         Continue
     </button>
@@ -71,36 +70,6 @@ render();
         '<p>Welcome to CARE FOR U.</p>';
   }
 
-    document.getElementById('loginMessage').textContent = 'Sending OTP...';
-    Android.startPhoneLogin(phone);
-}
 
-function verifyOTP() {
-    const otp = document.getElementById('otpCode').value.trim();
-
-    if (!/^[0-9]{6}$/.test(otp)) {
-        document.getElementById('loginMessage').textContent =
-            'Please enter the 6-digit OTP.';
-        return;
-    }
-
-    document.getElementById('loginMessage').textContent = 'Verifying OTP...';
-    Android.verifyOtp(otp);
-}
-
-window.onOtpSent = function() {
-    document.getElementById('otpArea').style.display = 'block';
-    document.getElementById('loginMessage').textContent =
-        'OTP sent! Please check your SMS.';
-};
-
-window.onLoginSuccess = function() {
-    document.getElementById('loginBox').innerHTML =
-        '<h2 style="color:#c21868;">Login successful! ❤️</h2><p>Welcome to CARE FOR U.</p>';
-};
-
-window.onLoginError = function(message) {
-    document.getElementById('loginMessage').textContent = message;
-};
 if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
 </script></body></html>
