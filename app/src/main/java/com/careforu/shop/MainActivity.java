@@ -98,8 +98,7 @@ public class MainActivity extends Activity {
                     })
                     .build();
 
-            PhoneAuthProvider.verifyPhoneNumber(options);
-        }
+            runOnUiThread(() -> PhoneAuthProvider.verifyPhoneNumber(options));
 
         @JavascriptInterface
         public void verifyOtp(String code) {
