@@ -5,1063 +5,298 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#c21868">
 <title>CARE FOR U | Online Store</title>
-
 <style>
-:root {
-    --pink: #c21868;
-    --dark: #801044;
-    --light: #fff0f6;
-    --gold: #c69b58;
-    --white: #ffffff;
-    --text: #333333;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background: #fff8fb;
-    color: var(--text);
-}
-
-header {
-    background: linear-gradient(135deg, #c21868, #e85b9c);
-    color: white;
-    padding: 18px 15px;
-    text-align: center;
-}
-
-header h1 {
-    font-size: 28px;
-    letter-spacing: 2px;
-}
-
-header p {
-    font-size: 12px;
-    margin-top: 5px;
-}
-
-.top-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 15px;
-}
-
-button {
-    border: none;
-    border-radius: 8px;
-    padding: 10px 14px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.top-buttons button {
-    background: white;
-    color: var(--pink);
-}
-
-button:active {
-    opacity: 0.75;
-}
-
-.container {
-    padding: 15px;
-    max-width: 1000px;
-    margin: auto;
-}
-
-.banner {
-    background: linear-gradient(135deg, #ffe1ed, #fff5f9);
-    border: 1px solid #f7c4d9;
-    border-radius: 15px;
-    padding: 25px 15px;
-    text-align: center;
-    margin-bottom: 18px;
-}
-
-.banner h2 {
-    color: var(--pink);
-    margin-bottom: 8px;
-}
-
-.banner p {
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.search-box {
-    width: 100%;
-    padding: 13px;
-    border: 1px solid #e8a9c5;
-    border-radius: 10px;
-    font-size: 15px;
-    margin-bottom: 18px;
-    outline: none;
-}
-
-.section-title {
-    color: var(--dark);
-    margin: 20px 0 12px;
-    font-size: 20px;
-}
-
-.categories {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.category {
-    background: white;
-    border: 1px solid #f2c6d9;
-    border-radius: 12px;
-    padding: 17px 8px;
-    text-align: center;
-    color: var(--pink);
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.category.active {
-    background: var(--pink);
-    color: white;
-}
-
-.products {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-}
-
-.product {
-    background: white;
-    border: 1px solid #f1d4e0;
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 2px 8px rgba(150, 50, 90, 0.07);
-}
-
-.product-image {
-    height: 95px;
-    background: #fff0f6;
-    border-radius: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 42px;
-    margin-bottom: 10px;
-}
-
-.product h3 {
-    color: var(--dark);
-    font-size: 15px;
-    min-height: 36px;
-}
-
-.product p {
-    font-size: 12px;
-    color: #777;
-    margin: 5px 0;
-}
-
-.price {
-    color: var(--pink);
-    font-weight: bold;
-    font-size: 17px;
-    margin: 8px 0;
-}
-
-.add-btn {
-    width: 100%;
-    background: var(--pink);
-    color: white;
-}
-
-.panel {
-    display: none;
-    background: white;
-    border: 1px solid #edbfd2;
-    border-radius: 13px;
-    padding: 16px;
-    margin-top: 18px;
-}
-
-.panel h2 {
-    color: var(--pink);
-    margin-bottom: 14px;
-}
-
-input, select, textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 7px 0;
-    border: 1px solid #e6b5c9;
-    border-radius: 8px;
-    font-size: 14px;
-    background: white;
-}
-
-.primary-btn {
-    background: var(--pink);
-    color: white;
-    width: 100%;
-    margin-top: 8px;
-}
-
-.secondary-btn {
-    background: #ffe3ef;
-    color: var(--dark);
-    margin-top: 8px;
-}
-
-.danger-btn {
-    background: #c62828;
-    color: white;
-    padding: 7px 10px;
-}
-
-.cart-item, .admin-item {
-    border-bottom: 1px solid #f1d4e0;
-    padding: 12px 0;
-    font-size: 14px;
-}
-
-.cart-item button {
-    padding: 5px 9px;
-    margin: 3px;
-}
-
-.total {
-    font-size: 19px;
-    color: var(--pink);
-    font-weight: bold;
-    margin-top: 15px;
-}
-
-.empty {
-    color: #888;
-    padding: 15px 0;
-    text-align: center;
-}
-
-footer {
-    background: #801044;
-    color: white;
-    text-align: center;
-    padding: 22px 12px;
-    margin-top: 30px;
-    line-height: 1.8;
-    font-size: 13px;
-}
-
-footer a {
-    color: #ffe0ed;
-}
-
-.hidden {
-    display: none !important;
-}
-
-.notice {
-    background: #fff1d6;
-    color: #795500;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 12px;
-    margin-top: 10px;
-}
-
-@media (min-width: 650px) {
-    .products {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-    .categories {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
+:root{--pink:#c21868;--dark:#801044;--light:#fff0f6;--gold:#c69b58;--white:#fff;--text:#333}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#fff8fb;color:var(--text)}
+header{background:linear-gradient(135deg,#c21868,#e85b9c);color:#fff;padding:18px 15px;text-align:center}
+header h1{font-size:28px;letter-spacing:2px}header p{font-size:12px;margin-top:5px}
+.top-buttons{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:15px}
+button{border:0;border-radius:8px;padding:10px 14px;cursor:pointer;font-size:14px;font-weight:bold}
+button:disabled{opacity:.5;cursor:not-allowed}
+.top-buttons button{background:#fff;color:var(--pink)}
+button:active{opacity:.75}
+.container{padding:15px;max-width:1000px;margin:auto}
+.banner{background:linear-gradient(135deg,#ffe1ed,#fff5f9);border:1px solid #f7c4d9;border-radius:15px;padding:25px 15px;text-align:center;margin-bottom:18px}
+.banner h2{color:var(--pink);margin-bottom:8px}.banner p{font-size:14px;line-height:1.5}
+.search-box{width:100%;padding:13px;border:1px solid #e8a9c5;border-radius:10px;font-size:15px;margin-bottom:18px;outline:none}
+.section-title{color:var(--dark);margin:20px 0 12px;font-size:20px}
+.categories{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.category{background:#fff;border:1px solid #f2c6d9;border-radius:12px;padding:17px 8px;text-align:center;color:var(--pink);font-weight:bold;cursor:pointer}
+.category.active{background:var(--pink);color:#fff}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.product{background:#fff;border:1px solid #f1d4e0;border-radius:12px;padding:12px;box-shadow:0 2px 8px rgba(150,50,90,.07)}
+.product-image{height:95px;background:#fff0f6;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:10px}
+.product h3{color:var(--dark);font-size:15px;min-height:36px}.product p{font-size:12px;color:#777;margin:5px 0}
+.price{color:var(--pink);font-weight:bold;font-size:17px;margin:8px 0}
+.add-btn,.primary-btn{background:var(--pink);color:#fff}.add-btn{width:100%}
+.panel{display:none;background:#fff;border:1px solid #edbfd2;border-radius:13px;padding:16px;margin-top:18px}
+.panel h2{color:var(--pink);margin-bottom:14px}
+input,select,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #e6b5c9;border-radius:8px;font-size:14px;background:#fff}
+.primary-btn{width:100%;margin-top:8px}.secondary-btn{background:#ffe3ef;color:var(--dark);margin-top:8px}
+.danger-btn{background:#c62828;color:#fff;padding:7px 10px}
+.cart-item,.admin-item{border-bottom:1px solid #f1d4e0;padding:12px 0;font-size:14px}
+.cart-item button{padding:5px 9px;margin:3px}.total{font-size:19px;color:var(--pink);font-weight:bold;margin-top:15px}
+.empty{color:#888;padding:15px 0;text-align:center}
+footer{background:#801044;color:#fff;text-align:center;padding:22px 12px;margin-top:30px;line-height:1.8;font-size:13px}
+footer a{color:#ffe0ed}.hidden{display:none!important}
+.notice{background:#fff1d6;color:#795500;padding:10px;border-radius:8px;font-size:12px;margin-top:10px}
+.login-screen{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:22px 15px}
+.login-card{width:100%;max-width:420px;background:#fff;border:1px solid #f0bfd4;border-radius:18px;padding:24px;box-shadow:0 5px 22px rgba(150,50,90,.1);text-align:center}
+.login-card h2{color:var(--pink);margin-bottom:8px}.login-card p{font-size:13px;color:#666;line-height:1.5;margin-bottom:12px}
+.account-strip{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;background:#fff;border:1px solid #f1d4e0;padding:10px 12px;border-radius:10px;margin-bottom:15px;font-size:13px}
+.account-strip strong{color:var(--dark)}
+@media(min-width:650px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}.categories{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
-
 <body>
-
 <header>
-    <h1>CARE FOR U</h1>
-    <p>Care That Makes You Feel Special.</p>
-
-    <div class="top-buttons">
-        <button onclick="toggleLanguage()" id="languageButton">हिंदी</button>
-        <button onclick="showCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
-        <button onclick="showLogin()">👤 Continue</button>
-        <button onclick="showAdmin()">⚙ Admin</button>
-    </div>
+  <h1>CARE FOR U</h1><p>Care That Makes You Feel Special.</p>
+  <div class="top-buttons" id="storeButtons">
+    <button onclick="toggleLanguage()" id="languageButton">हिंदी</button>
+    <button onclick="showCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+    <button onclick="showAdmin()">⚙ Admin</button>
+    <button onclick="logoutCustomer()">Logout</button>
+  </div>
 </header>
 
-<main class="container">
+<section id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <h2>Welcome to CARE FOR U</h2>
+    <p>Baby Care & Women's Hygiene Products Delivered with Love.</p>
+    <input type="text" id="customerName" placeholder="Enter your name" maxlength="60" autocomplete="name">
+    <input type="tel" id="customerPhone" placeholder="Enter 10 digit mobile number" maxlength="10" inputmode="numeric" autocomplete="tel">
+    <button class="primary-btn" onclick="customerLogin()">Login / Continue</button>
+    <p id="loginMessage" class="notice hidden" role="status"></p>
+    <p class="notice">Demo login only. Real OTP verification is not connected.</p>
+  </div>
+</section>
 
-    <section class="banner">
-        <h2 id="welcomeTitle">Welcome to CARE FOR U</h2>
-        <p id="welcomeText">
-            Baby Care & Women's Hygiene Products Delivered with Love.
-        </p>
-    </section>
+<main class="container hidden" id="storeScreen">
+  <div class="account-strip">
+    <span>Logged in as: <strong id="signedInName"></strong></span>
+    <button class="secondary-btn" onclick="logoutCustomer()">Logout</button>
+  </div>
+  <section class="banner">
+    <h2 id="welcomeTitle">Welcome to CARE FOR U</h2>
+    <p id="welcomeText">Baby Care & Women's Hygiene Products Delivered with Love.</p>
+  </section>
+  <input type="search" id="searchInput" class="search-box" placeholder="Search products..." oninput="renderProducts()">
+  <h2 class="section-title" id="categoryTitle">Shop by Category</h2>
+  <div class="categories">
+    <div class="category active" onclick="selectCategory('All',this)">🛍 All Products</div>
+    <div class="category" onclick="selectCategory('Baby Care',this)">👶 Baby Care</div>
+    <div class="category" onclick="selectCategory('Women Care',this)">🌸 Women Care</div>
+    <div class="category" onclick="selectCategory('Hygiene',this)">💗 Hygiene</div>
+  </div>
+  <h2 class="section-title" id="productsTitle">Our Products</h2>
+  <div class="products" id="productList"></div>
 
-    <input
-        type="search"
-        id="searchInput"
-        class="search-box"
-        placeholder="Search products..."
-        oninput="renderProducts()"
-    >
+  <section class="panel" id="cartPanel">
+    <h2 id="cartTitle">Your Shopping Cart</h2><div id="cartItems"></div>
+    <div class="total">Total: ₹<span id="cartTotal">0</span></div>
+    <button class="primary-btn" onclick="checkoutDemo()">Place Order (Demo)</button>
+    <button class="secondary-btn" onclick="closePanels()">Continue Shopping</button>
+  </section>
 
-    <h2 class="section-title" id="categoryTitle">Shop by Category</h2>
-
-    <div class="categories">
-        <div class="category active" id="catAll" onclick="selectCategory('All', this)">🛍 All Products</div>
-        <div class="category" onclick="selectCategory('Baby Care', this)">👶 Baby Care</div>
-        <div class="category" onclick="selectCategory('Women Care', this)">🌸 Women Care</div>
-        <div class="category" onclick="selectCategory('Hygiene', this)">💗 Hygiene</div>
+  <section class="panel" id="adminLoginPanel">
+    <h2>Admin Login</h2>
+    <div id="adminSetupBox">
+      <p class="notice">First-time setup: create your own admin password. Use at least 8 characters. Keep it private.</p>
+      <input type="password" id="newAdminPassword" placeholder="Create admin password (8+ characters)" autocomplete="new-password">
+      <input type="password" id="confirmAdminPassword" placeholder="Confirm admin password" autocomplete="new-password">
+      <button class="primary-btn" onclick="setAdminPassword()">Save Admin Password</button>
     </div>
+    <div id="adminLoginBox" class="hidden">
+      <p class="notice">Enter the admin password you created on this device.</p>
+      <input type="password" id="adminPassword" placeholder="Enter admin password" autocomplete="current-password">
+      <button class="primary-btn" onclick="adminLogin()">Login</button>
+      <button class="secondary-btn" onclick="showPasswordReset()">Forgot / Reset Admin Password</button>
+    </div>
+    <p id="adminMessage" class="notice hidden" role="status"></p>
+    <button class="secondary-btn" onclick="closePanels()">Close</button>
+  </section>
 
-    <h2 class="section-title" id="productsTitle">Our Products</h2>
+  <section class="panel" id="adminResetPanel">
+    <h2>Reset Admin Password</h2>
+    <p class="notice">This demo reset works only on this device. It clears the saved admin password and lets you create a new one.</p>
+    <input type="password" id="resetPhoneCheck" placeholder="Type RESET to confirm">
+    <button class="danger-btn" onclick="resetAdminPassword()">Reset Admin Password</button>
+    <button class="secondary-btn" onclick="showAdmin()">Back</button>
+  </section>
 
-    <div class="products" id="productList"></div>
-
-    <!-- CUSTOMER LOGIN -->
-
-    <section class="panel" id="loginPanel">
-        <h2 id="loginTitle">Customer Login</h2>
-
-        <input
-            type="text"
-            id="customerName"
-            placeholder="Enter your name"
-            maxlength="60"
-        >
-
-        <input
-            type="tel"
-            id="customerPhone"
-            placeholder="Enter 10 digit mobile number"
-            maxlength="10"
-            inputmode="numeric"
-        >
-
-        <button class="primary-btn" onclick="customerLogin()" id="continueButton">
-            Continue
-        </button>
-
-        <p id="loginMessage" class="notice hidden"></p>
-
-        <button class="secondary-btn" onclick="closePanels()">Close</button>
-
-        <p class="notice">
-            Demo login only. Real OTP verification is not connected.
-        </p>
-    </section>
-
-    <!-- CART -->
-
-    <section class="panel" id="cartPanel">
-        <h2 id="cartTitle">Your Shopping Cart</h2>
-
-        <div id="cartItems"></div>
-
-        <div class="total">
-            Total: ₹<span id="cartTotal">0</span>
-        </div>
-
-        <button class="primary-btn" onclick="checkoutDemo()">
-            Place Order (Demo)
-        </button>
-
-        <button class="secondary-btn" onclick="closePanels()">Continue Shopping</button>
-    </section>
-
-    <!-- ADMIN LOGIN -->
-
-    <section class="panel" id="adminLoginPanel">
-        <h2>Admin Login</h2>
-
-        <input
-            type="password"
-            id="adminPassword"
-            placeholder="Enter admin password"
-        >
-
-        <button class="primary-btn" onclick="adminLogin()">Login</button>
-
-        <p id="adminMessage" class="notice hidden"></p>
-
-        <button class="secondary-btn" onclick="closePanels()">Close</button>
-    </section>
-
-    <!-- ADMIN DASHBOARD -->
-
-    <section class="panel" id="adminPanel">
-        <h2>Admin Dashboard</h2>
-
-        <h3>Add New Product</h3>
-
-        <input id="newName" placeholder="Product Name" maxlength="80">
-
-        <select id="newCategory">
-            <option value="Baby Care">Baby Care</option>
-            <option value="Women Care">Women Care</option>
-            <option value="Hygiene">Hygiene</option>
-        </select>
-
-        <input
-            id="newPrice"
-            type="number"
-            placeholder="Price in rupees"
-            min="1"
-            max="100000"
-        >
-
-        <input
-            id="newStock"
-            type="number"
-            placeholder="Available stock"
-            min="0"
-            max="100000"
-        >
-
-        <input id="newEmoji" placeholder="Product emoji (example: 👶)" maxlength="8">
-
-        <button class="primary-btn" onclick="addProduct()">Add Product</button>
-
-        <h3 style="margin-top:22px;">Manage Products</h3>
-
-        <div id="adminProductList"></div>
-
-        <button class="secondary-btn" onclick="adminLogout()">Logout Admin</button>
-        <button class="secondary-btn" onclick="closePanels()">Close</button>
-
-        <p class="notice">
-            Demo admin panel: product data is saved only on this device.
-            This is not secure server-side administration.
-        </p>
-    </section>
-
+  <section class="panel" id="adminPanel">
+    <h2>Admin Dashboard</h2>
+    <h3>Add New Product</h3>
+    <input id="newName" placeholder="Product Name" maxlength="80">
+    <select id="newCategory"><option value="Baby Care">Baby Care</option><option value="Women Care">Women Care</option><option value="Hygiene">Hygiene</option></select>
+    <input id="newPrice" type="number" placeholder="Price in rupees" min="1" max="100000">
+    <input id="newStock" type="number" placeholder="Available stock" min="0" max="100000">
+    <input id="newEmoji" placeholder="Product emoji (example: 👶)" maxlength="8">
+    <button class="primary-btn" onclick="addProduct()">Add Product</button>
+    <h3 style="margin-top:22px">Manage Products</h3>
+    <div id="adminProductList"></div>
+    <button class="secondary-btn" onclick="adminLogout()">Logout Admin</button>
+    <button class="secondary-btn" onclick="closePanels()">Close</button>
+    <p class="notice">Demo admin panel: product data is saved only on this device. This is not secure server-side administration.</p>
+  </section>
 </main>
 
-<footer>
-    <h3>CARE FOR U</h3>
-    <p>Care That Makes You Feel Special.</p>
-    <p>Shop No. 2, Calicut, Port Blair</p>
-    <p>Andaman & Nicobar Islands - 744105</p>
-    <p>Contact: 9332594564</p>
-    <p>
-        <a href="https://wa.me/919332594564" target="_blank">
-            WhatsApp Us
-        </a>
-    </p>
-    <p>© 2026 CARE FOR U. All Rights Reserved.</p>
+<footer id="pageFooter" class="hidden">
+  <h3>CARE FOR U</h3><p>Care That Makes You Feel Special.</p>
+  <p>Shop No. 2, Calicut, Port Blair</p><p>Andaman & Nicobar Islands - 744105</p>
+  <p>Contact: 9332594564</p>
+  <p><a href="https://wa.me/919332594564" target="_blank" rel="noopener">WhatsApp Us</a></p>
+  <p>© 2026 CARE FOR U. All Rights Reserved.</p>
 </footer>
 
 <script>
 "use strict";
-
-/* CHANGE THIS TO YOUR OWN PRIVATE DEMO PASSWORD */
-const ADMIN_PASSWORD = "CHANGE_THIS_PASSWORD";
-
-const defaultProducts = [
-    {
-        id: 1,
-        name: "Pampers Baby Diapers",
-        category: "Baby Care",
-        price: 499,
-        stock: 20,
-        emoji: "👶"
-    },
-    {
-        id: 2,
-        name: "Huggies Baby Diapers",
-        category: "Baby Care",
-        price: 449,
-        stock: 20,
-        emoji: "🍼"
-    },
-    {
-        id: 3,
-        name: "MamyPoko Pants",
-        category: "Baby Care",
-        price: 399,
-        stock: 15,
-        emoji: "🧸"
-    },
-    {
-        id: 4,
-        name: "Whisper Sanitary Pads",
-        category: "Women Care",
-        price: 120,
-        stock: 30,
-        emoji: "🌸"
-    },
-    {
-        id: 5,
-        name: "Stayfree Sanitary Pads",
-        category: "Women Care",
-        price: 110,
-        stock: 30,
-        emoji: "💗"
-    },
-    {
-        id: 6,
-        name: "Sofy Sanitary Pads",
-        category: "Women Care",
-        price: 130,
-        stock: 25,
-        emoji: "🌷"
-    },
-    {
-        id: 7,
-        name: "Baby Wipes",
-        category: "Baby Care",
-        price: 99,
-        stock: 25,
-        emoji: "🧻"
-    },
-    {
-        id: 8,
-        name: "Personal Hygiene Pack",
-        category: "Hygiene",
-        price: 199,
-        stock: 15,
-        emoji: "🛍️"
-    }
+const defaultProducts=[
+{id:1,name:"Pampers Baby Diapers",category:"Baby Care",price:499,stock:20,emoji:"👶"},
+{id:2,name:"Huggies Baby Diapers",category:"Baby Care",price:449,stock:20,emoji:"🍼"},
+{id:3,name:"MamyPoko Pants",category:"Baby Care",price:399,stock:15,emoji:"🧸"},
+{id:4,name:"Whisper Sanitary Pads",category:"Women Care",price:120,stock:30,emoji:"🌸"},
+{id:5,name:"Stayfree Sanitary Pads",category:"Women Care",price:110,stock:30,emoji:"💗"},
+{id:6,name:"Sofy Sanitary Pads",category:"Women Care",price:130,stock:25,emoji:"🌷"},
+{id:7,name:"Baby Wipes",category:"Baby Care",price:99,stock:25,emoji:"🧻"},
+{id:8,name:"Personal Hygiene Pack",category:"Hygiene",price:199,stock:15,emoji:"🛍️"}
 ];
+function loadData(key,fallback){try{const raw=localStorage.getItem(key);return raw===null?fallback:JSON.parse(raw)}catch(e){console.error("Storage read:",e);return fallback}}
+function save(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch(e){console.error("Storage write:",e);alert("Device storage could not save this change.");return false}}
+let products=loadData("cfu_products",defaultProducts);
+if(!Array.isArray(products))products=defaultProducts;
+let cart=loadData("cfu_cart",[]);
+if(!Array.isArray(cart))cart=[];
+let customer=loadData("cfu_customer",null);
+let selectedCategory="All",isHindi=false,isAdmin=false;
 
-function loadData(key, fallback) {
-    try {
-        const saved = localStorage.getItem(key);
-        return saved ? JSON.parse(saved) : fallback;
-    } catch (error) {
-        console.error("Storage error:", error);
-        return fallback;
-    }
+function escapeHTML(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function closePanels(){document.querySelectorAll(".panel").forEach(p=>p.style.display="none")}
+function openPanel(id){closePanels();const p=document.getElementById(id);if(p){p.style.display="block";p.scrollIntoView({behavior:"smooth",block:"start"})}}
+function setSignedInView(){
+ const loggedIn=!!(customer&&customer.name&&customer.phone);
+ document.getElementById("loginScreen").classList.toggle("hidden",loggedIn);
+ document.getElementById("storeScreen").classList.toggle("hidden",!loggedIn);
+ document.getElementById("pageFooter").classList.toggle("hidden",!loggedIn);
+ document.getElementById("storeButtons").classList.toggle("hidden",!loggedIn);
+ if(loggedIn){document.getElementById("signedInName").textContent=customer.name;renderProducts();updateCartCount()}
+ else closePanels();
 }
-
-let products = loadData("cfu_products", defaultProducts);
-let cart = loadData("cfu_cart", []);
-let selectedCategory = "All";
-let isHindi = false;
-let isAdmin = false;
-let customer = loadData("cfu_customer", null);
-
-function saveData() {
-    try {
-        localStorage.setItem("cfu_products", JSON.stringify(products));
-        localStorage.setItem("cfu_cart", JSON.stringify(cart));
-        localStorage.setItem("cfu_customer", JSON.stringify(customer));
-    } catch (error) {
-        alert("Could not save data on this device.");
-        console.error(error);
-    }
+function customerLogin(){
+ const name=document.getElementById("customerName").value.trim();
+ const phone=document.getElementById("customerPhone").value.replace(/\D/g,"");
+ const msg=document.getElementById("loginMessage");msg.classList.remove("hidden");
+ if(name.length<2){msg.textContent="Please enter your name (at least 2 letters).";return}
+ if(!/^[0-9]{10}$/.test(phone)){msg.textContent="Please enter a valid 10 digit mobile number.";return}
+ customer={name,phone};
+ if(!save("cfu_customer",customer))return;
+ msg.textContent="Login successful. Welcome!";
+ setSignedInView();
 }
-
-function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, function(char) {
-        return {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#039;"
-        }[char];
-    });
+function logoutCustomer(){
+ if(!customer)return;
+ if(!confirm("Are you sure you want to logout?"))return;
+ customer=null;isAdmin=false;save("cfu_customer",null);
+ document.getElementById("customerName").value="";
+ document.getElementById("customerPhone").value="";
+ document.getElementById("loginMessage").classList.add("hidden");
+ setSignedInView();
+ window.scrollTo(0,0);
 }
-
-function closePanels() {
-    document.querySelectorAll(".panel").forEach(function(panel) {
-        panel.style.display = "none";
-    });
+function renderProducts(){
+ const list=document.getElementById("productList");if(!list)return;
+ const search=document.getElementById("searchInput").value.trim().toLowerCase();
+ const filtered=products.filter(p=>(selectedCategory==="All"||p.category===selectedCategory)&&String(p.name||"").toLowerCase().includes(search));
+ if(!filtered.length){list.innerHTML='<p class="empty">No products found.</p>';return}
+ list.innerHTML=filtered.map(p=>`<div class="product"><div class="product-image">${escapeHTML(p.emoji||"🛍️")}</div><h3>${escapeHTML(p.name)}</h3><p>${escapeHTML(p.category)}</p><p>Stock: ${Number(p.stock)||0}</p><div class="price">₹${Number(p.price)||0}</div><button class="add-btn" onclick="addToCart(${Number(p.id)})" ${Number(p.stock)<=0?"disabled":""}>${Number(p.stock)<=0?"Out of Stock":"Add to Cart"}</button></div>`).join("");
 }
-
-function openPanel(id) {
-    closePanels();
-    const panel = document.getElementById(id);
-    panel.style.display = "block";
-    panel.scrollIntoView({ behavior: "smooth", block: "start" });
+function selectCategory(category,el){selectedCategory=category;document.querySelectorAll(".category").forEach(x=>x.classList.remove("active"));el.classList.add("active");renderProducts()}
+function addToCart(id){
+ const p=products.find(x=>Number(x.id)===Number(id));if(!p||Number(p.stock)<=0){alert("This product is out of stock.");return}
+ let item=cart.find(x=>Number(x.id)===Number(id));if(item&&Number(item.quantity)>=Number(p.stock)){alert("Available stock limit reached.");return}
+ if(item)item.quantity=Number(item.quantity)+1;else cart.push({id:p.id,quantity:1});
+ save("cfu_cart",cart);updateCartCount();alert("Product added to cart!");
 }
-
-function renderProducts() {
-    const list = document.getElementById("productList");
-    const search = document.getElementById("searchInput").value
-        .trim()
-        .toLowerCase();
-
-    const filtered = products.filter(function(product) {
-        const matchesCategory =
-            selectedCategory === "All" ||
-            product.category === selectedCategory;
-
-        const matchesSearch =
-            product.name.toLowerCase().includes(search);
-
-        return matchesCategory && matchesSearch;
-    });
-
-    if (filtered.length === 0) {
-        list.innerHTML = '<p class="empty">No products found.</p>';
-        return;
-    }
-
-    list.innerHTML = filtered.map(function(product) {
-        return `
-            <div class="product">
-                <div class="product-image">${escapeHTML(product.emoji || "🛍️")}</div>
-                <h3>${escapeHTML(product.name)}</h3>
-                <p>${escapeHTML(product.category)}</p>
-                <p>Stock: ${Number(product.stock)}</p>
-                <div class="price">₹${Number(product.price)}</div>
-                <button
-                    class="add-btn"
-                    onclick="addToCart(${Number(product.id)})"
-                    ${Number(product.stock) <= 0 ? "disabled" : ""}
-                >
-                    ${Number(product.stock) <= 0 ? "Out of Stock" : "Add to Cart"}
-                </button>
-            </div>
-        `;
-    }).join("");
+function updateCartCount(){document.getElementById("cartCount").textContent=cart.reduce((n,x)=>n+(Number(x.quantity)||0),0)}
+function showCart(){renderCart();openPanel("cartPanel")}
+function renderCart(){
+ const box=document.getElementById("cartItems");let total=0;
+ const valid=cart.filter(i=>products.some(p=>Number(p.id)===Number(i.id))&&Number(i.quantity)>0);
+ if(valid.length!==cart.length){cart=valid;save("cfu_cart",cart)}
+ if(!cart.length){box.innerHTML='<p class="empty">Your cart is empty.</p>';document.getElementById("cartTotal").textContent="0";return}
+ box.innerHTML=cart.map(i=>{const p=products.find(x=>Number(x.id)===Number(i.id));if(!p)return"";const q=Number(i.quantity)||0,sub=(Number(p.price)||0)*q;total+=sub;return `<div class="cart-item"><strong>${escapeHTML(p.name)}</strong><br>₹${Number(p.price)} × ${q} = ₹${sub}<br><button class="secondary-btn" onclick="changeQuantity(${Number(i.id)},-1)">−</button><button class="secondary-btn" onclick="changeQuantity(${Number(i.id)},1)">+</button><button class="danger-btn" onclick="removeFromCart(${Number(i.id)})">Remove</button></div>`}).join("");
+ document.getElementById("cartTotal").textContent=total;
 }
+function changeQuantity(id,delta){const i=cart.find(x=>Number(x.id)===Number(id)),p=products.find(x=>Number(x.id)===Number(id));if(!i||!p)return;const q=Number(i.quantity)+delta;if(q<=0){removeFromCart(id);return}if(q>Number(p.stock)){alert("Available stock limit reached.");return}i.quantity=q;save("cfu_cart",cart);updateCartCount();renderCart()}
+function removeFromCart(id){cart=cart.filter(x=>Number(x.id)!==Number(id));save("cfu_cart",cart);updateCartCount();renderCart()}
+function checkoutDemo(){if(!customer){setSignedInView();return}if(!cart.length){alert("Your cart is empty.");return}alert("Thank you, "+customer.name+"! This is a demo checkout. No real order or payment has been placed.")}
 
-function selectCategory(category, element) {
-    selectedCategory = category;
-
-    document.querySelectorAll(".category").forEach(function(item) {
-        item.classList.remove("active");
-    });
-
-    element.classList.add("active");
-    renderProducts();
+function showAdmin(){
+ if(!customer){alert("Please login first.");return}
+ const hasPassword=!!localStorage.getItem("cfu_admin_password");
+ document.getElementById("adminSetupBox").classList.toggle("hidden",hasPassword);
+ document.getElementById("adminLoginBox").classList.toggle("hidden",!hasPassword);
+ document.getElementById("adminMessage").classList.add("hidden");
+ if(isAdmin){renderAdminProducts();openPanel("adminPanel")}else openPanel("adminLoginPanel");
 }
-
-function addToCart(id) {
-    const product = products.find(function(item) {
-        return item.id === id;
-    });
-
-    if (!product || product.stock <= 0) {
-        alert("This product is out of stock.");
-        return;
-    }
-
-    const existing = cart.find(function(item) {
-        return item.id === id;
-    });
-
-    const currentQuantity = existing ? existing.quantity : 0;
-
-    if (currentQuantity >= product.stock) {
-        alert("Available stock limit reached.");
-        return;
-    }
-
-    if (existing) {
-        existing.quantity++;
-    } else {
-        cart.push({
-            id: product.id,
-            quantity: 1
-        });
-    }
-
-    saveData();
-    updateCartCount();
-    alert("Product added to cart!");
+function setAdminPassword(){
+ const a=document.getElementById("newAdminPassword").value,b=document.getElementById("confirmAdminPassword").value,msg=document.getElementById("adminMessage");
+ msg.classList.remove("hidden");
+ if(a.length<8){msg.textContent="Password must be at least 8 characters.";return}
+ if(a!==b){msg.textContent="Passwords do not match. Please type them again.";return}
+ if(!localStorage.setItem("cfu_admin_password",a)){msg.textContent="Could not save password on this device.";return}
+ document.getElementById("adminSetupBox").classList.add("hidden");document.getElementById("adminLoginBox").classList.remove("hidden");
+ document.getElementById("adminPassword").value="";msg.textContent="Admin password saved. Now login using it.";
 }
-
-function updateCartCount() {
-    const count = cart.reduce(function(total, item) {
-        return total + Number(item.quantity);
-    }, 0);
-
-    document.getElementById("cartCount").textContent = count;
+function adminLogin(){
+ const saved=localStorage.getItem("cfu_admin_password"),typed=document.getElementById("adminPassword").value,msg=document.getElementById("adminMessage");
+ msg.classList.remove("hidden");
+ if(!saved){msg.textContent="Please create an admin password first.";return}
+ if(typed!==saved){msg.textContent="Password does not match the password created on this device. Use Reset if you forgot it.";return}
+ isAdmin=true;renderAdminProducts();openPanel("adminPanel");
 }
-
-function showCart() {
-    renderCart();
-    openPanel("cartPanel");
+function showPasswordReset(){openPanel("adminResetPanel")}
+function resetAdminPassword(){
+ if(document.getElementById("resetPhoneCheck").value.trim()!=="RESET"){alert('Type RESET exactly to confirm.');return}
+ localStorage.removeItem("cfu_admin_password");isAdmin=false;
+ document.getElementById("resetPhoneCheck").value="";
+ alert("Old demo admin password cleared. Open Admin and create a new password.");showAdmin();
 }
-
-function renderCart() {
-    const container = document.getElementById("cartItems");
-    let total = 0;
-
-    if (cart.length === 0) {
-        container.innerHTML = '<p class="empty">Your cart is empty.</p>';
-        document.getElementById("cartTotal").textContent = "0";
-        return;
-    }
-
-    container.innerHTML = cart.map(function(item) {
-        const product = products.find(function(p) {
-            return p.id === item.id;
-        });
-
-        if (!product) return "";
-
-        const quantity = Number(item.quantity);
-        const subtotal = Number(product.price) * quantity;
-        total += subtotal;
-
-        return `
-            <div class="cart-item">
-                <strong>${escapeHTML(product.name)}</strong><br>
-                ₹${Number(product.price)} × ${quantity}
-                = ₹${subtotal}<br>
-                <button class="secondary-btn"
-                    onclick="changeQuantity(${Number(item.id)}, -1)">−</button>
-                <button class="secondary-btn"
-                    onclick="changeQuantity(${Number(item.id)}, 1)">+</button>
-                <button class="danger-btn"
-                    onclick="removeFromCart(${Number(item.id)})">Remove</button>
-            </div>
-        `;
-    }).join("");
-
-    document.getElementById("cartTotal").textContent = total;
+function adminLogout(){isAdmin=false;closePanels();alert("Admin logged out.")}
+function addProduct(){
+ if(!isAdmin){alert("Please login as admin.");return}
+ const name=document.getElementById("newName").value.trim(),category=document.getElementById("newCategory").value,price=Number(document.getElementById("newPrice").value),stock=Number(document.getElementById("newStock").value),emoji=document.getElementById("newEmoji").value.trim()||"🛍️";
+ if(name.length<2){alert("Please enter a product name.");return}
+ if(!Number.isFinite(price)||price<=0||price>100000){alert("Please enter a valid price.");return}
+ if(!Number.isInteger(stock)||stock<0||stock>100000){alert("Please enter valid stock quantity.");return}
+ products.push({id:Date.now(),name,category,price,stock,emoji});if(!save("cfu_products",products))return;
+ ["newName","newPrice","newStock","newEmoji"].forEach(id=>document.getElementById(id).value="");renderProducts();renderAdminProducts();alert("Product added successfully!");
 }
-
-function changeQuantity(id, amount) {
-    const item = cart.find(function(p) {
-        return p.id === id;
-    });
-
-    const product = products.find(function(p) {
-        return p.id === id;
-    });
-
-    if (!item || !product) return;
-
-    const nextQuantity = item.quantity + amount;
-
-    if (nextQuantity <= 0) {
-        removeFromCart(id);
-        return;
-    }
-
-    if (nextQuantity > product.stock) {
-        alert("Available stock limit reached.");
-        return;
-    }
-
-    item.quantity = nextQuantity;
-    saveData();
-    updateCartCount();
-    renderCart();
+function renderAdminProducts(){
+ const list=document.getElementById("adminProductList");if(!products.length){list.innerHTML='<p class="empty">No products available.</p>';return}
+ list.innerHTML=products.map(p=>`<div class="admin-item"><strong>${escapeHTML(p.name)}</strong><br>Category: ${escapeHTML(p.category)}<br>Price: ₹${Number(p.price)}<br>Stock: ${Number(p.stock)}<input type="number" id="stock-${Number(p.id)}" value="${Number(p.stock)}" min="0" max="100000"><button class="secondary-btn" onclick="updateStock(${Number(p.id)})">Update Stock</button> <button class="danger-btn" onclick="deleteProduct(${Number(p.id)})">Delete</button></div>`).join("");
 }
-
-function removeFromCart(id) {
-    cart = cart.filter(function(item) {
-        return item.id !== id;
-    });
-
-    saveData();
-    updateCartCount();
-    renderCart();
+function updateStock(id){
+ if(!isAdmin)return;const p=products.find(x=>Number(x.id)===Number(id)),input=document.getElementById("stock-"+id),stock=Number(input.value);
+ if(!p||!Number.isInteger(stock)||stock<0||stock>100000){alert("Please enter valid stock.");return}
+ p.stock=stock;const ci=cart.find(x=>Number(x.id)===Number(id));if(stock===0)cart=cart.filter(x=>Number(x.id)!==Number(id));else if(ci&&ci.quantity>stock)ci.quantity=stock;
+ save("cfu_products",products);save("cfu_cart",cart);renderProducts();renderAdminProducts();updateCartCount();alert("Stock updated.");
 }
+function deleteProduct(id){if(!isAdmin)return;if(!confirm("Are you sure you want to delete this product?"))return;products=products.filter(x=>Number(x.id)!==Number(id));cart=cart.filter(x=>Number(x.id)!==Number(id));save("cfu_products",products);save("cfu_cart",cart);renderProducts();renderAdminProducts();updateCartCount();alert("Product deleted.")}
 
-function showLogin() {
-    document.getElementById("loginMessage").classList.add("hidden");
-    openPanel("loginPanel");
+function toggleLanguage(){
+ isHindi=!isHindi;
+ document.getElementById("languageButton").textContent=isHindi?"English":"हिंदी";
+ document.getElementById("welcomeTitle").textContent=isHindi?"CARE FOR U में आपका स्वागत है":"Welcome to CARE FOR U";
+ document.getElementById("welcomeText").textContent=isHindi?"बेबी केयर और महिलाओं की स्वच्छता के उत्पाद, प्यार के साथ।":"Baby Care & Women's Hygiene Products Delivered with Love.";
+ document.getElementById("categoryTitle").textContent=isHindi?"श्रेणी के अनुसार खरीदें":"Shop by Category";
+ document.getElementById("productsTitle").textContent=isHindi?"हमारे उत्पाद":"Our Products";
+ document.getElementById("searchInput").placeholder=isHindi?"उत्पाद खोजें...":"Search products...";
+ document.getElementById("cartTitle").textContent=isHindi?"आपकी शॉपिंग कार्ट":"Your Shopping Cart";
 }
-
-function customerLogin() {
-    const name = document.getElementById("customerName").value.trim();
-    const phone = document.getElementById("customerPhone").value.trim();
-    const message = document.getElementById("loginMessage");
-
-    message.classList.remove("hidden");
-
-    if (name.length < 2) {
-        message.textContent = "Please enter your name.";
-        return;
-    }
-
-    if (!/^[0-9]{10}$/.test(phone)) {
-        message.textContent = "Please enter a valid 10 digit mobile number.";
-        return;
-    }
-
-    customer = {
-        name: name,
-        phone: phone
-    };
-
-    saveData();
-
-    message.textContent = "Welcome, " + name + "! Demo login successful.";
-}
-
-function checkoutDemo() {
-    if (!customer) {
-        alert("Please login before placing an order.");
-        showLogin();
-        return;
-    }
-
-    if (cart.length === 0) {
-        alert("Your cart is empty.");
-        return;
-    }
-
-    alert(
-        "Thank you, " + customer.name +
-        "! This is a demo checkout. No real order or payment has been placed."
-    );
-}
-
-/* ADMIN */
-
-function showAdmin() {
-    if (isAdmin) {
-        renderAdminProducts();
-        openPanel("adminPanel");
-    } else {
-        document.getElementById("adminMessage").classList.add("hidden");
-        document.getElementById("adminPassword").value = "";
-        openPanel("adminLoginPanel");
-    }
-}
-
-function adminLogin() {
-    const password = document.getElementById("adminPassword").value;
-    const message = document.getElementById("adminMessage");
-
-    message.classList.remove("hidden");
-
-    if (ADMIN_PASSWORD === "Mohammed@92") {
-        message.textContent = "First change ADMIN_PASSWORD in the HTML code.";
-        return;
-    }
-
-    if (password !== ADMIN_PASSWORD) {
-        message.textContent = "Incorrect admin password.";
-        return;
-    }
-
-    isAdmin = true;
-    renderAdminProducts();
-    openPanel("adminPanel");
-}
-
-function adminLogout() {
-    isAdmin = false;
-    closePanels();
-    alert("Admin logged out.");
-}
-
-function addProduct() {
-    if (!isAdmin) {
-        alert("Please login as admin.");
-        return;
-    }
-
-    const name = document.getElementById("newName").value.trim();
-    const category = document.getElementById("newCategory").value;
-    const price = Number(document.getElementById("newPrice").value);
-    const stock = Number(document.getElementById("newStock").value);
-    const emoji = document.getElementById("newEmoji").value.trim() || "🛍️";
-
-    if (name.length < 2) {
-        alert("Please enter a product name.");
-        return;
-    }
-
-    if (!Number.isFinite(price) || price <= 0 || price > 100000) {
-        alert("Please enter a valid price.");
-        return;
-    }
-
-    if (!Number.isInteger(stock) || stock < 0 || stock > 100000) {
-        alert("Please enter valid stock quantity.");
-        return;
-    }
-
-    products.push({
-        id: Date.now(),
-        name: name,
-        category: category,
-        price: price,
-        stock: stock,
-        emoji: emoji
-    });
-
-    saveData();
-
-    document.getElementById("newName").value = "";
-    document.getElementById("newPrice").value = "";
-    document.getElementById("newStock").value = "";
-    document.getElementById("newEmoji").value = "";
-
-    renderProducts();
-    renderAdminProducts();
-
-    alert("Product added successfully!");
-}
-
-function renderAdminProducts() {
-    const list = document.getElementById("adminProductList");
-
-    if (products.length === 0) {
-        list.innerHTML = '<p class="empty">No products available.</p>';
-        return;
-    }
-
-    list.innerHTML = products.map(function(product) {
-        return `
-            <div class="admin-item">
-                <strong>${escapeHTML(product.name)}</strong><br>
-                Category: ${escapeHTML(product.category)}<br>
-                Price: ₹${Number(product.price)}<br>
-                Stock: ${Number(product.stock)}<br>
-
-                <input
-                    type="number"
-                    id="stock-${Number(product.id)}"
-                    value="${Number(product.stock)}"
-                    min="0"
-                    max="100000"
-                    placeholder="Update stock"
-                >
-
-                <button class="secondary-btn"
-                    onclick="updateStock(${Number(product.id)})">
-                    Update Stock
-                </button>
-
-                <button class="danger-btn"
-                    onclick="deleteProduct(${Number(product.id)})">
-                    Delete
-                </button>
-            </div>
-        `;
-    }).join("");
-}
-
-function updateStock(id) {
-    if (!isAdmin) return;
-
-    const product = products.find(function(item) {
-        return item.id === id;
-    });
-
-    const input = document.getElementById("stock-" + id);
-    const stock = Number(input.value);
-
-    if (!product || !Number.isInteger(stock) || stock < 0 || stock > 100000) {
-        alert("Please enter a valid stock quantity.");
-        return;
-    }
-
-    product.stock = stock;
-
-    if (stock === 0) {
-        cart = cart.filter(function(item) {
-            return item.id !== id;
-        });
-    } else {
-        const cartItem = cart.find(function(item) {
-            return item.id === id;
-        });
-
-        if (cartItem && cartItem.quantity > stock) {
-            cartItem.quantity = stock;
-        }
-    }
-
-    saveData();
-    renderProducts();
-    renderAdminProducts();
-    updateCartCount();
-
-    alert("Stock updated successfully!");
-}
-
-function deleteProduct(id) {
-    if (!isAdmin) return;
-
-    if (!confirm("Are you sure you want to delete this product?")) {
-        return;
-    }
-
-    products = products.filter(function(item) {
-        return item.id !== id;
-    });
-
-    cart = cart.filter(function(item) {
-        return item.id !== id;
-    });
-
-    saveData();
-    renderProducts();
-    renderAdminProducts();
-    updateCartCount();
-
-    alert("Product deleted.");
-}
-
-/* LANGUAGE */
-
-function toggleLanguage() {
-    isHindi = !isHindi;
-
-    document.getElementById("languageButton").textContent =
-        isHindi ? "English" : "हिंदी";
-
-    document.getElementById("welcomeTitle").textContent =
-        isHindi ? "CARE FOR U में आपका स्वागत है" : "Welcome to CARE FOR U";
-
-    document.getElementById("welcomeText").textContent =
-        isHindi
-        ? "बेबी केयर और महिलाओं की स्वच्छता के उत्पाद, प्यार के साथ।"
-        : "Baby Care & Women's Hygiene Products Delivered with Love.";
-
-    document.getElementById("categoryTitle").textContent =
-        isHindi ? "श्रेणी के अनुसार खरीदें" : "Shop by Category";
-
-    document.getElementById("productsTitle").textContent =
-        isHindi ? "हमारे उत्पाद" : "Our Products";
-
-    document.getElementById("searchInput").placeholder =
-        isHindi ? "उत्पाद खोजें..." : "Search products...";
-
-    document.getElementById("loginTitle").textContent =
-        isHindi ? "ग्राहक लॉगिन" : "Customer Login";
-
-    document.getElementById("continueButton").textContent =
-        isHindi ? "आगे बढ़ें" : "Continue";
-
-    document.getElementById("cartTitle").textContent =
-        isHindi ? "आपकी शॉपिंग कार्ट" : "Your Shopping Cart";
-}
-
-/* START APP */
-
-function startApp() {
-    renderProducts();
-    updateCartCount();
-
-    if (customer) {
-        console.log("Customer demo session loaded.");
-    }
-
-    console.log("CARE FOR U app loaded successfully.");
-}
-
+function startApp(){setSignedInView();updateCartCount();console.log("CARE FOR U started")}
 startApp();
-
 </script>
-
 </body>
 </html>
