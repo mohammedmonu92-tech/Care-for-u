@@ -2,359 +2,472 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#c21868">
-<title>CARE FOR U | Online Store</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>CARE FOR U</title>
 <style>
-:root{--pink:#c21868;--dark:#801044;--light:#fff0f6;--gold:#c69b58;--white:#fff;--text:#333}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#fff8fb;color:var(--text)}
-header{background:linear-gradient(135deg,#c21868,#e85b9c);color:#fff;padding:18px 15px;text-align:center}
-header h1{font-size:28px;letter-spacing:2px}header p{font-size:12px;margin-top:5px}
-.top-buttons{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:15px}
-button{border:0;border-radius:8px;padding:10px 14px;cursor:pointer;font-size:14px;font-weight:bold}
-button:disabled{opacity:.5;cursor:not-allowed}
-.top-buttons button{background:#fff;color:var(--pink)}
-button:active{opacity:.75}
-.container{padding:15px;max-width:1000px;margin:auto}
-.banner{background:linear-gradient(135deg,#ffe1ed,#fff5f9);border:1px solid #f7c4d9;border-radius:15px;padding:25px 15px;text-align:center;margin-bottom:18px}
-.banner h2{color:var(--pink);margin-bottom:8px}.banner p{font-size:14px;line-height:1.5}
-.search-box{width:100%;padding:13px;border:1px solid #e8a9c5;border-radius:10px;font-size:15px;margin-bottom:18px;outline:none}
-.section-title{color:var(--dark);margin:20px 0 12px;font-size:20px}
-.categories{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.category{background:#fff;border:1px solid #f2c6d9;border-radius:12px;padding:17px 8px;text-align:center;color:var(--pink);font-weight:bold;cursor:pointer}
-.category.active{background:var(--pink);color:#fff}
-.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.product{background:#fff;border:1px solid #f1d4e0;border-radius:12px;padding:12px;box-shadow:0 2px 8px rgba(150,50,90,.07)}
-.product-image{height:130px;background:#fff0f6;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:10px;overflow:hidden}
-.product-image img{width:100%;height:100%;object-fit:contain}
-.product h3{color:var(--dark);font-size:15px;min-height:36px}.product p{font-size:12px;color:#777;margin:5px 0}
-.price{color:var(--pink);font-weight:bold;font-size:17px;margin:8px 0}
-.add-btn,.primary-btn{background:var(--pink);color:#fff}.add-btn{width:100%}
-.panel{display:none;background:#fff;border:1px solid #edbfd2;border-radius:13px;padding:16px;margin-top:18px}
-.panel h2{color:var(--pink);margin-bottom:14px}
-input,select,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #e6b5c9;border-radius:8px;font-size:14px;background:#fff}
-.primary-btn{width:100%;margin-top:8px}.secondary-btn{background:#ffe3ef;color:var(--dark);margin-top:8px}
-.danger-btn{background:#c62828;color:#fff;padding:7px 10px}
-.cart-item,.admin-item{border-bottom:1px solid #f1d4e0;padding:12px 0;font-size:14px}
-.cart-item button,.admin-item button{padding:5px 9px;margin:3px}.total{font-size:19px;color:var(--pink);font-weight:bold;margin-top:15px}
-.empty{color:#888;padding:15px 0;text-align:center}
-footer{background:#801044;color:#fff;text-align:center;padding:22px 12px;margin-top:30px;line-height:1.8;font-size:13px}
-footer a{color:#ffe0ed}.hidden{display:none!important}
-.notice{background:#fff1d6;color:#795500;padding:10px;border-radius:8px;font-size:12px;margin-top:10px}
-.login-screen{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:22px 15px}
-.login-card{width:100%;max-width:420px;background:#fff;border:1px solid #f0bfd4;border-radius:18px;padding:24px;box-shadow:0 5px 22px rgba(150,50,90,.1);text-align:center}
-.login-card h2{color:var(--pink);margin-bottom:8px}.login-card p{font-size:13px;color:#666;line-height:1.5;margin-bottom:12px}
-.account-strip{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;background:#fff;border:1px solid #f1d4e0;padding:10px 12px;border-radius:10px;margin-bottom:15px;font-size:13px}
-.account-strip strong{color:var(--dark)}
-.photo-help{font-size:12px;color:#765568;line-height:1.5;margin:4px 0 8px}
-.photo-preview{width:100%;height:130px;object-fit:contain;background:#fff0f6;border:1px dashed #e6b5c9;border-radius:10px;margin:6px 0 10px;display:none}
-.admin-thumb{width:58px;height:58px;object-fit:contain;background:#fff0f6;border-radius:8px;vertical-align:middle;margin:5px 8px 5px 0}
-@media(min-width:650px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}.categories{grid-template-columns:repeat(4,1fr)}}
+:root{--pink:#c21868;--light:#fff0f6;--dark:#6b123d;--gold:#c99a45}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fff7fa;color:#29212a}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:0;border-radius:9px;padding:11px 14px}
+.primary{background:var(--pink);color:white}
+.secondary{background:#ffe0ed;color:var(--dark)}
+header{background:white;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 9px #0001;position:sticky;top:0;z-index:5}
+.logo{font-size:21px;font-weight:bold;color:var(--pink);cursor:pointer}
+.logo small{display:block;font-size:9px;letter-spacing:1px;color:#777}
+nav{display:flex;gap:7px;overflow:auto;padding:10px;background:white}
+nav button{white-space:nowrap;background:#ffe8f1;color:#83164c}
+input,select,textarea{width:100%;padding:12px;margin:6px 0;border:1px solid #e8cbd8;border-radius:9px;background:white}
+.page{display:none;padding:14px;max-width:1000px;margin:auto}
+.page.active{display:block}
+.search{padding:12px;background:white}
+.categories{display:flex;gap:8px;overflow:auto;padding:10px 0}
+.categories button{white-space:nowrap;background:#ffe0ed;color:#83164c}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 9px #0001}
+.card img{width:100%;height:145px;object-fit:contain;background:#fff0f6}
+.cardbody{padding:10px}
+.price{color:var(--pink);font-weight:bold;font-size:17px}
+.old{color:#888;text-decoration:line-through;font-size:12px}
+.muted{color:#777;font-size:13px}
+.row{display:flex;gap:8px;align-items:center}
+.row>*{flex:1}
+.bigimg{width:100%;height:260px;object-fit:contain;background:#fff0f6;border-radius:12px}
+.box{background:white;padding:14px;border-radius:12px;margin:10px 0;box-shadow:0 2px 8px #0001}
+.actions{display:flex;gap:8px;margin-top:10px}
+.actions button{flex:1}
+footer{text-align:center;padding:25px;color:#888;font-size:12px}
+hr{border:0;border-top:1px solid #eee;margin:14px 0}
+.hidden{display:none!important}
+.badge{background:#ffe0ed;color:#9b1554;padding:4px 7px;border-radius:7px;font-size:11px}
 </style>
 </head>
 <body>
+
 <header>
-  <h1>CARE FOR U</h1><p>Care That Makes You Feel Special.</p>
-  <div class="top-buttons" id="storeButtons">
-    <button onclick="toggleLanguage()" id="languageButton">हिंदी</button>
-    <button onclick="showCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
-    <button onclick="showAdmin()">⚙ Admin</button>
-    <button onclick="logoutCustomer()">Logout</button>
-  </div>
+ <div class="logo" onclick="logoTap()">CARE FOR U<small>Care That Makes You Feel Special.</small></div>
+ <div>
+  <button class="secondary" onclick="go('cart')">🛒 <span id="cartCount">0</span></button>
+  <button class="secondary" onclick="go('profile')">👤</button>
+ </div>
 </header>
 
-<section id="loginScreen" class="login-screen">
-  <div class="login-card">
-    <h2>Welcome to CARE FOR U</h2>
-    <p>Baby Care & Women's Hygiene Products Delivered with Love.</p>
-    <input type="text" id="customerName" placeholder="Enter your name" maxlength="60" autocomplete="name">
-    <input type="tel" id="customerPhone" placeholder="Enter 10 digit mobile number" maxlength="10" inputmode="numeric" autocomplete="tel">
-    <button class="primary-btn" onclick="customerLogin()">Login / Continue</button>
-    <p id="loginMessage" class="notice hidden" role="status"></p>
-    <p class="notice">Demo login only. Real OTP verification is not connected.</p>
+<div id="login" class="page">
+ <div class="box" style="margin-top:45px;text-align:center">
+  <h1 style="color:#c21868">CARE FOR U ❤️</h1>
+  <p>Welcome! Login to start shopping.</p>
+  <input id="loginName" placeholder="Your name">
+  <input id="loginPhone" placeholder="Mobile number" type="tel" maxlength="10">
+  <button class="primary" style="width:100%" onclick="loginUser()">Continue</button>
+  <p class="muted">Demo login. OTP verification is not connected.</p>
+ </div>
+</div>
+
+<div id="store" class="page">
+ <div class="search">
+  <input id="search" placeholder="🔍 Search products..." oninput="renderProducts()">
+ </div>
+ <h2>Welcome to CARE FOR U ❤️</h2>
+ <p class="muted">Shop everything you need, all in one place.</p>
+ <div class="categories" id="categories"></div>
+ <div class="row">
+  <h3>Popular Products</h3>
+  <select id="sort" onchange="renderProducts()">
+   <option value="">Sort</option>
+   <option value="low">Price: Low to High</option>
+   <option value="high">Price: High to Low</option>
+  </select>
+ </div>
+ <div class="grid" id="products"></div>
+</div>
+
+<div id="detail" class="page">
+ <button class="secondary" onclick="go('store')">← Back</button>
+ <div id="detailContent"></div>
+</div>
+
+<div id="cart" class="page">
+ <h2>My Shopping Cart 🛒</h2>
+ <div id="cartItems"></div>
+ <div id="cartTotal"></div>
+ <button class="primary" style="width:100%" onclick="go('checkout')">Proceed to Checkout</button>
+</div>
+
+<div id="checkout" class="page">
+ <h2>Checkout</h2>
+ <div class="box">
+  <input id="aName" placeholder="Full name">
+  <input id="aPhone" placeholder="Mobile number" type="tel">
+  <textarea id="aAddress" placeholder="Full delivery address"></textarea>
+  <input id="aPin" placeholder="PIN code">
+  <select id="pay">
+   <option>Cash on Delivery</option>
+   <option>UPI (demo only)</option>
+   <option>Card (demo only)</option>
+  </select>
+  <p class="muted">UPI and card options are demo selections. No payment will be collected.</p>
+  <button class="primary" style="width:100%" onclick="placeOrder()">Place Order</button>
+ </div>
+</div>
+
+<div id="orders" class="page">
+ <h2>My Orders</h2>
+ <div id="orderList"></div>
+</div>
+
+<div id="wishlist" class="page">
+ <h2>My Wishlist ❤️</h2>
+ <div class="grid" id="wishList"></div>
+</div>
+
+<div id="profile" class="page">
+ <h2>My Account</h2>
+ <div class="box" id="profileInfo"></div>
+ <button class="secondary" onclick="go('orders')">My Orders</button>
+ <button class="secondary" onclick="go('wishlist')">My Wishlist</button>
+ <button class="primary" onclick="logout()">Logout</button>
+</div>
+
+<div id="admin" class="page">
+ <h2>🔐 Admin Dashboard</h2>
+ <div class="box">
+  <h3>Add New Product</h3>
+  <input id="pName" placeholder="Product name">
+  <select id="pCat"></select>
+  <div class="row">
+   <input id="pPrice" type="number" placeholder="Selling price">
+   <input id="pMrp" type="number" placeholder="MRP">
   </div>
-</section>
+  <input id="pStock" type="number" placeholder="Stock quantity">
+  <input id="pImage" placeholder="Product photo direct URL (optional)">
+  <textarea id="pDesc" placeholder="Product description"></textarea>
+  <button class="primary" style="width:100%" onclick="addProduct()">Add Product</button>
+ </div>
+ <div class="box">
+  <h3>Manage Products</h3>
+  <div id="adminProducts"></div>
+ </div>
+ <div class="box">
+  <h3>Customer Reviews</h3>
+  <div id="adminReviews"></div>
+ </div>
+ <div class="box">
+  <h3>Customer Orders (this device only)</h3>
+  <div id="adminOrders"></div>
+ </div>
+ <button class="secondary" onclick="go('store')">Back to Shop</button>
+</div>
 
-<main class="container hidden" id="storeScreen">
-  <div class="account-strip">
-    <span>Logged in as: <strong id="signedInName"></strong></span>
-    <button class="secondary-btn" onclick="logoutCustomer()">Logout</button>
-  </div>
-  <section class="banner">
-    <h2 id="welcomeTitle">Welcome to CARE FOR U</h2>
-    <p id="welcomeText">Baby Care & Women's Hygiene Products Delivered with Love.</p>
-  </section>
-  <input type="search" id="searchInput" class="search-box" placeholder="Search products..." oninput="renderProducts()">
-  <h2 class="section-title" id="categoryTitle">Shop by Category</h2>
-  <div class="categories">
-    <div class="category active" onclick="selectCategory('All',this)">🛍 All Products</div>
-    <div class="category" onclick="selectCategory('Baby Care',this)">👶 Baby Care</div>
-    <div class="category" onclick="selectCategory('Women Care',this)">🌸 Women Care</div>
-    <div class="category" onclick="selectCategory('Hygiene',this)">💗 Hygiene</div>
-  </div>
-  <h2 class="section-title" id="productsTitle">Our Products</h2>
-  <div class="products" id="productList"></div>
-
-  <section class="panel" id="cartPanel">
-    <h2 id="cartTitle">Your Shopping Cart</h2><div id="cartItems"></div>
-    <div class="total">Total: ₹<span id="cartTotal">0</span></div>
-    <button class="primary-btn" onclick="checkoutDemo()">Place Order (Demo)</button>
-    <button class="secondary-btn" onclick="closePanels()">Continue Shopping</button>
-  </section>
-
-  <section class="panel" id="adminLoginPanel">
-    <h2>Admin Login</h2>
-    <div id="adminSetupBox">
-      <p class="notice">First-time setup: create your own admin password. Use at least 8 characters. Keep it private.</p>
-      <input type="password" id="newAdminPassword" placeholder="Create admin password (8+ characters)" autocomplete="new-password">
-      <input type="password" id="confirmAdminPassword" placeholder="Confirm admin password" autocomplete="new-password">
-      <button class="primary-btn" onclick="setAdminPassword()">Save Admin Password</button>
-    </div>
-    <div id="adminLoginBox" class="hidden">
-      <p class="notice">Enter the admin password you created on this device.</p>
-      <input type="password" id="adminPassword" placeholder="Enter admin password" autocomplete="current-password">
-      <button class="primary-btn" onclick="adminLogin()">Login</button>
-      <button class="secondary-btn" onclick="showPasswordReset()">Forgot / Reset Admin Password</button>
-    </div>
-    <p id="adminMessage" class="notice hidden" role="status"></p>
-    <button class="secondary-btn" onclick="closePanels()">Close</button>
-  </section>
-
-  <section class="panel" id="adminResetPanel">
-    <h2>Reset Admin Password</h2>
-    <p class="notice">This demo reset works only on this device. It clears the saved admin password and lets you create a new one.</p>
-    <input type="password" id="resetPhoneCheck" placeholder="Type RESET to confirm">
-    <button class="danger-btn" onclick="resetAdminPassword()">Reset Admin Password</button>
-    <button class="secondary-btn" onclick="showAdmin()">Back</button>
-  </section>
-
-  <section class="panel" id="adminPanel">
-    <h2>Admin Dashboard</h2>
-    <h3>Add New Product</h3>
-    <input id="newName" placeholder="Product Name" maxlength="80">
-    <select id="newCategory"><option value="Baby Care">Baby Care</option><option value="Women Care">Women Care</option><option value="Hygiene">Hygiene</option></select>
-    <input id="newPrice" type="number" placeholder="Price in rupees" min="1" max="100000">
-    <input id="newStock" type="number" placeholder="Available stock" min="0" max="100000">
-    <input id="newEmoji" placeholder="Product emoji (example: 👶)" maxlength="8">
-    <label for="newProductPhoto"><strong>Product Photo (Gallery se select karein)</strong></label>
-    <input id="newProductPhoto" type="file" accept="image/*" onchange="previewNewProductPhoto(event)">
-    <p class="photo-help">Phone ki Gallery se product ki photo choose karein. Photo device mein save hogi.</p>
-    <img id="newPhotoPreview" class="photo-preview" alt="Selected product photo preview">
-    <button class="primary-btn" onclick="addProduct()">Add Product</button>
-    <h3 style="margin-top:22px">Manage Products</h3>
-    <div id="adminProductList"></div>
-    <button class="secondary-btn" onclick="adminLogout()">Logout Admin</button>
-    <button class="secondary-btn" onclick="closePanels()">Close</button>
-    <p class="notice">Demo admin panel: product data is saved only on this device. This is not secure server-side administration.</p>
-  </section>
-</main>
-
-<footer id="pageFooter" class="hidden">
-  <h3>CARE FOR U</h3><p>Care That Makes You Feel Special.</p>
-  <p>Shop No. 2, Calicut, Port Blair</p><p>Andaman & Nicobar Islands - 744105</p>
-  <p>Contact: 9332594564</p>
-  <p><a href="https://wa.me/919332594564" target="_blank" rel="noopener">WhatsApp Us</a></p>
-  <p>© 2026 CARE FOR U. All Rights Reserved.</p>
+<footer>
+ CARE FOR U ❤️<br>
+ Care That Makes You Feel Special.<br>
+ Shop No. 2, Calicut, Port Blair, Andaman & Nicobar Islands – 744105<br>
+ WhatsApp: 9332594564
 </footer>
 
 <script>
-"use strict";
-const defaultProducts=[
-{id:1,name:"Pampers Baby Diapers",category:"Baby Care",price:499,stock:20,emoji:"👶"},
-{id:2,name:"Huggies Baby Diapers",category:"Baby Care",price:449,stock:20,emoji:"🍼"},
-{id:3,name:"MamyPoko Pants",category:"Baby Care",price:399,stock:15,emoji:"🧸"},
-{id:4,name:"Whisper Sanitary Pads",category:"Women Care",price:120,stock:30,emoji:"🌸"},
-{id:5,name:"Stayfree Sanitary Pads",category:"Women Care",price:110,stock:30,emoji:"💗"},
-{id:6,name:"Sofy Sanitary Pads",category:"Women Care",price:130,stock:25,emoji:"🌷"},
-{id:7,name:"Baby Wipes",category:"Baby Care",price:99,stock:25,emoji:"🧻"},
-{id:8,name:"Personal Hygiene Pack",category:"Hygiene",price:199,stock:15,emoji:"🛍️"}
+const CATS=[
+"All","Baby Care","Women Hygiene","Beauty","Fashion","Footwear",
+"Home & Kitchen","Grocery","Electronics","Toys & Kids","Health",
+"Bags","Daily Essentials"
 ];
-function loadData(key,fallback){try{const raw=localStorage.getItem(key);return raw===null?fallback:JSON.parse(raw)}catch(e){console.error("Storage read:",e);return fallback}}
-function save(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch(e){console.error("Storage write:",e);alert("Device storage could not save this change. Try a smaller photo.");return false}}
-let products=loadData("cfu_products",defaultProducts);
-if(!Array.isArray(products))products=defaultProducts;
-let cart=loadData("cfu_cart",[]);
-if(!Array.isArray(cart))cart=[];
-let customer=loadData("cfu_customer",null);
-let selectedCategory="All",isHindi=false,isAdmin=false;
-let newProductImageData="";
 
-function escapeHTML(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
-function closePanels(){document.querySelectorAll(".panel").forEach(p=>p.style.display="none")}
-function openPanel(id){closePanels();const p=document.getElementById(id);if(p){p.style.display="block";p.scrollIntoView({behavior:"smooth",block:"start"})}}
-function setSignedInView(){
- const loggedIn=!!(customer&&customer.name&&customer.phone);
- document.getElementById("loginScreen").classList.toggle("hidden",loggedIn);
- document.getElementById("storeScreen").classList.toggle("hidden",!loggedIn);
- document.getElementById("pageFooter").classList.toggle("hidden",!loggedIn);
- document.getElementById("storeButtons").classList.toggle("hidden",!loggedIn);
- if(loggedIn){document.getElementById("signedInName").textContent=customer.name;renderProducts();updateCartCount()}
- else closePanels();
+const initialProducts=[
+{id:1,name:"Baby Diapers",cat:"Baby Care",price:499,mrp:599,stock:20,desc:"Soft and comfortable baby diapers for everyday use.",image:"",rating:4.5},
+{id:2,name:"Baby Wipes",cat:"Baby Care",price:149,mrp:199,stock:30,desc:"Gentle wipes for baby care.",image:"",rating:4.2},
+{id:3,name:"Sanitary Pads",cat:"Women Hygiene",price:99,mrp:130,stock:40,desc:"Comfortable sanitary pads for daily hygiene.",image:"",rating:4.4},
+{id:4,name:"Face Wash",cat:"Beauty",price:199,mrp:249,stock:15,desc:"A refreshing face wash for daily use.",image:"",rating:4.1},
+{id:5,name:"Women's Kurti",cat:"Fashion",price:599,mrp:899,stock:10,desc:"Comfortable everyday fashion wear.",image:"",rating:4.3},
+{id:6,name:"Kitchen Storage Box",cat:"Home & Kitchen",price:249,mrp:299,stock:12,desc:"Useful storage for your kitchen.",image:"",rating:4.0},
+{id:7,name:"Kids Toy",cat:"Toys & Kids",price:299,mrp:399,stock:8,desc:"Fun toy for children.",image:"",rating:4.2},
+{id:8,name:"Daily Grocery Pack",cat:"Grocery",price:199,mrp:230,stock:25,desc:"Daily essentials for your home.",image:"",rating:4.0}
+];
+
+function read(key, fallback){
+ try{return JSON.parse(localStorage.getItem(key)) ?? fallback}
+ catch(e){return fallback}
 }
-function customerLogin(){
- const name=document.getElementById("customerName").value.trim();
- const phone=document.getElementById("customerPhone").value.replace(/\D/g,"");
- const msg=document.getElementById("loginMessage");msg.classList.remove("hidden");
- if(name.length<2){msg.textContent="Please enter your name (at least 2 letters).";return}
- if(!/^[0-9]{10}$/.test(phone)){msg.textContent="Please enter a valid 10 digit mobile number.";return}
- customer={name,phone};
- if(!save("cfu_customer",customer))return;
- msg.textContent="Login successful. Welcome!";
- setSignedInView();
+function save(key,value){
+ try{localStorage.setItem(key,JSON.stringify(value));return true}
+ catch(e){alert("Phone storage full. Please remove some saved data.");return false}
 }
-function logoutCustomer(){
- if(!customer)return;
- if(!confirm("Are you sure you want to logout?"))return;
- customer=null;isAdmin=false;save("cfu_customer",null);
- document.getElementById("customerName").value="";
- document.getElementById("customerPhone").value="";
- document.getElementById("loginMessage").classList.add("hidden");
- setSignedInView();
+let products=read("cfu_products",initialProducts);
+let cart=read("cfu_cart",[]);
+let wishlist=read("cfu_wishlist",[]);
+let orders=read("cfu_orders",[]);
+let reviews=read("cfu_reviews",[]);
+let user=read("cfu_user",null);
+let selectedCat="All",currentProduct=null,adminOk=false,logoClicks=0,logoTimer;
+
+function go(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ if(id==="store")renderProducts();
+ if(id==="cart")renderCart();
+ if(id==="orders")renderOrders();
+ if(id==="wishlist")renderWishlist();
+ if(id==="profile")renderProfile();
+ if(id==="admin"){
+  if(!adminOk){adminLogin();return}
+  renderAdmin();
+ }
  window.scrollTo(0,0);
 }
-function productImageMarkup(p){
- return p.image?`<img src="${p.image}" alt="${escapeHTML(p.name)}">`:escapeHTML(p.emoji||"🛍️");
+function loginUser(){
+ let name=document.getElementById("loginName").value.trim();
+ let phone=document.getElementById("loginPhone").value.trim();
+ if(!name||!/^[0-9]{10}$/.test(phone)){alert("Enter your name and valid 10-digit mobile number.");return}
+ user={name,phone};
+ save("cfu_user",user);
+ go("store");
 }
-function renderProducts(){
- const list=document.getElementById("productList");if(!list)return;
- const search=document.getElementById("searchInput").value.trim().toLowerCase();
- const filtered=products.filter(p=>(selectedCategory==="All"||p.category===selectedCategory)&&String(p.name||"").toLowerCase().includes(search));
- if(!filtered.length){list.innerHTML='<p class="empty">No products found.</p>';return}
- list.innerHTML=filtered.map(p=>`<div class="product"><div class="product-image">${productImageMarkup(p)}</div><h3>${escapeHTML(p.name)}</h3><p>${escapeHTML(p.category)}</p><p>Stock: ${Number(p.stock)||0}</p><div class="price">₹${Number(p.price)||0}</div><button class="add-btn" onclick="addToCart(${Number(p.id)})" ${Number(p.stock)<=0?"disabled":""}>${Number(p.stock)<=0?"Out of Stock":"Add to Cart"}</button></div>`).join("");
+function logout(){
+ user=null;save("cfu_user",null);go("login");
 }
-function selectCategory(category,el){selectedCategory=category;document.querySelectorAll(".category").forEach(x=>x.classList.remove("active"));el.classList.add("active");renderProducts()}
-function addToCart(id){
- const p=products.find(x=>Number(x.id)===Number(id));if(!p||Number(p.stock)<=0){alert("This product is out of stock.");return}
- let item=cart.find(x=>Number(x.id)===Number(id));if(item&&Number(item.quantity)>=Number(p.stock)){alert("Available stock limit reached.");return}
- if(item)item.quantity=Number(item.quantity)+1;else cart.push({id:p.id,quantity:1});
- save("cfu_cart",cart);updateCartCount();alert("Product added to cart!");
-}
-function updateCartCount(){document.getElementById("cartCount").textContent=cart.reduce((n,x)=>n+(Number(x.quantity)||0),0)}
-function showCart(){renderCart();openPanel("cartPanel")}
-function renderCart(){
- const box=document.getElementById("cartItems");let total=0;
- const valid=cart.filter(i=>products.some(p=>Number(p.id)===Number(i.id))&&Number(i.quantity)>0);
- if(valid.length!==cart.length){cart=valid;save("cfu_cart",cart)}
- if(!cart.length){box.innerHTML='<p class="empty">Your cart is empty.</p>';document.getElementById("cartTotal").textContent="0";return}
- box.innerHTML=cart.map(i=>{const p=products.find(x=>Number(x.id)===Number(i.id));if(!p)return"";const q=Number(i.quantity)||0,sub=(Number(p.price)||0)*q;total+=sub;return `<div class="cart-item"><strong>${escapeHTML(p.name)}</strong><br>₹${Number(p.price)} × ${q} = ₹${sub}<br><button class="secondary-btn" onclick="changeQuantity(${Number(i.id)},-1)">−</button><button class="secondary-btn" onclick="changeQuantity(${Number(i.id)},1)">+</button><button class="danger-btn" onclick="removeFromCart(${Number(i.id)})">Remove</button></div>`}).join("");
- document.getElementById("cartTotal").textContent=total;
-}
-function changeQuantity(id,delta){const i=cart.find(x=>Number(x.id)===Number(id)),p=products.find(x=>Number(x.id)===Number(id));if(!i||!p)return;const q=Number(i.quantity)+delta;if(q<=0){removeFromCart(id);return}if(q>Number(p.stock)){alert("Available stock limit reached.");return}i.quantity=q;save("cfu_cart",cart);updateCartCount();renderCart()}
-function removeFromCart(id){cart=cart.filter(x=>Number(x.id)!==Number(id));save("cfu_cart",cart);updateCartCount();renderCart()}
-function checkoutDemo(){if(!customer){setSignedInView();return}if(!cart.length){alert("Your cart is empty.");return}alert("Thank you, "+customer.name+"! This is a demo checkout. No real order or payment has been placed.")}
-
-function showAdmin(){
- if(!customer){alert("Please login first.");return}
- const hasPassword=!!localStorage.getItem("cfu_admin_password");
- document.getElementById("adminSetupBox").classList.toggle("hidden",hasPassword);
- document.getElementById("adminLoginBox").classList.toggle("hidden",!hasPassword);
- document.getElementById("adminMessage").classList.add("hidden");
- if(isAdmin){renderAdminProducts();openPanel("adminPanel")}else openPanel("adminLoginPanel");
-}
-function setAdminPassword(){
- const a=document.getElementById("newAdminPassword").value,b=document.getElementById("confirmAdminPassword").value,msg=document.getElementById("adminMessage");
- msg.classList.remove("hidden");
- if(a.length<8){msg.textContent="Password must be at least 8 characters.";return}
- if(a!==b){msg.textContent="Passwords do not match. Please type them again.";return}
- try{localStorage.setItem("cfu_admin_password",a)}catch(error){console.error(error);msg.textContent="Could not save password on this device.";return}
- document.getElementById("adminSetupBox").classList.add("hidden");document.getElementById("adminLoginBox").classList.remove("hidden");
- document.getElementById("adminPassword").value="";msg.textContent="Admin password saved. Now login using it.";
+function logoTap(){
+ logoClicks++;
+ clearTimeout(logoTimer);
+ logoTimer=setTimeout(()=>logoClicks=0,1500);
+ if(logoClicks>=5){
+  logoClicks=0;
+  go("admin");
+ }
 }
 function adminLogin(){
- const saved=localStorage.getItem("cfu_admin_password"),typed=document.getElementById("adminPassword").value,msg=document.getElementById("adminMessage");
- msg.classList.remove("hidden");
- if(!saved){msg.textContent="Please create an admin password first.";return}
- if(typed!==saved){msg.textContent="Password does not match the password created on this device. Use Reset if you forgot it.";return}
- isAdmin=true;renderAdminProducts();openPanel("adminPanel");
+ let pass=prompt("Admin password:");
+ if(pass==="ChangeMe@123"){adminOk=true;go("admin")}
+ else{alert("Incorrect admin password.");go("store")}
 }
-function showPasswordReset(){openPanel("adminResetPanel")}
-function resetAdminPassword(){
- if(document.getElementById("resetPhoneCheck").value.trim()!=="RESET"){alert('Type RESET exactly to confirm.');return}
- localStorage.removeItem("cfu_admin_password");isAdmin=false;
- document.getElementById("resetPhoneCheck").value="";
- alert("Old demo admin password cleared. Open Admin and create a new password.");showAdmin();
+function makeCategories(){
+ document.getElementById("categories").innerHTML=CATS.map(c=>
+ `<button onclick="selectedCat=${JSON.stringify(c)};renderProducts()">${c}</button>`
+ ).join("");
+ document.getElementById("pCat").innerHTML=CATS.filter(c=>c!=="All").map(c=>
+ `<option>${c}</option>`).join("");
 }
-
-/* Product photos are resized before saving to reduce phone storage use. */
-function resizeImageFile(file){
- return new Promise((resolve,reject)=>{
-  if(!file||!file.type||!file.type.startsWith("image/")){reject(new Error("Please select an image file."));return}
-  const reader=new FileReader();
-  reader.onerror=()=>reject(new Error("Could not read this photo."));
-  reader.onload=()=>{
-   const img=new Image();
-   img.onerror=()=>reject(new Error("This photo could not be opened."));
-   img.onload=()=>{
-    const maxSide=900,scale=Math.min(1,maxSide/Math.max(img.width,img.height));
-    const canvas=document.createElement("canvas");
-    canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));
-    const ctx=canvas.getContext("2d");ctx.drawImage(img,0,0,canvas.width,canvas.height);
-    try{resolve(canvas.toDataURL("image/jpeg",0.78))}catch(e){reject(e)}
-   };
-   img.src=reader.result;
-  };
-  reader.readAsDataURL(file);
+function safe(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function image(p){
+ return p.image
+ ? `<img src="${safe(p.image)}" onerror="this.style.display='none'" alt="${safe(p.name)}">`
+ : `<div style="height:145px;display:grid;place-items:center;background:#fff0f6;font-size:55px">🛍️</div>`;
+}
+function renderProducts(){
+ let q=document.getElementById("search").value.toLowerCase();
+ let list=products.filter(p=>
+ (selectedCat==="All"||p.cat===selectedCat)&&
+ (p.name.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q))
+ );
+ let sort=document.getElementById("sort").value;
+ if(sort==="low")list.sort((a,b)=>a.price-b.price);
+ if(sort==="high")list.sort((a,b)=>b.price-a.price);
+ document.getElementById("products").innerHTML=list.map(p=>`
+ <div class="card">
+  <div onclick="openProduct(${p.id})">${image(p)}</div>
+  <div class="cardbody">
+   <b onclick="openProduct(${p.id})">${safe(p.name)}</b>
+   <p class="price">₹${p.price} <span class="old">₹${p.mrp}</span></p>
+   <p class="muted">⭐ ${p.rating||"New"} · ${p.stock} in stock</p>
+   <div class="actions">
+    <button class="primary" onclick="addCart(${p.id})">Add</button>
+    <button class="secondary" onclick="toggleWish(${p.id})">♡</button>
+   </div>
+  </div>
+ </div>`).join("")||"<p>No products found.</p>";
+ updateCount();
+}
+function openProduct(id){
+ currentProduct=products.find(p=>p.id===id);
+ if(!currentProduct)return;
+ let p=currentProduct;
+ let rv=reviews.filter(r=>r.pid===id&&r.approved);
+ document.getElementById("detailContent").innerHTML=`
+ <div class="box">
+ ${image(p)}
+ <h2>${safe(p.name)}</h2>
+ <div class="price">₹${p.price} <span class="old">₹${p.mrp}</span></div>
+ <p>⭐ ${p.rating||"New"} / 5</p>
+ <p>${safe(p.desc)}</p>
+ <p class="muted">Category: ${safe(p.cat)} · Stock: ${p.stock}</p>
+ <div class="actions">
+ <button class="primary" onclick="addCart(${p.id});go('cart')">Buy Now</button>
+ <button class="secondary" onclick="addCart(${p.id})">Add to Cart</button>
+ </div>
+ </div>
+ <div class="box">
+ <h3>Customer Reviews (${rv.length})</h3>
+ ${rv.map(r=>`<p>⭐ ${r.stars}/5 — ${safe(r.name)}<br>${safe(r.text)}</p><hr>`).join("")||"<p class='muted'>No approved reviews yet.</p>"}
+ <h4>Write a Review</h4>
+ <select id="reviewStars"><option value="5">5 Stars</option><option value="4">4 Stars</option><option value="3">3 Stars</option><option value="2">2 Stars</option><option value="1">1 Star</option></select>
+ <textarea id="reviewText" placeholder="Write your review"></textarea>
+ <button class="primary" onclick="submitReview(${p.id})">Submit Review</button>
+ <p class="muted">Reviews appear after admin approval.</p>
+ </div>`;
+ go("detail");
+}
+function submitReview(id){
+ if(!user){alert("Please login first.");return}
+ let text=document.getElementById("reviewText").value.trim();
+ if(!text){alert("Write your review first.");return}
+ reviews.push({id:Date.now(),pid:id,name:user.name,stars:+document.getElementById("reviewStars").value,text,approved:false});
+ save("cfu_reviews",reviews);
+ alert("Review submitted for approval.");
+ openProduct(id);
+}
+function addCart(id){
+ let p=products.find(x=>x.id===id);
+ if(!p||p.stock<1){alert("Product out of stock.");return}
+ let item=cart.find(x=>x.id===id);
+ if(item){
+  if(item.qty>=p.stock){alert("Available stock limit reached.");return}
+  item.qty++;
+ }else cart.push({id,qty:1});
+ save("cfu_cart",cart);updateCount();alert("Added to cart!");
+}
+function updateCount(){
+ document.getElementById("cartCount").textContent=cart.reduce((s,x)=>s+x.qty,0);
+}
+function renderCart(){
+ let html=cart.map(x=>{
+ let p=products.find(y=>y.id===x.id);
+ if(!p)return "";
+ return `<div class="box">
+ <b>${safe(p.name)}</b><p>₹${p.price} × ${x.qty}</p>
+ <button onclick="changeQty(${p.id},-1)">−</button>
+ <button onclick="changeQty(${p.id},1)">+</button>
+ <button class="secondary" onclick="removeCart(${p.id})">Remove</button>
+ </div>`;
+ }).join("");
+ document.getElementById("cartItems").innerHTML=html||"<p>Your cart is empty.</p>";
+ let total=cart.reduce((s,x)=>s+(products.find(p=>p.id===x.id)?.price||0)*x.qty,0);
+ document.getElementById("cartTotal").innerHTML=`<h3>Total: ₹${total}</h3>`;
+}
+function changeQty(id,n){
+ let x=cart.find(a=>a.id===id),p=products.find(a=>a.id===id);
+ if(!x)return;
+ x.qty+=n;
+ if(x.qty<1)cart=cart.filter(a=>a.id!==id);
+ if(p&&x.qty>p.stock){x.qty=p.stock;alert("Stock limit reached.")}
+ save("cfu_cart",cart);renderCart();updateCount();
+}
+function removeCart(id){
+ cart=cart.filter(x=>x.id!==id);save("cfu_cart",cart);renderCart();updateCount();
+}
+function placeOrder(){
+ if(!cart.length){alert("Your cart is empty.");return}
+ let name=document.getElementById("aName").value.trim();
+ let phone=document.getElementById("aPhone").value.trim();
+ let address=document.getElementById("aAddress").value.trim();
+ let pin=document.getElementById("aPin").value.trim();
+ if(!name||!/^[0-9]{10}$/.test(phone)||!address||!/^[0-9]{6}$/.test(pin)){
+  alert("Please enter valid delivery details and 6-digit PIN code.");return
+ }
+ for(let x of cart){
+  let p=products.find(a=>a.id===x.id);
+  if(!p||p.stock<x.qty){alert("Some products do not have enough stock.");return}
+ }
+ let items=cart.map(x=>{
+  let p=products.find(a=>a.id===x.id);
+  p.stock-=x.qty;
+  return {name:p.name,price:p.price,qty:x.qty};
  });
+ let total=items.reduce((s,x)=>s+x.price*x.qty,0);
+ orders.push({
+  id:"CFU"+Date.now(),name,phone,address,pin,
+  payment:document.getElementById("pay").value,
+  items,total,status:"Order placed",date:new Date().toLocaleString()
+ });
+ save("cfu_products",products);
+ save("cfu_orders",orders);
+ cart=[];save("cfu_cart",cart);updateCount();
+ alert("Order placed! Order ID: "+orders[orders.length-1].id);
+ go("orders");
 }
-async function previewNewProductPhoto(event){
- const file=event.target.files&&event.target.files[0],preview=document.getElementById("newPhotoPreview");
- newProductImageData="";
- if(!file){preview.style.display="none";return}
- try{newProductImageData=await resizeImageFile(file);preview.src=newProductImageData;preview.style.display="block"}
- catch(error){alert(error.message||"Photo could not be loaded.");event.target.value="";preview.style.display="none"}
+function renderOrders(){
+ document.getElementById("orderList").innerHTML=orders.filter(o=>user&&o.phone===user.phone).map(o=>`
+ <div class="box"><b>Order ${safe(o.id)}</b><p>${safe(o.date)}</p>
+ <p>${o.items.map(i=>safe(i.name)+" × "+i.qty).join("<br>")}</p>
+ <p>Total: ₹${o.total}</p><span class="badge">${safe(o.status)}</span></div>
+ `).join("")||"<p>No orders yet.</p>";
 }
-async function changeProductImage(id,input){
- if(!isAdmin)return;
- const file=input.files&&input.files[0];if(!file)return;
- const p=products.find(x=>Number(x.id)===Number(id));if(!p)return;
- const oldImage=p.image||"";
- try{
-  const data=await resizeImageFile(file);p.image=data;
-  if(!save("cfu_products",products)){p.image=oldImage;return}
-  renderProducts();renderAdminProducts();alert("Product photo updated successfully!");
- }catch(error){alert(error.message||"Photo could not be saved.")}
+function toggleWish(id){
+ if(wishlist.includes(id))wishlist=wishlist.filter(x=>x!==id);
+ else wishlist.push(id);
+ save("cfu_wishlist",wishlist);alert("Wishlist updated!");
 }
-function adminLogout(){isAdmin=false;closePanels();alert("Admin logged out.")}
+function renderWishlist(){
+ document.getElementById("wishList").innerHTML=products.filter(p=>wishlist.includes(p.id)).map(p=>`
+ <div class="card">${image(p)}<div class="cardbody"><b>${safe(p.name)}</b><p>₹${p.price}</p><button class="primary" onclick="openProduct(${p.id})">View</button><button class="secondary" onclick="toggleWish(${p.id});renderWishlist()">Remove</button></div></div>
+ `).join("")||"<p>Your wishlist is empty.</p>";
+}
+function renderProfile(){
+ document.getElementById("profileInfo").innerHTML=user?
+ `<h3>${safe(user.name)}</h3><p>Mobile: ${safe(user.phone)}</p>`:"Please login.";
+}
 function addProduct(){
- if(!isAdmin){alert("Please login as admin.");return}
- const name=document.getElementById("newName").value.trim(),category=document.getElementById("newCategory").value,price=Number(document.getElementById("newPrice").value),stock=Number(document.getElementById("newStock").value),emoji=document.getElementById("newEmoji").value.trim()||"🛍️";
- if(name.length<2){alert("Please enter a product name.");return}
- if(!Number.isFinite(price)||price<=0||price>100000){alert("Please enter a valid price.");return}
- if(!Number.isInteger(stock)||stock<0||stock>100000){alert("Please enter valid stock quantity.");return}
- const newProduct={id:Date.now(),name,category,price,stock,emoji};
- if(newProductImageData)newProduct.image=newProductImageData;
- products.push(newProduct);if(!save("cfu_products",products)){products.pop();return}
- ["newName","newPrice","newStock","newEmoji","newProductPhoto"].forEach(id=>document.getElementById(id).value="");
- newProductImageData="";document.getElementById("newPhotoPreview").removeAttribute("src");document.getElementById("newPhotoPreview").style.display="none";
- renderProducts();renderAdminProducts();alert("Product added successfully!");
+ let name=document.getElementById("pName").value.trim();
+ let cat=document.getElementById("pCat").value;
+ let price=+document.getElementById("pPrice").value;
+ let mrp=+document.getElementById("pMrp").value;
+ let stock=+document.getElementById("pStock").value;
+ let image=document.getElementById("pImage").value.trim();
+ let desc=document.getElementById("pDesc").value.trim();
+ if(!name||price<=0||stock<0){alert("Enter product name, valid price and stock.");return}
+ products.push({id:Date.now(),name,cat,price,mrp:mrp||price,stock,image,desc,rating:"New"});
+ save("cfu_products",products);
+ ["pName","pPrice","pMrp","pStock","pImage","pDesc"].forEach(id=>document.getElementById(id).value="");
+ renderAdmin();alert("Product added!");
 }
-function renderAdminProducts(){
- const list=document.getElementById("adminProductList");if(!products.length){list.innerHTML='<p class="empty">No products available.</p>';return}
- list.innerHTML=products.map(p=>`<div class="admin-item">${p.image?`<img class="admin-thumb" src="${p.image}" alt="">`:`<span class="admin-thumb" style="display:inline-flex;align-items:center;justify-content:center;font-size:25px">${escapeHTML(p.emoji||"🛍️")}</span>`}<strong>${escapeHTML(p.name)}</strong><br>Category: ${escapeHTML(p.category)}<br>Price: ₹${Number(p.price)}<br>Stock: ${Number(p.stock)}<input type="number" id="stock-${Number(p.id)}" value="${Number(p.stock)}" min="0" max="100000"><button class="secondary-btn" onclick="updateStock(${Number(p.id)})">Update Stock</button><label for="photo-${Number(p.id)}" class="photo-help">Change product photo:</label><input type="file" id="photo-${Number(p.id)}" accept="image/*" onchange="changeProductImage(${Number(p.id)},this)"><button class="danger-btn" onclick="deleteProduct(${Number(p.id)})">Delete</button></div>`).join("");
+function deleteProduct(id){
+ if(!confirm("Delete this product?"))return;
+ products=products.filter(p=>p.id!==id);
+ save("cfu_products",products);renderAdmin();
 }
-function updateStock(id){
- if(!isAdmin)return;const p=products.find(x=>Number(x.id)===Number(id)),input=document.getElementById("stock-"+id),stock=Number(input.value);
- if(!p||!Number.isInteger(stock)||stock<0||stock>100000){alert("Please enter valid stock.");return}
- const oldStock=p.stock,oldCart=JSON.stringify(cart);
- p.stock=stock;const ci=cart.find(x=>Number(x.id)===Number(id));if(stock===0)cart=cart.filter(x=>Number(x.id)!==Number(id));else if(ci&&ci.quantity>stock)ci.quantity=stock;
- if(!save("cfu_products",products)){p.stock=oldStock;cart=JSON.parse(oldCart);return}
- save("cfu_cart",cart);renderProducts();renderAdminProducts();updateCartCount();alert("Stock updated.");
+function updateStock(id,value){
+ let p=products.find(x=>x.id===id);
+ if(!p)return;
+ p.stock=Math.max(0,+value||0);
+ save("cfu_products",products);
 }
-function deleteProduct(id){if(!isAdmin)return;if(!confirm("Are you sure you want to delete this product?"))return;const oldProducts=products,oldCart=cart;products=products.filter(x=>Number(x.id)!==Number(id));cart=cart.filter(x=>Number(x.id)!==Number(id));if(!save("cfu_products",products)){products=oldProducts;cart=oldCart;return}save("cfu_cart",cart);renderProducts();renderAdminProducts();updateCartCount();alert("Product deleted.")}
-
-function toggleLanguage(){
- isHindi=!isHindi;
- document.getElementById("languageButton").textContent=isHindi?"English":"हिंदी";
- document.getElementById("welcomeTitle").textContent=isHindi?"CARE FOR U में आपका स्वागत है":"Welcome to CARE FOR U";
- document.getElementById("welcomeText").textContent=isHindi?"बेबी केयर और महिलाओं की स्वच्छता के उत्पाद, प्यार के साथ।":"Baby Care & Women's Hygiene Products Delivered with Love.";
- document.getElementById("categoryTitle").textContent=isHindi?"श्रेणी के अनुसार खरीदें":"Shop by Category";
- document.getElementById("productsTitle").textContent=isHindi?"हमारे उत्पाद":"Our Products";
- document.getElementById("searchInput").placeholder=isHindi?"उत्पाद खोजें...":"Search products...";
- document.getElementById("cartTitle").textContent=isHindi?"आपकी शॉपिंग कार्ट":"Your Shopping Cart";
+function approveReview(id,approved){
+ let r=reviews.find(x=>x.id===id);
+ if(!r)return;
+ r.approved=approved;
+ save("cfu_reviews",reviews);renderAdmin();
 }
-function startApp(){setSignedInView();updateCartCount();console.log("CARE FOR U started")}
-startApp();
+function deleteReview(id){
+ reviews=reviews.filter(x=>x.id!==id);
+ save("cfu_reviews",reviews);renderAdmin();
+}
+function renderAdmin(){
+ document.getElementById("adminProducts").innerHTML=products.map(p=>`
+ <div class="box"><b>${safe(p.name)}</b><p>₹${p.price} · ${safe(p.cat)}</p>
+ <label>Stock</label><input type="number" value="${p.stock}" onchange="updateStock(${p.id},this.value)">
+ <button class="secondary" onclick="deleteProduct(${p.id})">Delete Product</button></div>
+ `).join("");
+ document.getElementById("adminReviews").innerHTML=reviews.map(r=>`
+ <div class="box"><b>${safe(r.name)}</b> · ${r.stars} stars
+ <p>${safe(r.text)}</p>
+ <p>Status: ${r.approved?"Approved":"Pending"}</p>
+ <button class="primary" onclick="approveReview(${r.id},true)">Approve</button>
+ <button class="secondary" onclick="deleteReview(${r.id})">Delete</button>
+ </div>`).join("")||"<p>No reviews.</p>";
+ document.getElementById("adminOrders").innerHTML=orders.map(o=>`
+ <div class="box"><b>${safe(o.id)}</b><p>${safe(o.name)} · ${safe(o.phone)}</p>
+ <p>${safe(o.address)}, ${safe(o.pin)}</p>
+ <p>Total: ₹${o.total}</p><p>Status: ${safe(o.status)}</p>
+ <select onchange="changeOrderStatus('${o.id}',this.value)">
+ ${["Order placed","Confirmed","Packed","Shipped","Delivered","Cancelled"].map(s=>`<option ${o.status===s?"selected":""}>${s}</option>`).join("")}
+ </select></div>`).join("")||"<p>No orders.</p>";
+}
+function changeOrderStatus(id,status){
+ let o=orders.find(x=>x.id===id);
+ if(o){o.status=status;save("cfu_orders",orders);renderAdmin()}
+}
+makeCategories();
+updateCount();
+if(user)go("store");else go("login");
 </script>
 </body>
 </html>
