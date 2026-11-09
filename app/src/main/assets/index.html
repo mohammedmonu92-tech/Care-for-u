@@ -11,7 +11,7 @@
 </style></head>
 <body>
 <div class="top" id="topline">Island-wide service • Andaman & Nicobar Islands</div>
-<header class="wrap nav"><div class="brand"><div class="mark">♡</div><div>CARE FOR U<small>CARE THAT MAKES YOU FEEL SPECIAL</small></div></div><div class="navright"><button class="pill location">📍 Andaman & Nicobar</button><button class="pill" id="lang">हिंदी</button><button class="cartbtn" id="openCart">Cart (<span id="count">0</span>)</button></div></header>
+<header class="wrap nav"><div class="brand"><div class="mark">♡</div><div>CARE FOR U<small>CARE THAT MAKES YOU FEEL SPECIAL</small></div></div><div class="navright"><button class="pill location">📍 Andaman & Nicobar</button><button class="pill" id="lang">हिंदी</button><button class="cartbtn" id="openCart">Cart (<span id="count">0</span>)</button><button class="pill" onclick="showAdminLogin()">Admin</button>  </div></header>
   <section id="loginBox" style="max-width:450px;margin:20px auto;padding:22px;border:1px solid #f0dce6;border-radius:20px;background:#fff5fa;">
     <h2 style="color:#c21868;">Welcome to CARE FOR U ❤️</h2>
     <p>Login with your mobile number</p>
@@ -56,6 +56,15 @@ document.getElementById('openCart').onclick=showCart;document.getElementById('cl
 document.getElementById('checkout').onclick=()=>alert(hindi?'यह डेमो ऐप है। असली ऑर्डर लेने से पहले पेमेंट और डिलीवरी सिस्टम जोड़ना होगा।':'This is a demo app. Connect payment and delivery systems before accepting real orders.');
 document.getElementById('lang').onclick=()=>{hindi=!hindi;document.getElementById('lang').textContent=hindi?'English':'हिंदी';document.getElementById('topline').textContent=hindi?'अंडमान और निकोबार द्वीपसमूह में सेवा':'Island-wide service • Andaman & Nicobar Islands';document.getElementById('eyebrow').textContent=hindi?'थोड़ी सी देखभाल, ढेर सारी खुशी':'A little care goes a long way';document.getElementById('heroTitle').innerHTML=hindi?'हर दिन की देखभाल।<br>प्यार के साथ डिलीवरी।':'Everyday care.<br>Delivered with love.';document.getElementById('heroText').textContent=hindi?'बच्चों के डायपर और महिलाओं की स्वच्छता से जुड़े भरोसेमंद ब्रांडेड उत्पाद।':'Thoughtfully selected baby diapers and women’s hygiene essentials, all in one friendly island store.';document.getElementById('shopBtn').textContent=hindi?'खरीदारी शुरू करें →':'Shop essentials →';document.getElementById('catTitle').textContent=hindi?'देखभाल के अनुसार खरीदें':'Shop by care';document.getElementById('catSub').textContent=hindi?'अपनी ज़रूरत चुनें':'Choose what you need';document.getElementById('babyTitle').textContent=hindi?'बेबी केयर':'Baby care';document.getElementById('babySub').textContent=hindi?'डायपर और रोज़मर्रा की ज़रूरतें':'Diapers & daily essentials';document.getElementById('womenTitle').textContent=hindi?'महिलाओं की देखभाल':'Women’s care';document.getElementById('womenSub').textContent=hindi?'पैड और हाइजीन उत्पाद':'Pads & hygiene essentials';document.getElementById('productTitle').textContent=hindi?'लोकप्रिय उत्पाद':'Popular essentials';document.getElementById('cartTitle').textContent=hindi?'आपकी कार्ट':'Your cart';document.getElementById('totalLabel').textContent=hindi?'कुल':'Total';document.getElementById('checkout').textContent=hindi?'चेकआउट जारी रखें':'Continue to checkout';render()};
 render();
+  function showAdminLogin() {
+    const password = prompt("Enter Admin Password:");
+
+    if (password === "Mohammed@92") {
+        alert("Admin login successful! ❤️");
+    } else {
+        alert("Wrong password!");
+    }
+  }
   function demoLogin() {
     const phone = document.getElementById('phoneNumber').value.trim();
 
