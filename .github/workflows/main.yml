@@ -37,6 +37,7 @@ jobs:
           git checkout -- build.gradle
           git checkout -- settings.gradle
           git checkout -- app/src/main/res/drawable/ic_launcher.xml
+          git checkout -- app/src/main/AndroidManifest.xml
       - name: Build APK
         run: gradle assembleDebug
 
