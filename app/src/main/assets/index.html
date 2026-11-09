@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#e60070">
 <title>CARE FOR U</title>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#fff6fa;color:#39202e;font-family:Arial}
-header{background:#e60070;color:white;padding:16px;font-size:22px;font-weight:bold;display:flex;justify-content:space-between}
+body{margin:0;background:#fff6fa;color:#39202e;font-family:Arial,sans-serif}
+header{background:#e60070;color:white;padding:14px;font-size:21px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+header span{cursor:pointer}
 main{padding:14px;max-width:700px;margin:auto}
 .card{background:white;padding:14px;margin:12px 0;border-radius:15px;box-shadow:0 2px 8px #eac7d7}
-input,textarea,select{width:100%;padding:12px;margin:6px 0;border:1px solid #e6b9ce;border-radius:9px}
-button{background:#e60070;color:white;border:0;padding:12px;border-radius:10px;font-weight:bold;margin:4px}
+input,textarea,select{width:100%;padding:12px;margin:6px 0;border:1px solid #e6b9ce;border-radius:9px;background:white;font-size:15px}
+button{background:#e60070;color:white;border:0;padding:12px;border-radius:10px;font-weight:bold;margin:4px;cursor:pointer}
 .secondary{background:#ffe0ef;color:#a00050}
-.danger{background:#8b174b}
+.danger{background:#8b174b;color:white}
 .hidden{display:none!important}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .product img{width:100%;height:145px;object-fit:contain}
 .price{font-size:19px;color:#b00058;font-weight:bold}
 .hero{text-align:center;background:#ffe0ef;padding:20px;border-radius:16px}
-.nav{position:sticky;bottom:0;background:white;display:flex;justify-content:space-around;padding:8px}
+.nav{position:sticky;bottom:0;background:white;display:flex;justify-content:space-around;padding:8px;z-index:5;box-shadow:0 -2px 8px #eee}
 .nav button{background:white;color:#a00050}
-.thumb{width:65px;height:65px;object-fit:cover;margin:4px}
+.thumb{width:65px;height:65px;object-fit:cover;margin:4px;border-radius:8px}
+.password-row{display:flex;align-items:center;gap:5px}
+.password-row input{flex:1;min-width:0}
+.password-row button{flex-shrink:0;margin:0}
+.full{width:100%}
+.small{font-size:12px;color:#777}
 </style>
 </head>
 
@@ -30,34 +37,56 @@ button{background:#e60070;color:white;border:0;padding:12px;border-radius:10px;f
 
 <header>
 <span onclick="adminEntry()">🛍️ CARE FOR U</span>
-<button class="secondary" onclick="show('cart')">Cart 🛒 <span id="count">0</span></button>
+<button class="secondary" onclick="show('cart')">
+Cart 🛒 <span id="count">0</span>
+</button>
 </header>
 
-<section id="login" class="wrap">
+<section id="login">
 <main>
 <div class="hero">
 <h1>🛍️ CARE FOR U</h1>
 <b>Shop Smart • Live Better</b>
 <p>Care That Makes You Feel Special.</p>
 </div>
+
 <div class="card">
+
 <div id="loginForm">
 <h2>Customer Login</h2>
-<input id="username" placeholder="Username">
-<input id="password" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
-<button class="secondary" onclick="signupForm()">New User</button>
-<button class="secondary" onclick="forgot()">Forgot Password?</button>
+
+<input id="username" placeholder="Username" autocomplete="username">
+
+<div class="password-row">
+<input id="password" type="password" placeholder="Password" autocomplete="current-password">
+<button type="button" onclick="togglePassword('password',this)">👁</button>
 </div>
+
+<button class="full" onclick="login()">Login</button>
+<button class="secondary full" onclick="signupForm()">New User / Register</button>
+<button class="secondary full" onclick="forgot()">Forgot Password?</button>
+</div>
+
 <div id="signupForm" class="hidden">
 <h2>Create Account</h2>
-<input id="newname" placeholder="Username">
-<input id="newmobile" placeholder="Mobile Number">
-<input id="newpass" type="password" placeholder="Password">
-<input id="confirm" type="password" placeholder="Confirm Password">
-<button onclick="signup()">Create Account</button>
-<button class="secondary" onclick="backLogin()">Back to Login</button>
+
+<input id="newname" placeholder="Username" autocomplete="username">
+<input id="newmobile" type="tel" placeholder="Mobile Number" maxlength="10">
+
+<div class="password-row">
+<input id="newpass" type="password" placeholder="Password" autocomplete="new-password">
+<button type="button" onclick="togglePassword('newpass',this)">👁</button>
 </div>
+
+<div class="password-row">
+<input id="confirmPassword" type="password" placeholder="Confirm Password" autocomplete="new-password">
+<button type="button" onclick="togglePassword('confirmPassword',this)">👁</button>
+</div>
+
+<button class="full" onclick="signup()">Create Account</button>
+<button class="secondary full" onclick="backLogin()">Back to Login</button>
+</div>
+
 </div>
 </main>
 </section>
@@ -69,8 +98,11 @@ button{background:#e60070;color:white;border:0;padding:12px;border-radius:10px;f
 <h2>Welcome to CARE FOR U ❤️</h2>
 <p>Shop Baby Care, Fashion, Beauty & More</p>
 </div>
+
 <input id="search" placeholder="Search products..." oninput="render()">
+
 <div id="categories"></div>
+
 <h3>Popular Products</h3>
 <div id="products" class="grid"></div>
 </section>
@@ -78,10 +110,10 @@ button{background:#e60070;color:white;border:0;padding:12px;border-radius:10px;f
 <section id="detail" class="hidden"></section>
 
 <section id="cart" class="hidden">
-<h2>My Cart</h2>
+<h2>My Cart 🛒</h2>
 <div id="cartItems"></div>
 <h3 id="total"></h3>
-<button onclick="checkout()">Place Order (Demo COD)</button>
+<button class="full" onclick="checkout()">Place Order (Demo COD)</button>
 </section>
 
 <section id="orders" class="hidden">
@@ -96,37 +128,41 @@ button{background:#e60070;color:white;border:0;padding:12px;border-radius:10px;f
 </section>
 
 <section id="admin" class="hidden">
-<h2>Admin Panel</h2>
+
+<h2>🔐 Admin Panel</h2>
+<p class="small">Manage products, stock, orders and reviews.</p>
 
 <div class="card">
 <h3>Add New Product</h3>
+
 <input id="pname" placeholder="Product Name">
-<input id="pprice" type="number" placeholder="Selling Price">
-<input id="pmrp" type="number" placeholder="MRP">
-<input id="pstock" type="number" placeholder="Stock">
+<input id="pprice" type="number" min="1" placeholder="Selling Price">
+<input id="pmrp" type="number" min="1" placeholder="MRP">
+<input id="pstock" type="number" min="0" placeholder="Stock">
 <input id="pcat" placeholder="Category">
 <textarea id="pdesc" placeholder="Product Description"></textarea>
 
 <input id="pvariants" placeholder="Sizes: NB,S,M,L,XL,XXL">
 <input id="pcolors" placeholder="Colours: Pink,Blue,Black">
 
-<label>Upload multiple product photos</label>
+<label>Upload multiple product photos (maximum 5)</label>
 <input id="photos" type="file" accept="image/*" multiple onchange="previewPhotos(event)">
+
 <div id="preview"></div>
 
-<button onclick="addProduct()">Save Product</button>
+<button class="full" onclick="addProduct()">Save Product</button>
 </div>
 
-<h3>Manage Stock</h3>
+<h3>📦 Manage Stock</h3>
 <div id="inventory"></div>
 
-<h3>Customer Orders (This Phone Only)</h3>
+<h3>🛒 Customer Orders (This Phone Only)</h3>
 <div id="adminOrders"></div>
 
-<h3>Customer Reviews</h3>
+<h3>⭐ Customer Reviews</h3>
 <div id="adminReviews"></div>
 
-<button class="danger" onclick="logout()">Admin Logout</button>
+<button class="danger full" onclick="logout()">Admin Logout</button>
 </section>
 
 </main>
@@ -139,212 +175,925 @@ button{background:#e60070;color:white;border:0;padding:12px;border-radius:10px;f
 </div>
 
 <script>
-const load=(k,d)=>JSON.parse(localStorage.getItem(k)||JSON.stringify(d));
-const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+"use strict";
 
-let users=load('users',[]);
-let products=load('products',[
-{id:1,name:'Baby Diapers',price:499,mrp:599,stock:20,cat:'Baby Care',desc:'Soft and comfortable baby diapers.',sizes:['NB','S','M','L','XL','XXL'],colors:['Blue'],images:[]},
-{id:2,name:'Sanitary Pads',price:199,mrp:249,stock:30,cat:'Women Hygiene',desc:'Comfortable sanitary pads.',sizes:['Regular','XL','XXL'],colors:['Pink'],images:[]},
-{id:3,name:'Kids Clothing',price:299,mrp:399,stock:15,cat:'Fashion',desc:'Comfortable daily wear.',sizes:['S','M','L','XL','XXL'],colors:['Pink','Blue'],images:[]},
-{id:4,name:'Footwear',price:599,mrp:699,stock:10,cat:'Footwear',desc:'Comfortable footwear.',sizes:['5','6','7','8','9','10'],colors:['Black'],images:[]}
+/* SAFE STORAGE */
+
+function loadData(key, fallback) {
+    try {
+        const value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : fallback;
+    } catch (e) {
+        return fallback;
+    }
+}
+
+function saveData(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+    } catch (e) {
+        alert("Phone storage full ho sakta hai. Kuch photos ya data delete karke dobara try karein.");
+        return false;
+    }
+}
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+/* APP DATA */
+
+let users = loadData("users", []);
+
+let products = loadData("products", [
+    {
+        id:1,
+        name:"Baby Diapers",
+        price:499,
+        mrp:599,
+        stock:20,
+        cat:"Baby Care",
+        desc:"Soft and comfortable baby diapers.",
+        sizes:["NB","S","M","L","XL","XXL"],
+        colors:["Blue"],
+        images:[]
+    },
+    {
+        id:2,
+        name:"Sanitary Pads",
+        price:199,
+        mrp:249,
+        stock:30,
+        cat:"Women Hygiene",
+        desc:"Comfortable sanitary pads.",
+        sizes:["Regular","XL","XXL"],
+        colors:["Pink"],
+        images:[]
+    },
+    {
+        id:3,
+        name:"Kids Clothing",
+        price:299,
+        mrp:399,
+        stock:15,
+        cat:"Fashion",
+        desc:"Comfortable daily wear.",
+        sizes:["S","M","L","XL","XXL"],
+        colors:["Pink","Blue"],
+        images:[]
+    },
+    {
+        id:4,
+        name:"Footwear",
+        price:599,
+        mrp:699,
+        stock:10,
+        cat:"Footwear",
+        desc:"Comfortable footwear.",
+        sizes:["5","6","7","8","9","10"],
+        colors:["Black"],
+        images:[]
+    }
 ]);
 
-let cart=load('cart',[]);
-let orders=load('orders',[]);
-let reviews=load('reviews',[]);
-let current=load('current',null);
-let photos=[];
-let activeProduct=null;
-let clicks=0;
+let cart = loadData("cart", []);
+let orders = loadData("orders", []);
+let reviews = loadData("reviews", []);
+let current = loadData("current", null);
 
-function signupForm(){
-loginForm.classList.add('hidden');
-document.getElementById('signupForm').classList.remove('hidden');
+let photos = [];
+let activeProduct = null;
+let clicks = 0;
+let adminTimer = null;
+
+/* PASSWORD SHOW / HIDE */
+
+function togglePassword(id, button) {
+    const field = $(id);
+
+    if (!field) return;
+
+    if (field.type === "password") {
+        field.type = "text";
+        button.innerText = "🙈";
+    } else {
+        field.type = "password";
+        button.innerText = "👁";
+    }
 }
-function backLogin(){
-loginForm.classList.remove('hidden');
-document.getElementById('signupForm').classList.add('hidden');
+
+/* REGISTRATION */
+
+function signupForm() {
+    $("loginForm").classList.add("hidden");
+    $("signupForm").classList.remove("hidden");
 }
-function signup(){
-let n=newname.value.trim(),m=newmobile.value.trim(),p=newpass.value;
-if(!n||!m||!p)return alert('Please fill all fields');
-if(p!==confirm.value)return alert('Passwords do not match');
-if(users.some(u=>u.name===n))return alert('Username already exists');
-users.push({name:n,mobile:m,pass:p});
-save('users',users);
-alert('Account created. Please login.');
-backLogin();
+
+function backLogin() {
+    $("loginForm").classList.remove("hidden");
+    $("signupForm").classList.add("hidden");
 }
-function login(){
-let u=users.find(x=>x.name===username.value.trim()&&x.pass===password.value);
-if(!u)return alert('Incorrect username or password');
-current=u;save('current',current);enter();
+
+function signup() {
+    const name = $("newname").value.trim();
+    const mobile = $("newmobile").value.trim();
+    const pass = $("newpass").value;
+    const confirmPass = $("confirmPassword").value;
+
+    if (!name || !mobile || !pass || !confirmPass) {
+        alert("Please fill all fields.");
+        return;
+    }
+
+    if (!/^[0-9]{10}$/.test(mobile)) {
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+    }
+
+    if (pass.length < 6) {
+        alert("Password must contain at least 6 characters.");
+        return;
+    }
+
+    if (pass !== confirmPass) {
+        alert("Passwords do not match. Please check both passwords.");
+        return;
+    }
+
+    if (users.some(u => u.name.toLowerCase() === name.toLowerCase())) {
+        alert("Username already exists.");
+        return;
+    }
+
+    if (users.some(u => u.mobile === mobile)) {
+        alert("This mobile number is already registered.");
+        return;
+    }
+
+    users.push({
+        name:name,
+        mobile:mobile,
+        pass:pass
+    });
+
+    if (!saveData("users", users)) return;
+
+    alert("Account created successfully. Please login.");
+
+    $("newname").value = "";
+    $("newmobile").value = "";
+    $("newpass").value = "";
+    $("confirmPassword").value = "";
+
+    backLogin();
 }
-function forgot(){
-let n=prompt('Enter username');
-let m=prompt('Registered mobile number');
-let u=users.find(x=>x.name===n&&x.mobile===m);
-if(!u)return alert('Details do not match');
-let p=prompt('Enter new password');
-if(p){u.pass=p;save('users',users);alert('Password changed on this phone. OTP is not used in this demo.')}
+
+/* LOGIN */
+
+function login() {
+    const name = $("username").value.trim();
+    const pass = $("password").value;
+
+    const user = users.find(
+        u => u.name.toLowerCase() === name.toLowerCase() && u.pass === pass
+    );
+
+    if (!user) {
+        alert("Incorrect username or password.");
+        return;
+    }
+
+    current = user;
+    saveData("current", current);
+
+    enter();
 }
-function enter(){
-login.classList.add('hidden');
-app.classList.remove('hidden');
-nav.classList.remove('hidden');
-render();
-show('home');
+
+function forgot() {
+    const name = prompt("Enter your username");
+
+    if (!name) return;
+
+    const mobile = prompt("Enter your registered mobile number");
+
+    if (!mobile) return;
+
+    const user = users.find(
+        u => u.name.toLowerCase() === name.trim().toLowerCase()
+        && u.mobile === mobile.trim()
+    );
+
+    if (!user) {
+        alert("Username or mobile number does not match.");
+        return;
+    }
+
+    const newPassword = prompt("Enter new password (minimum 6 characters)");
+
+    if (!newPassword || newPassword.length < 6) {
+        alert("Password must contain at least 6 characters.");
+        return;
+    }
+
+    user.pass = newPassword;
+
+    if (saveData("users", users)) {
+        alert("Password changed successfully on this phone.");
+    }
 }
-function logout(){
-current=null;save('current',null);
-app.classList.add('hidden');
-nav.classList.add('hidden');
-login.classList.remove('hidden');
-backLogin();
+
+/* ENTER / LOGOUT */
+
+function enter() {
+    $("login").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    $("nav").classList.remove("hidden");
+
+    render();
+    show("home");
 }
-function show(id){
-['home','detail','cart','orders','profile','admin'].forEach(x=>
-document.getElementById(x).classList.toggle('hidden',x!==id));
-nav.classList.toggle('hidden',id==='detail'||id==='admin');
-if(id==='cart')renderCart();
-if(id==='orders')renderOrders();
-if(id==='profile')profileInfo.innerHTML='Logged in as '+(current?.name||'Admin');
-if(id==='admin')renderAdmin();
-window.scrollTo(0,0);
+
+function logout() {
+    current = null;
+    saveData("current", null);
+
+    $("app").classList.add("hidden");
+    $("nav").classList.add("hidden");
+    $("login").classList.remove("hidden");
+
+    $("username").value = "";
+    $("password").value = "";
+
+    backLogin();
 }
-function adminEntry(){
-clicks++;
-if(clicks>=5){
-clicks=0;
-if(prompt('Admin Password')==='ChangeMe@123')show('admin');
-else alert('Wrong password');
+
+/* ADMIN ENTRY: TAP LOGO FIVE TIMES */
+
+function adminEntry() {
+    clicks++;
+
+    clearTimeout(adminTimer);
+
+    adminTimer = setTimeout(function() {
+        clicks = 0;
+    }, 2000);
+
+    if (clicks >= 5) {
+        clicks = 0;
+        clearTimeout(adminTimer);
+
+        const pass = prompt("Enter Admin Password");
+
+        if (pass === "ChangeMe@123") {
+            $("login").classList.add("hidden");
+            $("app").classList.remove("hidden");
+            $("nav").classList.add("hidden");
+
+            show("admin");
+        } else if (pass !== null) {
+            alert("Wrong Admin Password.");
+        }
+    }
 }
+
+/* PAGE NAVIGATION */
+
+function show(id) {
+    const pages = ["home","detail","cart","orders","profile","admin"];
+
+    pages.forEach(function(page) {
+        $(page).classList.toggle("hidden", page !== id);
+    });
+
+    $("nav").classList.toggle(
+        "hidden",
+        id === "detail" || id === "admin" || $("app").classList.contains("hidden")
+    );
+
+    if (id === "cart") renderCart();
+    if (id === "orders") renderOrders();
+
+    if (id === "profile") {
+        $("profileInfo").innerHTML =
+            "Logged in as " + escapeHTML(current ? current.name : "Admin");
+    }
+
+    if (id === "admin") renderAdmin();
+
+    window.scrollTo(0, 0);
 }
-function render(){
-let q=search.value.toLowerCase();
-let cats=[...new Set(products.map(p=>p.cat))];
-categories.innerHTML=cats.map(c=>`<button class="secondary" onclick="search.value='${c}';render()">${c}</button>`).join('');
-let list=products.filter(p=>(p.name+' '+p.cat).toLowerCase().includes(q));
-productsDiv.innerHTML='';
+
+/* SAFE TEXT DISPLAY */
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, function(char) {
+        return {
+            "&":"&amp;",
+            "<":"&lt;",
+            ">":"&gt;",
+            '"':"&quot;",
+            "'":"&#39;"
+        }[char];
+    });
 }
-const productsDiv=document.getElementById('products');
-function render(){
-let q=search.value.toLowerCase();
-categories.innerHTML=[...new Set(products.map(p=>p.cat))].map(c=>
-`<button class="secondary" onclick="search.value='${c}';render()">${c}</button>`).join('');
-let list=products.filter(p=>(p.name+' '+p.cat).toLowerCase().includes(q));
-productsDiv.innerHTML=list.map(p=>`
-<div class="card product" onclick="openProduct(${p.id})">
-${p.images?.length?`<img src="${p.images[0]}">`:'<div style="font-size:60px;text-align:center">🛍️</div>'}
-<b>${p.name}</b><p class="price">₹${p.price}</p>
-<small>Stock: ${p.stock}</small>
-</div>`).join('');
-count.innerText=cart.reduce((s,x)=>s+x.qty,0);
+
+/* PRODUCTS */
+
+function render() {
+    const query = $("search").value.toLowerCase().trim();
+
+    const cats = [...new Set(products.map(p => p.cat))];
+
+    $("categories").innerHTML = cats.map(function(cat) {
+        return `<button class="secondary" onclick="setCategory('${escapeHTML(cat).replace(/'/g,"&#39;")}')">${escapeHTML(cat)}</button>`;
+    }).join("");
+
+    const list = products.filter(function(p) {
+        return (p.name + " " + p.cat).toLowerCase().includes(query);
+    });
+
+    $("products").innerHTML = list.map(function(p) {
+        const photo = p.images && p.images.length
+            ? `<img src="${p.images[0]}" alt="Product">`
+            : `<div style="font-size:60px;text-align:center">🛍️</div>`;
+
+        return `
+        <div class="card product" onclick="openProduct(${Number(p.id)})">
+            ${photo}
+            <b>${escapeHTML(p.name)}</b>
+            <p class="price">₹${Number(p.price)}</p>
+            <small>Stock: ${Number(p.stock)}</small>
+        </div>`;
+    }).join("") || "<p>No products found.</p>";
+
+    updateCount();
 }
-function openProduct(id){
-activeProduct=products.find(p=>p.id===id);
-let p=activeProduct;
-show('detail');
-detail.innerHTML=`
-<button class="secondary" onclick="show('home')">Back</button>
-<div class="card">
-${(p.images||[]).map(src=>`<img class="thumb" src="${src}" onclick="big.src=this.src">`).join('')}
-<img id="big" style="width:100%;height:220px;object-fit:contain" src="${p.images?.[0]||''}">
-<h2>${p.name}</h2><p class="price">₹${p.price}</p>
-<p>${p.desc}</p>
-<label>Size</label>
-<select id="size">${(p.sizes||['Standard']).map(x=>`<option>${x}</option>`)}</select>
-<label>Colour</label>
-<select id="colour">${(p.colors||['Default']).map(x=>`<option>${x}</option>`)}</select>
-<p>Stock: ${p.stock}</p>
-<button onclick="addCart(${p.id})">Add to Cart</button>
-<button class="secondary" onclick="addCart(${p.id});show('cart')">Buy Now</button>
-</div>
-<div class="card">
-<h3>Customer Reviews</h3>
-${reviews.filter(r=>r.pid===id).map(r=>`<p>⭐${r.stars} ${r.text}<br>${r.photo?`<img class="thumb" src="${r.photo}">`:''}</p>`).join('')}
-<h3>Write Review</h3>
-<select id="stars"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select>
-<textarea id="reviewText" placeholder="Write your review"></textarea>
-<input id="reviewPhoto" type="file" accept="image/*">
-<button onclick="submitReview(${id})">Submit Review</button>
-</div>`;
+
+function setCategory(category) {
+    $("search").value = category;
+    render();
 }
-function addCart(id){
-let p=products.find(x=>x.id===id);
-if(p.stock<1)return alert('Out of stock');
-let v=size?.value||'Standard',c=colour?.value||'Default';
-let item=cart.find(x=>x.id===id&&x.size===v&&x.colour===c);
-if(item)item.qty++;else cart.push({id,size:v,colour:c,qty:1});
-save('cart',cart);render();alert('Added to cart');
+
+/* PRODUCT DETAILS */
+
+function openProduct(id) {
+    activeProduct = products.find(p => Number(p.id) === Number(id));
+
+    if (!activeProduct) return;
+
+    const p = activeProduct;
+
+    const images = (p.images || []).map(function(src) {
+        return `<img class="thumb" src="${src}" onclick="changeBigImage(this.src)">`;
+    }).join("");
+
+    const productReviews = reviews.filter(r => Number(r.pid) === Number(id));
+
+    $("detail").innerHTML = `
+    <button class="secondary" onclick="show('home')">← Back</button>
+
+    <div class="card">
+        ${images}
+
+        <img id="bigImage"
+        style="width:100%;height:220px;object-fit:contain"
+        src="${p.images && p.images.length ? p.images[0] : ''}">
+
+        <h2>${escapeHTML(p.name)}</h2>
+        <p class="price">₹${Number(p.price)}</p>
+        <p><del>₹${Number(p.mrp || p.price)}</del></p>
+        <p>${escapeHTML(p.desc)}</p>
+
+        <label>Size</label>
+        <select id="size">
+            ${(p.sizes && p.sizes.length ? p.sizes : ["Standard"]).map(x =>
+                `<option>${escapeHTML(x)}</option>`
+            ).join("")}
+        </select>
+
+        <label>Colour</label>
+        <select id="colour">
+            ${(p.colors && p.colors.length ? p.colors : ["Default"]).map(x =>
+                `<option>${escapeHTML(x)}</option>`
+            ).join("")}
+        </select>
+
+        <p>Available Stock: ${Number(p.stock)}</p>
+
+        <button onclick="addCart(${Number(p.id)})">Add to Cart</button>
+        <button class="secondary" onclick="buyNow(${Number(p.id)})">Buy Now</button>
+    </div>
+
+    <div class="card">
+        <h3>Customer Reviews ⭐</h3>
+
+        ${productReviews.map(function(r) {
+            return `
+            <div>
+                <p>⭐ ${Number(r.stars)} — ${escapeHTML(r.text)}</p>
+                ${r.photo ? `<img class="thumb" src="${r.photo}">` : ""}
+                <small>${escapeHTML(r.user || "Customer")}</small>
+            </div>`;
+        }).join("") || "<p>No reviews yet.</p>"}
+
+        <h3>Write Review</h3>
+
+        <select id="stars">
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="2">2 Stars</option>
+            <option value="1">1 Star</option>
+        </select>
+
+        <textarea id="reviewText" placeholder="Write your review"></textarea>
+
+        <input id="reviewPhoto" type="file" accept="image/*">
+
+        <button onclick="submitReview(${Number(p.id)})">Submit Review</button>
+    </div>`;
 }
-function renderCart(){
-let total=0;
-cartItems.innerHTML=cart.map((x,i)=>{
-let p=products.find(p=>p.id===x.id);
-if(!p)return '';
-total+=p.price*x.qty;
-return `<div class="card"><b>${p.name}</b><p>${x.size} / ${x.colour}</p>₹${p.price} × ${x.qty}
-<button onclick="cart[${i}].qty++;save('cart',cart);renderCart()">+</button>
-<button onclick="cart[${i}].qty--;if(cart[${i}].qty<=0)cart.splice(${i},1);save('cart',cart);renderCart()">−</button>
-<button class="danger" onclick="cart.splice(${i},1);save('cart',cart);renderCart()">Remove</button></div>`;
-}).join('')||'Cart is empty';
-document.getElementById('total').innerText='Total: ₹'+total;
+
+function changeBigImage(src) {
+    $("bigImage").src = src;
 }
-function checkout(){
-if(!cart.length)return alert('Cart is empty');
-let name=prompt('Delivery name'),phone=prompt('Mobile number'),address=prompt('Full address and PIN code');
-if(!name||!phone||!address)return;
-let total=cart.reduce((s,x)=>s+(products.find(p=>p.id===x.id)?.price||0)*x.qty,0);
-orders.push({id:'CFU'+Date.now(),user:current?.name,name,phone,address,total,status:'Order Placed',items:cart});
-cart.forEach(x=>{let p=products.find(p=>p.id===x.id);if(p)p.stock=Math.max(0,p.stock-x.qty)});
-cart=[];save('cart',cart);save('orders',orders);save('products',products);
-alert('Demo order placed');show('orders');
+
+/* CART */
+
+function addCart(id) {
+    const p = products.find(x => Number(x.id) === Number(id));
+
+    if (!p || p.stock < 1) {
+        alert("Product out of stock.");
+        return;
+    }
+
+    const sizeValue = $("size") ? $("size").value : "Standard";
+    const colourValue = $("colour") ? $("colour").value : "Default";
+
+    const item = cart.find(x =>
+        Number(x.id) === Number(id) &&
+        x.size === sizeValue &&
+        x.colour === colourValue
+    );
+
+    const alreadyInCart = item ? item.qty : 0;
+
+    if (alreadyInCart >= p.stock) {
+        alert("Available stock limit reached.");
+        return;
+    }
+
+    if (item) {
+        item.qty++;
+    } else {
+        cart.push({
+            id:id,
+            size:sizeValue,
+            colour:colourValue,
+            qty:1
+        });
+    }
+
+    if (!saveData("cart", cart)) return;
+
+    updateCount();
+    alert("Added to cart successfully.");
 }
-function renderOrders(){
-myOrders.innerHTML=orders.filter(o=>o.user===current?.name).map(o=>
-`<div class="card"><b>${o.id}</b><p>₹${o.total} · ${o.status}</p>${o.date||''}</div>`).join('')||'No orders yet';
+
+function buyNow(id) {
+    addCart(id);
+    show("cart");
 }
-function previewPhotos(e){
-photos=[];
-let files=[...e.target.files].slice(0,5);
-Promise.all(files.map(f=>new Promise(resolve=>{
-let r=new FileReader();
-r.onload=()=>{let im=new Image();im.onload=()=>{
-let c=document.createElement('canvas'),k=Math.min(1,850/Math.max(im.width,im.height));
-c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-resolve(c.toDataURL('image/jpeg',.7));
-};im.src=r.result;};r.readAsDataURL(f);
-}))).then(a=>{photos=a;preview.innerHTML=a.map(x=>`<img class="thumb" src="${x}">`).join('')});
+
+function updateCount() {
+    const total = cart.reduce((sum, item) => sum + Number(item.qty), 0);
+    $("count").innerText = total;
 }
-function addProduct(){
-let name=pname.value.trim(),price=Number(pprice.value),stock=Number(pstock.value);
-if(!name||!price||stock<0)return alert('Enter product name, price and stock');
-products.push({id:Date.now(),name,price,mrp:Number(pmrp.value)||price,stock,cat:pcat.value||'Daily Essentials',desc:pdesc.value,sizes:pvariants.value.split(',').map(x=>x.trim()).filter(Boolean),colors:pcolors.value.split(',').map(x=>x.trim()).filter(Boolean),images:photos});
-save('products',products);
-alert('Product saved');
-renderAdmin();
+
+function renderCart() {
+    let total = 0;
+
+    $("cartItems").innerHTML = cart.map(function(item, index) {
+        const p = products.find(x => Number(x.id) === Number(item.id));
+
+        if (!p) return "";
+
+        total += p.price * item.qty;
+
+        return `
+        <div class="card">
+            <b>${escapeHTML(p.name)}</b>
+            <p>${escapeHTML(item.size)} / ${escapeHTML(item.colour)}</p>
+            ₹${Number(p.price)} × ${Number(item.qty)}
+
+            <br>
+
+            <button onclick="changeQty(${index},1)">+</button>
+            <button onclick="changeQty(${index},-1)">−</button>
+            <button class="danger" onclick="removeCart(${index})">Remove</button>
+        </div>`;
+    }).join("") || "Your cart is empty.";
+
+    $("total").innerText = "Total: ₹" + total;
 }
-function renderAdmin(){
-inventory.innerHTML=products.map(p=>`<div class="card"><b>${p.name}</b> ₹${p.price} · Stock ${p.stock}
-<input type="number" id="stock${p.id}" value="${p.stock}">
-<button onclick="updateStock(${p.id})">Update Stock</button>
-<button class="danger" onclick="deleteProduct(${p.id})">Delete</button></div>`).join('');
-adminOrders.innerHTML=orders.map(o=>`<div class="card">${o.id}<p>${o.name} · ${o.phone}</p><p>${o.address}</p>₹${o.total}
-<select onchange="setStatus('${o.id}',this.value)">${['Order Placed','Processing','Shipped','Out for Delivery','Delivered','Cancelled'].map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`)}</select></div>`).join('')||'No orders on this phone';
-adminReviews.innerHTML=reviews.map((r,i)=>`<div class="card">⭐${r.stars} ${r.text}<button class="danger" onclick="reviews.splice(${i},1);save('reviews',reviews);renderAdmin()">Remove</button></div>`).join('');
+
+function changeQty(index, change) {
+    const item = cart[index];
+    if (!item) return;
+
+    const p = products.find(x => Number(x.id) === Number(item.id));
+
+    if (!p) return;
+
+    if (change > 0 && item.qty >= p.stock) {
+        alert("Available stock limit reached.");
+        return;
+    }
+
+    item.qty += change;
+
+    if (item.qty <= 0) {
+        cart.splice(index, 1);
+    }
+
+    saveData("cart", cart);
+    updateCount();
+    renderCart();
 }
-function updateStock(id){let p=products.find(x=>x.id===id);p.stock=Number(document.getElementById('stock'+id).value);save('products',products);renderAdmin()}
-function deleteProduct(id){if(confirm('Delete product?')){products=products.filter(p=>p.id!==id);save('products',products);renderAdmin()}}
-function setStatus(id,s){let o=orders.find(x=>x.id===id);if(o)o.status=s;save('orders',orders)}
-function submitReview(id){
-let text=reviewText.value.trim(),file=reviewPhoto.files[0];
-if(!text)return alert('Write your review');
-let done=photo=>{reviews.push({pid:id,text,stars:Number(stars.value),photo,user:current?.name||'Customer'});save('reviews',reviews);openProduct(id)};
-if(file){let r=new FileReader();r.onload=()=>done(r.result);r.readAsDataURL(file)}else done('');
+
+function removeCart(index) {
+    cart.splice(index, 1);
+    saveData("cart", cart);
+    updateCount();
+    renderCart();
 }
-if(current)enter();else render();
+
+/* CHECKOUT - DEMO COD */
+
+function checkout() {
+    if (!cart.length) {
+        alert("Cart is empty.");
+        return;
+    }
+
+    const name = prompt("Enter delivery name");
+    if (!name) return;
+
+    const phone = prompt("Enter mobile number");
+    if (!phone) return;
+
+    const address = prompt("Enter full address and PIN code");
+    if (!address) return;
+
+    for (const item of cart) {
+        const p = products.find(x => Number(x.id) === Number(item.id));
+
+        if (!p || p.stock < item.qty) {
+            alert("Some products do not have enough stock. Please check your cart.");
+            return;
+        }
+    }
+
+    const total = cart.reduce(function(sum, item) {
+        const p = products.find(x => Number(x.id) === Number(item.id));
+        return sum + (p ? p.price * item.qty : 0);
+    }, 0);
+
+    const newOrder = {
+        id:"CFU" + Date.now(),
+        user:current ? current.name : "Guest",
+        name:name,
+        phone:phone,
+        address:address,
+        total:total,
+        status:"Order Placed",
+        items:cart.map(x => ({...x})),
+        date:new Date().toLocaleString()
+    };
+
+    orders.push(newOrder);
+
+    cart.forEach(function(item) {
+        const p = products.find(x => Number(x.id) === Number(item.id));
+        if (p) p.stock -= item.qty;
+    });
+
+    if (!saveData("orders", orders)) return;
+    if (!saveData("products", products)) return;
+
+    cart = [];
+    saveData("cart", cart);
+
+    updateCount();
+
+    alert("Demo order placed successfully!");
+    show("orders");
+}
+
+/* CUSTOMER ORDERS */
+
+function renderOrders() {
+    const myList = orders.filter(function(o) {
+        return current && o.user === current.name;
+    });
+
+    $("myOrders").innerHTML = myList.map(function(o) {
+        return `
+        <div class="card">
+            <b>${escapeHTML(o.id)}</b>
+            <p>₹${Number(o.total)} · ${escapeHTML(o.status)}</p>
+            <small>${escapeHTML(o.date || "")}</small>
+        </div>`;
+    }).join("") || "No orders yet.";
+}
+
+/* PRODUCT PHOTO UPLOAD */
+
+function previewPhotos(event) {
+    photos = [];
+
+    const files = Array.from(event.target.files || []).slice(0, 5);
+
+    if (!files.length) {
+        $("preview").innerHTML = "";
+        return;
+    }
+
+    Promise.all(files.map(function(file) {
+        return new Promise(function(resolve, reject) {
+            if (!file.type.startsWith("image/")) {
+                resolve(null);
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                const img = new Image();
+
+                img.onload = function() {
+                    const canvas = document.createElement("canvas");
+
+                    const maxSize = 700;
+                    const scale = Math.min(
+                        1,
+                        maxSize / Math.max(img.width, img.height)
+                    );
+
+                    canvas.width = Math.max(1, Math.round(img.width * scale));
+                    canvas.height = Math.max(1, Math.round(img.height * scale));
+
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    resolve(canvas.toDataURL("image/jpeg", 0.55));
+                };
+
+                img.onerror = reject;
+                img.src = reader.result;
+            };
+
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    })).then(function(results) {
+        photos = results.filter(Boolean);
+
+        $("preview").innerHTML = photos.map(function(src) {
+            return `<img class="thumb" src="${src}">`;
+        }).join("");
+
+    }).catch(function() {
+        alert("Photo could not be loaded. Please select another photo.");
+    });
+}
+
+/* ADD PRODUCT */
+
+function addProduct() {
+    const name = $("pname").value.trim();
+    const price = Number($("pprice").value);
+    const mrp = Number($("pmrp").value) || price;
+    const stock = Number($("pstock").value);
+
+    if (!name || price <= 0 || !Number.isFinite(price) ||
+        stock < 0 || !Number.isInteger(stock)) {
+        alert("Please enter valid product name, price and stock.");
+        return;
+    }
+
+    const product = {
+        id:Date.now(),
+        name:name,
+        price:price,
+        mrp:mrp,
+        stock:stock,
+        cat:$("pcat").value.trim() || "Daily Essentials",
+        desc:$("pdesc").value.trim(),
+        sizes:$("pvariants").value.split(",").map(x => x.trim()).filter(Boolean),
+        colors:$("pcolors").value.split(",").map(x => x.trim()).filter(Boolean),
+        images:photos.slice()
+    };
+
+    products.push(product);
+
+    if (!saveData("products", products)) {
+        products.pop();
+        return;
+    }
+
+    alert("Product saved successfully.");
+
+    $("pname").value = "";
+    $("pprice").value = "";
+    $("pmrp").value = "";
+    $("pstock").value = "";
+    $("pcat").value = "";
+    $("pdesc").value = "";
+    $("pvariants").value = "";
+    $("pcolors").value = "";
+    $("photos").value = "";
+
+    photos = [];
+    $("preview").innerHTML = "";
+
+    renderAdmin();
+}
+
+/* ADMIN PANEL */
+
+function renderAdmin() {
+    $("inventory").innerHTML = products.map(function(p) {
+        return `
+        <div class="card">
+            <b>${escapeHTML(p.name)}</b>
+            <p>₹${Number(p.price)} · Stock ${Number(p.stock)}</p>
+
+            <input type="number" min="0" id="stock${Number(p.id)}" value="${Number(p.stock)}">
+
+            <button onclick="updateStock(${Number(p.id)})">Update Stock</button>
+
+            <button class="danger" onclick="deleteProduct(${Number(p.id)})">Delete</button>
+        </div>`;
+    }).join("") || "No products.";
+
+    $("adminOrders").innerHTML = orders.map(function(o) {
+        return `
+        <div class="card">
+            <b>${escapeHTML(o.id)}</b>
+            <p>${escapeHTML(o.name)} · ${escapeHTML(o.phone)}</p>
+            <p>${escapeHTML(o.address)}</p>
+            <p>₹${Number(o.total)}</p>
+
+            <select onchange="setStatus('${escapeHTML(o.id)}',this.value)">
+                ${["Order Placed","Processing","Shipped","Out for Delivery","Delivered","Cancelled"].map(function(s) {
+                    return `<option ${s === o.status ? "selected" : ""}>${s}</option>`;
+                }).join("")}
+            </select>
+        </div>`;
+    }).join("") || "No orders on this phone.";
+
+    $("adminReviews").innerHTML = reviews.map(function(r, index) {
+        return `
+        <div class="card">
+            ⭐${Number(r.stars)} ${escapeHTML(r.text)}
+            <button class="danger" onclick="deleteReview(${index})">Remove</button>
+        </div>`;
+    }).join("") || "No reviews yet.";
+}
+
+function updateStock(id) {
+    const p = products.find(x => Number(x.id) === Number(id));
+
+    if (!p) return;
+
+    const value = Number($("stock" + id).value);
+
+    if (!Number.isInteger(value) || value < 0) {
+        alert("Please enter valid stock.");
+        return;
+    }
+
+    p.stock = value;
+
+    if (!saveData("products", products)) return;
+
+    alert("Stock updated.");
+    renderAdmin();
+}
+
+function deleteProduct(id) {
+    if (!confirm("Are you sure you want to delete this product?")) return;
+
+    products = products.filter(p => Number(p.id) !== Number(id));
+
+    saveData("products", products);
+    renderAdmin();
+}
+
+function setStatus(id, status) {
+    const order = orders.find(o => o.id === id);
+
+    if (!order) return;
+
+    order.status = status;
+    saveData("orders", orders);
+
+    alert("Order status updated.");
+}
+
+function deleteReview(index) {
+    if (!confirm("Remove this review?")) return;
+
+    reviews.splice(index, 1);
+    saveData("reviews", reviews);
+    renderAdmin();
+}
+
+/* CUSTOMER REVIEWS */
+
+function submitReview(id) {
+    const text = $("reviewText").value.trim();
+    const file = $("reviewPhoto").files[0];
+    const stars = Number($("stars").value);
+
+    if (!text) {
+        alert("Please write your review.");
+        return;
+    }
+
+    function finishReview(photo) {
+        reviews.push({
+            pid:id,
+            text:text,
+            stars:stars,
+            photo:photo,
+            user:current ? current.name : "Customer"
+        });
+
+        if (!saveData("reviews", reviews)) return;
+
+        alert("Review submitted successfully.");
+        openProduct(id);
+    }
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const img = new Image();
+
+            img.onload = function() {
+                const canvas = document.createElement("canvas");
+                const scale = Math.min(1, 600 / Math.max(img.width, img.height));
+
+                canvas.width = Math.max(1, Math.round(img.width * scale));
+                canvas.height = Math.max(1, Math.round(img.height * scale));
+
+                canvas.getContext("2d").drawImage(
+                    img, 0, 0, canvas.width, canvas.height
+                );
+
+                finishReview(canvas.toDataURL("image/jpeg", 0.55));
+            };
+
+            img.onerror = function() {
+                alert("Review photo could not be loaded.");
+            };
+
+            img.src = reader.result;
+        };
+
+        reader.onerror = function() {
+            alert("Could not read review photo.");
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        finishReview("");
+    }
+}
+
+/* START APP */
+
+updateCount();
+
+if (current && users.some(u => u.name === current.name)) {
+    current = users.find(u => u.name === current.name);
+    saveData("current", current);
+    enter();
+} else {
+    current = null;
+    saveData("current", null);
+    $("login").classList.remove("hidden");
+    $("app").classList.add("hidden");
+    $("nav").classList.add("hidden");
+    render();
+}
+
 </script>
+
 </body>
 </html>
