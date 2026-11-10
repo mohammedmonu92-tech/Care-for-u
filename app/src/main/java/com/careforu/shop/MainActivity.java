@@ -178,23 +178,26 @@ public class MainActivity extends Activity {
     }
 
     private void sendResult(
-        String callbackId,
-        JSONObject result
-    ) {
+    String callbackId,
+    JSONObject result
+) {
+    runOnUiThread(() -> {
+        if (webView == null) return;
 
-        runOnUiThread(() -> {
-
-            if (webView == null) return;
-
-            webView.evaluateJavascript(
-                "window.__firebaseCallback && " +
-                "window.__firebaseCallback(" +
-                JSONObject.quote(callbackId) +
-                "," + result.toString() + ")",
-                null
-            );
-        });
-    }
+        webView.evaluateJavascript(
+            "(function() {" +
+            "var id = " + JSONObject.quote(callbackId) + ";" +
+            "var result = " + result.toString() + ";" +
+            "if (window.onFirebaseResult) {" +
+            "window.onFirebaseResult(id, result);" +
+            "} else if (window.__firebaseCallback) {" +
+            "window.__firebaseCallback(id, result);" +
+            "}" +
+            "})()",
+            null
+        );
+    });
+}
 
     private JSONObject makeResult(
         boolean success,
