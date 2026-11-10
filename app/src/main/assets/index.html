@@ -87,12 +87,21 @@ main{max-width:850px;margin:auto;padding:15px}
 
  <div class="searchrow">
   <input class="input" id="search" placeholder="Search products..." oninput="renderProducts()">
-  <select id="category" onchange="renderProducts()" style="max-width:125px">
-   <option value="">All</option>
+  <select id="category" onchange="renderProducts()" style="max-width:160px">
+   <option value="">All Categories</option>
    <option>Baby Care</option>
-   <option>Women Care</option>
-   <option>Personal Care</option>
-  </select>
+   <option>Women Hygiene</option>
+   <option>Beauty</option>
+   <option>Fashion</option>
+   <option>Footwear</option>
+   <option>Home & Kitchen</option>
+   <option>Grocery</option>
+   <option>Electronics</option>
+   <option>Toys & Kids</option>
+   <option>Health</option>
+   <option>Bags</option>
+   <option>Daily Essentials</option>
+</select>
  </div>
 
  <div class="row">
@@ -222,7 +231,10 @@ function renderProducts(){
 
  let arr=products.filter(p=>
   (p.name+" "+p.description).toLowerCase().includes(q)&&
-  (!cat||p.category===cat)
+  (!cat||(
+  (p.category==="Women Care"?"Women Hygiene":
+   p.category==="Personal Care"?"Beauty":p.category)===cat
+))
  );
 
  let sort=$("sort")?.value;
@@ -627,9 +639,18 @@ function renderAdmin(){
 
    <select id="pCat" class="input">
     <option>Baby Care</option>
-    <option>Women Care</option>
-    <option>Personal Care</option>
-   </select>
+    <option>Women Hygiene</option>
+    <option>Beauty</option>
+    <option>Fashion</option>
+    <option>Footwear</option>
+    <option>Home & Kitchen</option>
+    <option>Grocery</option>
+    <option>Electronics</option>
+    <option>Toys & Kids</option>
+    <option>Health</option>
+    <option>Bags</option>
+    <option>Daily Essentials</option>
+</select>
 
    <div class="row">
     <input class="input" id="pPrice" type="number" placeholder="Price ₹">
