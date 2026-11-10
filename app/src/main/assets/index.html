@@ -52,8 +52,10 @@ main{max-width:850px;margin:auto;padding:15px}
 .footer{text-align:center;color:var(--muted);font-size:12px;padding:25px 8px}
 .small{font-size:12px}
 .adminbox{border:1px dashed #e6a2c2;background:#fff8fb;padding:12px;border-radius:12px}
-.thumbs{display:flex;gap:7px;overflow:auto}
+.thumbs{display:flex;gap:7px;overflow:auto;flex-wrap:wrap}
 .notice{background:#fff7e8;border:1px solid #f4dfb8;padding:10px;border-radius:10px;font-size:12px;margin:10px 0}
+.review-photo{width:100%;max-width:230px;max-height:200px;object-fit:cover;border-radius:12px;margin:8px 0}
+.review-card{border-bottom:1px solid var(--line);padding:10px 0}
 @media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.photo{height:180px}}
 </style>
 </head>
@@ -252,6 +254,7 @@ function openProduct(id){
  if(!activeProduct)return;
 
  let p=activeProduct;
+ let productReviews=reviews.filter(r=>r.productId===p.id);
 
  $("detailContent").innerHTML=`
   <div class="panel">
@@ -279,13 +282,32 @@ function openProduct(id){
 
   <div class="panel">
    <h3>Customer Reviews</h3>
-   ${
-    reviews.filter(r=>r.productId===p.id).map(r=>`
-     <p><span class="stars">★★★★★</span> ${safe(r.text)}</p>
-    `).join("")||"<p class='muted'>No reviews yet.</p>"
-   }
+
+   <div>
+    ${
+     productReviews.map(r=>`
+      <div class="review-card">
+       <p><span class="stars">★★★★★</span></p>
+       <p>${safe(r.text)}</p>
+       ${
+        r.imageUrl
+         ?`<img class="review-photo" src="${safe(r.imageUrl)}" alt="Customer review photo" loading="lazy">`
+         :""
+       }
+       <div class="muted">${safe(r.createdAt||"")}</div>
+      </div>
+     `).join("")||"<p class='muted'>No reviews yet.</p>"
+    }
+   </div>
+
+   <h4>Write a Review</h4>
    <textarea id="reviewText" placeholder="Write your review"></textarea>
-   <button class="btn secondary" onclick="addReview('${safe(p.id)}')">Submit Review</button>
+
+   <label>Attach a photo (optional)</label>
+   <input class="input" id="reviewPhoto" type="file" accept="image/*">
+
+   <button class="btn secondary" id="reviewSubmitBtn" onclick="addReview('${safe(p.id)}')">Submit Review</button>
+   <p class="muted small">You can upload one photo with your review.</p>
   </div>
  `;
 
@@ -298,6 +320,8 @@ function addCart(id,fromDetail=false){
 
  let qty=fromDetail?Math.max(1,Number($("qty").value)||1):1;
  let variant=fromDetail?$("variant").value:"Regular";
+
+ if(qty>p.stock)return alert("Only "+p.stock+" items available.");
 
  let found=cart.find(x=>x.id===id&&x.variant===variant);
  if(found)found.qty+=qty;
@@ -334,7 +358,16 @@ function renderCart(){
 }
 
 function changeQty(i,n){
- cart[i].qty+=n;
+ if(!cart[i])return;
+
+ let p=products.find(x=>x.id===cart[i].id);
+ let next=cart[i].qty+n;
+
+ if(next>0&&p&&next>p.stock){
+  return alert("Only "+p.stock+" items available.");
+ }
+
+ cart[i].qty=next;
  if(cart[i].qty<=0)cart.splice(i,1);
  persist();
  renderCart();
@@ -349,6 +382,11 @@ function removeCart(i){
 function checkout(){
  if(!current)return alert("Please login or register first.");
  if(!cart.length)return alert("Your cart is empty.");
+
+ for(let c of cart){
+  let p=products.find(x=>x.id===c.id);
+  if(!p||p.stock<c.qty)return alert("Stock unavailable for "+(p?.name||"a product")+". Please update your cart.");
+ }
 
  let name=prompt("Delivery name");
  if(!name)return;
@@ -500,24 +538,65 @@ function logout(){
  showPage("home");
 }
 
-function addReview(id){
+/* CUSTOMER REVIEW WITH OPTIONAL PHOTO */
+
+async function addReview(id){
  if(!current)return alert("Please login first.");
 
  let text=$("reviewText").value.trim();
  if(!text)return alert("Write your review first.");
 
- let r={
-  id:"r"+Date.now(),
-  productId:id,
-  uid:current.uid,
-  text,
-  createdAt:new Date().toISOString()
- };
+ let photoInput=$("reviewPhoto");
+ let file=photoInput?.files?.[0]||null;
+ let btn=$("reviewSubmitBtn");
 
- reviews.unshift(r);
- persist();
- saveRemote("reviews",r.id,r);
- openProduct(id);
+ if(file){
+  if(!file.type.startsWith("image/")){
+   return alert("Please select an image file.");
+  }
+
+  if(file.size>8*1024*1024){
+   return alert("Review photo must be smaller than 8 MB.");
+  }
+ }
+
+ btn.disabled=true;
+ btn.textContent="Submitting...";
+
+ try{
+  let imageUrl="";
+
+  if(file){
+   imageUrl=await uploadCloudinary(file,"care-for-u-reviews");
+  }
+
+  let r={
+   id:"r"+Date.now(),
+   productId:id,
+   uid:current.uid,
+   text,
+   imageUrl,
+   createdAt:new Date().toISOString()
+  };
+
+  reviews.unshift(r);
+  persist();
+
+  let synced=await saveRemotePromise("reviews",r.id,r);
+
+  openProduct(id);
+
+  if(synced){
+   alert("Your review was submitted successfully 💗");
+  }else{
+   alert("Review saved on this phone. Cloud sync was not confirmed.");
+  }
+
+ }catch(e){
+  alert("Review photo upload failed: "+e.message);
+  btn.disabled=false;
+  btn.textContent="Submit Review";
+ }
 }
 
 /* ADMIN */
@@ -538,7 +617,7 @@ function renderAdmin(){
  $("adminArea").innerHTML=`
   <div class="notice">
    Admin mode. Product changes and orders sync through Firebase when connected.
-   Product photos upload to Cloudinary.
+   Product photos and customer review photos upload to Cloudinary.
   </div>
 
   <div class="adminbox">
@@ -575,7 +654,7 @@ function renderAdmin(){
   <h3>Customer Orders</h3>
   <div id="adminOrders"></div>
 
-  <h3>Reviews</h3>
+  <h3>Customer Reviews</h3>
   <div id="adminReviews"></div>
  `;
 
@@ -594,14 +673,17 @@ function adminLogin(){
    persist();
    refreshCloudData();
    renderAdmin();
+   alert("Admin login successful.");
   }else{
    alert("This account is not authorised as admin.");
+   bridgeCall("signOut",[],()=>{});
   }
  });
 }
 
 function previewPhotos(){
  selectedImages=Array.from($("pPhotos").files||[]);
+
  $("photoPreview").innerHTML=selectedImages.map(f=>
   `<span class="badge">${safe(f.name)}</span>`
  ).join("");
@@ -609,12 +691,12 @@ function previewPhotos(){
 
 /* CLOUDINARY PHOTO UPLOAD */
 
-async function uploadCloudinary(file){
+async function uploadCloudinary(file,folder="care-for-u-products"){
  let fd=new FormData();
 
  fd.append("file",file);
  fd.append("upload_preset",CFU_UPLOAD_PRESET);
- fd.append("folder","care-for-u-products");
+ fd.append("folder",folder);
 
  let response=await fetch(
   `https://api.cloudinary.com/v1_1/${CFU_CLOUD_NAME}/image/upload`,
@@ -625,6 +707,10 @@ async function uploadCloudinary(file){
 
  if(!response.ok){
   throw new Error(data.error?.message||"Photo upload failed");
+ }
+
+ if(!data.secure_url){
+  throw new Error("Cloudinary did not return a photo URL.");
  }
 
  return data.secure_url;
@@ -647,7 +733,11 @@ async function addProduct(){
   let images=[];
 
   for(let f of selectedImages){
-   images.push(await uploadCloudinary(f));
+   if(!f.type.startsWith("image/"))continue;
+   if(f.size>8*1024*1024){
+    throw new Error("Each product photo must be smaller than 8 MB.");
+   }
+   images.push(await uploadCloudinary(f,"care-for-u-products"));
   }
 
   let p={
@@ -666,6 +756,7 @@ async function addProduct(){
 
   let ok=await saveRemotePromise("products",p.id,p);
 
+  selectedImages=[];
   renderAdmin();
   renderProducts();
 
@@ -677,13 +768,18 @@ async function addProduct(){
  }catch(e){
   alert(e.message);
  }finally{
-  btn.disabled=false;
+  let currentBtn=document.querySelector("#adminArea .adminbox .btn");
+  if(currentBtn){
+   currentBtn.disabled=false;
+   currentBtn.textContent="Save Product";
+  }
  }
 }
 
 function renderAdminLists(){
  $("adminProducts").innerHTML=products.map(p=>`
   <div class="item">
+   ${p.images?.[0]?`<img src="${safe(p.images[0])}" alt="">`:""}
    <div class="iteminfo">
     <b>${safe(p.name)}</b>
     <small>₹${p.price} · Stock ${p.stock}</small>
@@ -697,6 +793,7 @@ function renderAdminLists(){
   <div class="panel">
    <b>${safe(o.id)}</b> · ₹${o.total}
    <p>${safe(o.name||"")} · ${safe(o.mobile||"")}</p>
+   <p class="muted">${safe(o.address||"")} · ${safe(o.pin||"")}</p>
 
    <select class="input" onchange="setOrderStatus('${safe(o.id)}',this.value)">
     <option ${o.status==="Order Placed"?"selected":""}>Order Placed</option>
@@ -710,7 +807,15 @@ function renderAdminLists(){
 
  $("adminReviews").innerHTML=reviews.map(r=>`
   <div class="item">
-   <div class="iteminfo">${safe(r.text)}</div>
+   <div class="iteminfo">
+    <b>${safe(r.text)}</b>
+    <small class="muted">Product ID: ${safe(r.productId||"")}</small>
+    ${
+     r.imageUrl
+      ?`<img class="review-photo" src="${safe(r.imageUrl)}" alt="Customer review photo" loading="lazy">`
+      :""
+    }
+   </div>
    <button class="btn danger" onclick="deleteReview('${safe(r.id)}')">Remove</button>
   </div>
  `).join("")||"<p class='muted'>No reviews.</p>";
@@ -718,6 +823,8 @@ function renderAdminLists(){
 
 function editStock(id){
  let p=products.find(x=>x.id===id);
+ if(!p)return;
+
  let n=prompt("New stock quantity",p.stock);
 
  if(n===null||!Number.isFinite(Number(n))||Number(n)<0)return;
@@ -750,6 +857,8 @@ function setOrderStatus(id,status){
 }
 
 function deleteReview(id){
+ if(!confirm("Remove this review?"))return;
+
  reviews=reviews.filter(r=>r.id!==id);
  persist();
  deleteRemote("reviews",id);
@@ -839,6 +948,10 @@ function refreshCloudData(){
 
    if($("admin").classList.contains("show"))renderAdminLists();
    if($("orders").classList.contains("show"))renderOrders();
+
+   if($("detail").classList.contains("show")&&activeProduct){
+    openProduct(activeProduct.id);
+   }
   });
  });
 }
