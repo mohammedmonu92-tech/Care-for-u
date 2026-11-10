@@ -893,9 +893,17 @@ window.onFirebaseResult=function(id,result){
   delete window.firebaseCallbacks[id];
 
   try{
-   cb(typeof result==="string"?JSON.parse(result):result);
+   let data=typeof result==="string"
+    ?JSON.parse(result)
+    :result;
+
+   if(data && data.success===false){
+    data.error=data.message||"Firebase request failed";
+   }
+
+   cb(data);
   }catch(e){
-   cb({error:String(result)});
+   cb({error:String(e)});
   }
  }
 };
