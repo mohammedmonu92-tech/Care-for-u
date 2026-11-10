@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.webkit.*;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +33,8 @@ public class MainActivity extends Activity {
     private FirebaseFirestore db;
 
     private static final int FILE_REQUEST = 501;
+
+    private long backPressedTime = 0;
 
     private static final String ADMIN_UID =
         "wAAMhfDpR1YJjbBrNPaaF5jGsr52";
@@ -178,26 +181,26 @@ public class MainActivity extends Activity {
     }
 
     private void sendResult(
-    String callbackId,
-    JSONObject result
-) {
-    runOnUiThread(() -> {
-        if (webView == null) return;
+        String callbackId,
+        JSONObject result
+    ) {
+        runOnUiThread(() -> {
+            if (webView == null) return;
 
-        webView.evaluateJavascript(
-            "(function() {" +
-            "var id = " + JSONObject.quote(callbackId) + ";" +
-            "var result = " + result.toString() + ";" +
-            "if (window.onFirebaseResult) {" +
-            "window.onFirebaseResult(id, result);" +
-            "} else if (window.__firebaseCallback) {" +
-            "window.__firebaseCallback(id, result);" +
-            "}" +
-            "})()",
-            null
-        );
-    });
-}
+            webView.evaluateJavascript(
+                "(function() {" +
+                "var id = " + JSONObject.quote(callbackId) + ";" +
+                "var result = " + result.toString() + ";" +
+                "if (window.onFirebaseResult) {" +
+                "window.onFirebaseResult(id, result);" +
+                "} else if (window.__firebaseCallback) {" +
+                "window.__firebaseCallback(id, result);" +
+                "}" +
+                "})()",
+                null
+            );
+        });
+    }
 
     private JSONObject makeResult(
         boolean success,
@@ -593,9 +596,6 @@ public class MainActivity extends Activity {
 
             Query query = db.collection(collection);
 
-            // CUSTOMER: ONLY OWN ORDERS
-            // ADMIN: ALL ORDERS
-
             if (
                 collection.equals("orders") &&
                 !ADMIN_UID.equals(
@@ -694,21 +694,48 @@ public class MainActivity extends Activity {
         }
     }
 
+    // BACK BUTTON HANDLING
+
     @Override
     public void onBackPressed() {
 
         if (webView != null && webView.canGoBack()) {
 
             webView.goBack();
+            backPressedTime = 0;
 
         } else {
 
-            super.onBackPressed();
+            if (
+                backPressedTime + 2000 >
+                System.currentTimeMillis()
+            ) {
+
+                super.onBackPressed();
+
+            } else {
+
+                backPressedTime =
+                    System.currentTimeMillis();
+
+                Toast.makeText(
+                    this,
+                    "Dobara Back dabao app band ho jayegi",
+                    Toast.LENGTH_SHORT
+                ).show();
+            }
         }
     }
 
+    // DESTROY
+
     @Override
     protected void onDestroy() {
+
+        if (fileCallback != null) {
+            fileCallback.onReceiveValue(null);
+            fileCallback = null;
+        }
 
         if (webView != null) {
 
