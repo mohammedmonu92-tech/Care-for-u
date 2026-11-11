@@ -3,22 +3,23 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
-        android:label="CARE FOR U"
-        android:icon="@drawable/ic_launcher"
-        android:theme="@android:style/Theme.Material.Light.NoActionBar"
-        android:usesCleartextTraffic="false">
+    android:allowBackup="true"
+    android:label="CARE FOR U"
+    android:icon="@drawable/care_for_u_icon"
+    android:roundIcon="@drawable/care_for_u_icon"
+    android:theme="@android:style/Theme.Material.Light.NoActionBar"
+    android:usesCleartextTraffic="false">
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
+    <activity
+        android:name=".MainActivity"
+        android:exported="true"
+        android:screenOrientation="portrait">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
 
-        </activity>
-    </application>
+    </activity>
+</application>
 </manifest>
