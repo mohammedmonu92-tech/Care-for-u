@@ -149,11 +149,64 @@ select option{background:#211b24;color:white}
 .footer{text-align:center;color:var(--muted);font-size:12px;padding:25px 8px}.categorychips{display:flex;gap:8px;overflow:auto;padding:4px 0 12px}.categorychips button{white-space:nowrap;border:1px solid var(--line);border-radius:20px;background:var(--surface);color:#f5d8e7;padding:8px 12px;font-size:12px}.categorychips button.active{background:#572541;border-color:var(--pink);color:#fff}
 .address-card{border:1px solid var(--line);background:#1a151d;padding:12px;border-radius:12px;margin:9px 0}.address-card.default{border-color:var(--pink)}
 @media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.photo{height:185px}main{padding:20px}}
-</style>
+ <head>
+  <style>
+    /* Tumhara existing CSS yahan hai */
+
+
+    /* New Profile & Logo CSS */
+    .toprow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .profile-icon {
+      width: 48px;
+      height: 48px;
+      border: 2px solid white;
+      border-radius: 50%;
+      background: transparent;
+      color: white;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-name {
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .brand-heart {
+      color: white;
+      font-size: 38px;
+      line-height: 1;
+    }
+
+  </style>
 </head>
 <body>
 <header>
- <div class="toprow">
+<div class="toprow">
+  <button class="profile-icon"
+          aria-label="Profile"
+          onclick="showPage('account')">
+    👤
+  </button>
+
+  <div class="brand-logo">
+    <div class="brand-name">CARE FOR U</div>
+    <div class="brand-heart">♡</div>
+  </div>
+</div>
   <div><div class="brand">CARE FOR U</div><div class="tag">Care That Makes You Feel Special.</div></div>
   <button class="iconbtn" aria-label="Profile" onclick="showPage('account')">👤</button>
  </div>
