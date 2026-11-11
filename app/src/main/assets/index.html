@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#17131a">
 <title>CARE FOR U</title>
+ <style>
  /* CARE FOR U - Burgundy & White Theme */
 :root{
  --bg:#fff8f8;
@@ -124,7 +125,7 @@ select option{background:#ffffff;color:#292027}
  background:#f8e5eb;
  color:#800020;
 }
-<style>
+ <style>
 :root{--bg:#17131a;--surface:#211b24;--surface2:#2b222e;--pink:#ed4d9a;--pink2:#b92d72;--text:#fff8fc;--muted:#b9aab6;--line:#403342;--green:#70d6a1;--danger:#e66b82}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px Arial,sans-serif;padding-bottom:78px}
 button,input,select,textarea{font:inherit}button{cursor:pointer}
@@ -180,13 +181,13 @@ select option{background:#211b24;color:white}
     }
 
     .brand-name {
-      color: white;
+      color:Burgundy;
       font-size: 22px;
       font-weight: bold;
     }
 
     .brand-heart {
-      color: white;
+      color:Burgundy;
       font-size: 38px;
       line-height: 1;
     }
@@ -194,27 +195,35 @@ select option{background:#211b24;color:white}
   </style>
 </head>
 <body>
-<header>
-<div class="toprow">
-  <button class="profile-icon"
-          aria-label="Profile"
-          onclick="showPage('account')">
-    👤
-  </button>
 
-  <div class="brand-logo">
-    <div class="brand-name">CARE FOR U</div>
-    <div class="brand-heart">♡</div>
+<header>
+  <div class="toprow">
+    <button class="profile-icon"
+            aria-label="Profile"
+            onclick="showPage('account')">
+      👤
+    </button>
+
+    <div class="brand-block">
+      <div class="brand-logo">
+        <div class="brand-name">CARE FOR U</div>
+        <div class="brand-heart">♡</div>
+      </div>
+      <div class="tag">Care That Makes You Feel Special.</div>
+    </div>
   </div>
-</div>
-  <div><div class="brand">CARE FOR U</div><div class="tag">Care That Makes You Feel Special.</div></div>
-  <button class="iconbtn" aria-label="Profile" onclick="showPage('account')">👤</button>
- </div>
- <div class="searchtools">
-  <div class="searchbox"><input id="search" placeholder="Search products..." oninput="renderProducts()"></div>
-  <button class="iconbtn" aria-label="Wishlist" onclick="showPage('wishlist')">♡<span class="count" id="wishCount">0</span></button>
-  <button class="iconbtn" aria-label="Cart" onclick="showPage('cart')">🛒<span class="count" id="cartCount">0</span></button>
- </div>
+
+  <div class="searchtools">
+    <div class="searchbox">
+      <input id="search" placeholder="Search products..." oninput="renderProducts()">
+    </div>
+    <button class="iconbtn" aria-label="Wishlist" onclick="showPage('wishlist')">
+      ♡<span class="count" id="wishCount">0</span>
+    </button>
+    <button class="iconbtn" aria-label="Cart" onclick="showPage('cart')">
+      🛒<span class="count" id="cartCount">0</span>
+    </button>
+  </div>
 </header>
 <main>
 <section id="home" class="section show">
