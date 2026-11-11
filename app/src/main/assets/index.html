@@ -5,6 +5,125 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#17131a">
 <title>CARE FOR U</title>
+ /* CARE FOR U - Burgundy & White Theme */
+:root{
+ --bg:#fff8f8;
+ --surface:#ffffff;
+ --surface2:#f8eeee;
+ --pink:#800020;
+ --pink2:#a52a45;
+ --text:#292027;
+ --muted:#766a70;
+ --line:#ead9dd;
+ --green:#278653;
+ --danger:#c43d55;
+}
+
+body{
+ background:#fff8f8;
+ color:#292027;
+}
+
+header{
+ background:#800020;
+ color:white;
+ border-bottom:1px solid #6c001b;
+}
+
+.brand{
+ background:linear-gradient(90deg,#ffffff,#ffdce5);
+ -webkit-background-clip:text;
+ background-clip:text;
+ color:transparent;
+}
+
+.tag{color:#f5dce3}
+
+.iconbtn{
+ background:#ffffff;
+ color:#800020;
+ border:1px solid #ead9dd;
+}
+
+.searchbox input{
+ background:#ffffff;
+ color:#292027;
+ border:1px solid #ead9dd;
+}
+
+.hero{
+ background:linear-gradient(120deg,#800020,#a52a45);
+ border:0;
+}
+
+.hero h2{color:#ffffff}
+.hero p,.hero .muted{color:#ffe8ed}
+
+.input,select,textarea{
+ background:#ffffff;
+ color:#292027;
+ border:1px solid #ead9dd;
+}
+
+select option{background:#ffffff;color:#292027}
+
+.btn{
+ background:linear-gradient(110deg,#800020,#a52a45);
+ color:#ffffff;
+}
+
+.btn.secondary{
+ background:#fff0f3;
+ color:#800020;
+ border:1px solid #e5bdc7;
+}
+
+.btn.danger{background:#a52a45}
+
+.card{
+ background:#ffffff;
+ border:1px solid #ead9dd;
+ box-shadow:0 4px 14px #80002012;
+}
+
+.photo{background:#f8eeee;color:#800020}
+.price{color:#800020}
+
+.bottomnav{
+ background:#ffffff;
+ border-top:1px solid #ead9dd;
+ box-shadow:0 -4px 15px #80002012;
+}
+
+.bottomnav button{color:#766a70}
+.bottomnav button.active{color:#800020}
+
+.categorychips button{
+ background:#ffffff;
+ color:#800020;
+ border:1px solid #ead9dd;
+}
+
+.categorychips button.active{
+ background:#800020;
+ color:#ffffff;
+ border-color:#800020;
+}
+
+.panel{
+ background:#ffffff;
+ border:1px solid #ead9dd;
+}
+
+.address-card{
+ background:#fffafa;
+ border:1px solid #ead9dd;
+}
+
+.badge{
+ background:#f8e5eb;
+ color:#800020;
+}
 <style>
 :root{--bg:#17131a;--surface:#211b24;--surface2:#2b222e;--pink:#ed4d9a;--pink2:#b92d72;--text:#fff8fc;--muted:#b9aab6;--line:#403342;--green:#70d6a1;--danger:#e66b82}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px Arial,sans-serif;padding-bottom:78px}
@@ -61,8 +180,25 @@ select option{background:#211b24;color:white}
 <div class="footer">CARE FOR U · Shop No. 2, Calicut, Port Blair, Andaman & Nicobar Islands · PIN 744105<br>WhatsApp: 9332594564</div>
 </main>
 <nav class="bottomnav">
- <button id="navHome" class="active" onclick="showPage('home',this)"><span>⌂</span>Home</button>
- <button id="navOrders" onclick="showPage('orders',this)"><span>▣</span>My Orders</button>
+ <button id="navHome" class="active" onclick="showPage('home',this)">
+  <span>⌂</span>Home
+ </button>
+
+ <button id="navOrders" onclick="showPage('orders',this)">
+  <span>▣</span>My Orders
+ </button>
+
+ <button id="navWishlist" onclick="showPage('wishlist',this)">
+  <span>♡</span>Wishlist
+ </button>
+
+ <button id="navCart" onclick="showPage('cart',this)">
+  <span>🛒</span>Cart
+ </button>
+
+ <button id="navAccount" onclick="showPage('account',this)">
+  <span>👤</span>Profile
+ </button>
 </nav>
 <script>
 const CFU_CLOUD_NAME="s5ofzzbt",CFU_UPLOAD_PRESET="careforu_upload";
@@ -77,7 +213,30 @@ let cart=read("cart"),orders=read("orders"),reviews=read("reviews"),current=read
 function persist(){write("products",products);write("cart",cart);write("orders",orders);write("reviews",reviews);write("current",current);write("wishlist",wishlist);updateCounts()}
 function updateCounts(){$("cartCount").textContent=cart.reduce((n,x)=>n+x.qty,0);$("wishCount").textContent=wishlist.length}
 function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function showPage(id,btn){document.querySelectorAll(".section").forEach(x=>x.classList.remove("show"));$(id).classList.add("show");document.querySelectorAll(".bottomnav button").forEach(x=>x.classList.remove("active"));if(id==="home")$("navHome").classList.add("active");if(id==="orders")$("navOrders").classList.add("active");if(btn&&btn.closest(".bottomnav"))btn.classList.add("active");if(id==="home")renderProducts();if(id==="cart")renderCart();if(id==="orders")renderOrders();if(id==="account")renderAccount();if(id==="wishlist")renderWishlist();window.scrollTo(0,0)}
+function showPage(id,btn){
+ document.querySelectorAll(".section").forEach(x=>x.classList.remove("show"));
+ $(id).classList.add("show");
+
+ document.querySelectorAll(".bottomnav button").forEach(x=>x.classList.remove("active"));
+
+ const navMap={
+  home:"navHome",
+  orders:"navOrders",
+  wishlist:"navWishlist",
+  cart:"navCart",
+  account:"navAccount"
+ };
+
+ if(navMap[id]) $(navMap[id]).classList.add("active");
+
+ if(id==="home")renderProducts();
+ if(id==="cart")renderCart();
+ if(id==="orders")renderOrders();
+ if(id==="account")renderAccount();
+ if(id==="wishlist")renderWishlist();
+
+ window.scrollTo(0,0);
+}
 function chooseCategory(cat,btn){activeCategory=cat;document.querySelectorAll(".categorychips button").forEach(x=>x.classList.remove("active"));btn.classList.add("active");renderProducts()}
 function imgOf(p){return p.images&&p.images[0]?`<img src="${safe(p.images[0])}" alt="${safe(p.name)}">`:"🛍️"}
 function renderProducts(){const q=($("search")?.value||"").toLowerCase();let arr=products.filter(p=>(p.name+" "+(p.description||"")+" "+(p.category||p.cat||"")).toLowerCase().includes(q)&&(!activeCategory||((p.category||p.cat)==="Women Care"?"Women Hygiene":(p.category||p.cat))===activeCategory));const sort=$("sort")?.value;if(sort==="low")arr.sort((a,b)=>a.price-b.price);if(sort==="high")arr.sort((a,b)=>b.price-a.price);$("products").innerHTML=arr.map(p=>`<article class="card"><div class="photo" onclick="openProduct('${safe(p.id)}')">${imgOf(p)}</div><div class="cardbody"><h3>${safe(p.name)}</h3><div class="muted">${safe(p.category||p.cat||"Daily Essentials")}</div><p><span class="price">₹${Number(p.price)||0}</span><span class="old">₹${p.oldPrice||p.mrp||""}</span></p><div class="muted">${p.stock>0?"In stock":"Out of stock"}</div><div class="actions"><button class="btn secondary" onclick="openProduct('${safe(p.id)}')">View</button><button class="btn" onclick="quickAdd('${safe(p.id)}')">Add</button></div><div class="actions"><button class="btn secondary" onclick="toggleWish('${safe(p.id)}')">${wishlist.includes(String(p.id))?"♥ Saved":"♡ Wishlist"}</button></div></div></article>`).join("")||"<p class='muted'>No products found.</p>";persist()}
