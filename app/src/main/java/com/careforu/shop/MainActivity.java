@@ -1,3 +1,4 @@
+
 package com.careforu.shop;
 
 import android.app.Activity;
@@ -88,10 +89,7 @@ public class MainActivity extends Activity {
                     Intent.ACTION_GET_CONTENT
                 );
 
-                intent.addCategory(
-                    Intent.CATEGORY_OPENABLE
-                );
-
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("image/*");
 
                 intent.putExtra(
@@ -100,7 +98,6 @@ public class MainActivity extends Activity {
                 );
 
                 try {
-
                     Intent chooser = Intent.createChooser(
                         intent,
                         "Select Product Photos"
@@ -129,8 +126,6 @@ public class MainActivity extends Activity {
             "file:///android_asset/index.html"
         );
     }
-
-    // GALLERY RESULT
 
     @Override
     protected void onActivityResult(
@@ -184,7 +179,9 @@ public class MainActivity extends Activity {
         String callbackId,
         JSONObject result
     ) {
+
         runOnUiThread(() -> {
+
             if (webView == null) return;
 
             webView.evaluateJavascript(
@@ -215,29 +212,17 @@ public class MainActivity extends Activity {
         return result;
     }
 
-    private void sendSuccess(
-        String id,
-        String message
-    ) {
+    private void sendSuccess(String id, String message) {
 
         try {
-            sendResult(
-                id,
-                makeResult(true, message)
-            );
+            sendResult(id, makeResult(true, message));
         } catch (Exception ignored) {}
     }
 
-    private void sendError(
-        String id,
-        String message
-    ) {
+    private void sendError(String id, String message) {
 
         try {
-            sendResult(
-                id,
-                makeResult(false, message)
-            );
+            sendResult(id, makeResult(false, message));
         } catch (Exception ignored) {}
     }
 
@@ -263,15 +248,12 @@ public class MainActivity extends Activity {
             Object value = object.get(key);
 
             if (value instanceof JSONObject) {
-
                 value = jsonToMap((JSONObject) value);
 
             } else if (value instanceof JSONArray) {
-
                 value = jsonToList((JSONArray) value);
 
             } else if (value == JSONObject.NULL) {
-
                 value = null;
             }
 
@@ -292,15 +274,12 @@ public class MainActivity extends Activity {
             Object value = array.get(i);
 
             if (value instanceof JSONObject) {
-
                 value = jsonToMap((JSONObject) value);
 
             } else if (value instanceof JSONArray) {
-
                 value = jsonToList((JSONArray) value);
 
             } else if (value == JSONObject.NULL) {
-
                 value = null;
             }
 
@@ -312,8 +291,6 @@ public class MainActivity extends Activity {
 
     public class FirebaseBridge {
 
-        // LOGIN
-
         @JavascriptInterface
         public void signIn(
             String email,
@@ -321,10 +298,7 @@ public class MainActivity extends Activity {
             String callbackId
         ) {
 
-            auth.signInWithEmailAndPassword(
-                email,
-                password
-            )
+            auth.signInWithEmailAndPassword(email, password)
 
             .addOnSuccessListener(result -> {
 
@@ -333,20 +307,12 @@ public class MainActivity extends Activity {
                     JSONObject data =
                         makeResult(true, "Login successful");
 
-                    data.put(
-                        "uid",
-                        result.getUser().getUid()
-                    );
-
-                    data.put(
-                        "email",
-                        result.getUser().getEmail()
-                    );
+                    data.put("uid", result.getUser().getUid());
+                    data.put("email", result.getUser().getEmail());
 
                     sendResult(callbackId, data);
 
                 } catch (Exception e) {
-
                     sendError(callbackId, e.getMessage());
                 }
 
@@ -356,8 +322,6 @@ public class MainActivity extends Activity {
                 sendError(callbackId, error.getMessage())
             );
         }
-
-        // REGISTER
 
         @JavascriptInterface
         public void createAccount(
@@ -366,10 +330,7 @@ public class MainActivity extends Activity {
             String callbackId
         ) {
 
-            auth.createUserWithEmailAndPassword(
-                email,
-                password
-            )
+            auth.createUserWithEmailAndPassword(email, password)
 
             .addOnSuccessListener(result -> {
 
@@ -378,20 +339,12 @@ public class MainActivity extends Activity {
                     JSONObject data =
                         makeResult(true, "Account created");
 
-                    data.put(
-                        "uid",
-                        result.getUser().getUid()
-                    );
-
-                    data.put(
-                        "email",
-                        result.getUser().getEmail()
-                    );
+                    data.put("uid", result.getUser().getUid());
+                    data.put("email", result.getUser().getEmail());
 
                     sendResult(callbackId, data);
 
                 } catch (Exception e) {
-
                     sendError(callbackId, e.getMessage());
                 }
 
@@ -401,8 +354,6 @@ public class MainActivity extends Activity {
                 sendError(callbackId, error.getMessage())
             );
         }
-
-        // PASSWORD RESET
 
         @JavascriptInterface
         public void resetPassword(
@@ -413,18 +364,13 @@ public class MainActivity extends Activity {
             auth.sendPasswordResetEmail(email)
 
             .addOnSuccessListener(unused ->
-                sendSuccess(
-                    callbackId,
-                    "Password reset email sent"
-                )
+                sendSuccess(callbackId, "Password reset email sent")
             )
 
             .addOnFailureListener(error ->
                 sendError(callbackId, error.getMessage())
             );
         }
-
-        // CURRENT USER
 
         @JavascriptInterface
         public String currentUser() {
@@ -437,32 +383,20 @@ public class MainActivity extends Activity {
 
                 JSONObject data = new JSONObject();
 
-                data.put(
-                    "uid",
-                    auth.getCurrentUser().getUid()
-                );
-
-                data.put(
-                    "email",
-                    auth.getCurrentUser().getEmail()
-                );
+                data.put("uid", auth.getCurrentUser().getUid());
+                data.put("email", auth.getCurrentUser().getEmail());
 
                 return data.toString();
 
             } catch (Exception e) {
-
                 return "";
             }
         }
-
-        // LOGOUT
 
         @JavascriptInterface
         public void signOut() {
             auth.signOut();
         }
-
-        // SAVE DOCUMENT
 
         @JavascriptInterface
         public void saveDocument(
@@ -484,37 +418,25 @@ public class MainActivity extends Activity {
 
             try {
 
-                JSONObject object =
-                    new JSONObject(jsonData);
-
-                Map<String, Object> data =
-                    jsonToMap(object);
+                JSONObject object = new JSONObject(jsonData);
+                Map<String, Object> data = jsonToMap(object);
 
                 db.collection(collection)
                     .document(documentId)
                     .set(data)
 
                     .addOnSuccessListener(unused ->
-                        sendSuccess(
-                            callbackId,
-                            "Data saved successfully"
-                        )
+                        sendSuccess(callbackId, "Data saved successfully")
                     )
 
                     .addOnFailureListener(error ->
-                        sendError(
-                            callbackId,
-                            error.getMessage()
-                        )
+                        sendError(callbackId, error.getMessage())
                     );
 
             } catch (Exception e) {
-
                 sendError(callbackId, e.getMessage());
             }
         }
-
-        // GET DOCUMENT
 
         @JavascriptInterface
         public void getDocument(
@@ -545,38 +467,26 @@ public class MainActivity extends Activity {
                             makeResult(true, "Data loaded");
 
                         if (document.exists()) {
-
                             result.put(
                                 "data",
                                 new JSONObject(document.getData())
                             );
-
                         } else {
-
-                            result.put(
-                                "data",
-                                JSONObject.NULL
-                            );
+                            result.put("data", JSONObject.NULL);
                         }
 
                         sendResult(callbackId, result);
 
                     } catch (Exception e) {
-
                         sendError(callbackId, e.getMessage());
                     }
 
                 })
 
                 .addOnFailureListener(error ->
-                    sendError(
-                        callbackId,
-                        error.getMessage()
-                    )
+                    sendError(callbackId, error.getMessage())
                 );
         }
-
-        // GET COLLECTION
 
         @JavascriptInterface
         public void getCollection(
@@ -598,9 +508,7 @@ public class MainActivity extends Activity {
 
             if (
                 collection.equals("orders") &&
-                !ADMIN_UID.equals(
-                    auth.getCurrentUser().getUid()
-                )
+                !ADMIN_UID.equals(auth.getCurrentUser().getUid())
             ) {
 
                 query = query.whereEqualTo(
@@ -617,19 +525,12 @@ public class MainActivity extends Activity {
 
                         JSONArray array = new JSONArray();
 
-                        for (
-                            DocumentSnapshot document :
-                            snapshot.getDocuments()
-                        ) {
+                        for (DocumentSnapshot document : snapshot.getDocuments()) {
 
                             JSONObject item =
                                 new JSONObject(document.getData());
 
-                            item.put(
-                                "id",
-                                document.getId()
-                            );
-
+                            item.put("id", document.getId());
                             array.put(item);
                         }
 
@@ -641,21 +542,15 @@ public class MainActivity extends Activity {
                         sendResult(callbackId, result);
 
                     } catch (Exception e) {
-
                         sendError(callbackId, e.getMessage());
                     }
 
                 })
 
                 .addOnFailureListener(error ->
-                    sendError(
-                        callbackId,
-                        error.getMessage()
-                    )
+                    sendError(callbackId, error.getMessage())
                 );
         }
-
-        // DELETE DOCUMENT
 
         @JavascriptInterface
         public void deleteDocument(
@@ -679,27 +574,24 @@ public class MainActivity extends Activity {
                 .delete()
 
                 .addOnSuccessListener(unused ->
-                    sendSuccess(
-                        callbackId,
-                        "Deleted successfully"
-                    )
+                    sendSuccess(callbackId, "Deleted successfully")
                 )
 
                 .addOnFailureListener(error ->
-                    sendError(
-                        callbackId,
-                        error.getMessage()
-                    )
+                    sendError(callbackId, error.getMessage())
                 );
         }
     }
 
-    // BACK BUTTON HANDLING
+    // HARDWARE BACK BUTTON
 
     @Override
-public void onBackPressed() {
+    public void onBackPressed() {
 
-    if (webView != null) {
+        if (webView == null) {
+            super.onBackPressed();
+            return;
+        }
 
         webView.evaluateJavascript(
             "(function() {" +
@@ -709,6 +601,7 @@ public void onBackPressed() {
             "}" +
             "return 'home';" +
             "})()",
+
             value -> {
 
                 if ("\"home\"".equals(value)) {
@@ -718,12 +611,12 @@ public void onBackPressed() {
                         System.currentTimeMillis()
                     ) {
 
-                        super.onBackPressed();
+                        backPressedTime = 0;
+                        MainActivity.super.onBackPressed();
 
                     } else {
 
-                        backPressedTime =
-                            System.currentTimeMillis();
+                        backPressedTime = System.currentTimeMillis();
 
                         Toast.makeText(
                             MainActivity.this,
@@ -733,18 +626,11 @@ public void onBackPressed() {
                     }
 
                 } else {
-
                     backPressedTime = 0;
                 }
             }
         );
-
-    } else {
-        super.onBackPressed();
     }
-}
-
-    // DESTROY
 
     @Override
     protected void onDestroy() {
@@ -755,7 +641,6 @@ public void onBackPressed() {
         }
 
         if (webView != null) {
-
             webView.destroy();
             webView = null;
         }
