@@ -774,7 +774,7 @@ async function submitAuth(type){
  if(button){button.disabled=true;button.textContent="Please wait..."}
  try{
   let result;
-  if(type==="login")result=await bridgeCall("signIn",email,password);
+  if(type==="login")result=await bridgeCall("signin",email,password);
   else if(type==="register")result=await bridgeCall("createAccount",email,password,name,mobile);
   else result=await bridgeCall("resetPassword",email);
   if(!result||result.success===false)throw new Error(result?.error||"Authentication failed.");
