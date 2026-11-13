@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -375,11 +374,22 @@ function productMatches(p,term){
  return [p.name,p.productName,p.category,p.description]
   .join(" ").toLowerCase().includes(term);
 }
+// Admin app ke images array se bhi product photo read karega
+function productImage(p){
+ const images=Array.isArray(p?.images)?p.images:[];
+ return safeImage(
+  p?.photo ||
+  p?.image ||
+  p?.imageUrl ||
+  images[0] ||
+  ""
+ );
+}
 
 function productCard(p){
  const id=String(p.id);
  const name=escapeHTML(p.name||p.productName||"Product");
- const photo=safeImage(p.photo||p.image);
+ const photo=productImage(p);
  return `
  <div class="card">
   <div class="photo" onclick="openProduct('${escapeHTML(id)}')">
@@ -407,7 +417,9 @@ function renderProducts(){
  container.innerHTML=list.length?list.map(productCard).join():'<div class="panel">No products available.</div>';
 }
 
-function getProduct(id){return products.find(p=>String(p.id)===String(id))}
+function getProduct(id){
+ return products.find(p=>String(p.id)===String(id));
+}
 
 function openPriceSlab(min,max,title){
  listingMode="price";
@@ -478,9 +490,14 @@ function addToCart(id){
  const found=cart.find(x=>String(x.id)===String(id));
  if(found)found.qty=Number(found.qty||1)+1;
  else cart.push({
-  id:String(p.id),qty:1,productName:p.name||p.productName||"",
-  price:Number(p.price||0),photo:p.photo||p.image||"",
-  variant:"",size:"",colour:""
+  id:String(p.id),
+  qty:1,
+  productName:p.name||p.productName||"",
+  price:Number(p.price||0),
+  photo:productImage(p),
+  variant:"",
+  size:"",
+  colour:""
  });
  persist();
  alert("Product added to cart.");
@@ -497,12 +514,16 @@ function toggleWishlist(id){
 function renderWishlist(){
  const container=$("wishlistItems");
  if(!container)return;
- if(!wishlist.length){container.innerHTML='<div class="panel">Your wishlist is empty.</div>';return}
+ if(!wishlist.length){
+  container.innerHTML='<div class="panel">Your wishlist is empty.</div>';
+  return;
+ }
  container.innerHTML=wishlist.map(id=>{
   const p=getProduct(id);
   if(!p)return "";
+  const photo=productImage(p);
   return `<div class="item">
-   <img src="${escapeHTML(p.photo||p.image||"")}" onerror="this.style.display='none'">
+   ${photo?`<img src="${escapeHTML(photo)}" onerror="this.style.display='none'">`:""}
    <div class="iteminfo"><b>${escapeHTML(p.name||p.productName||"Product")}</b>${money(p.price)}</div>
    <button class="btn" onclick="addToCart('${escapeHTML(p.id)}')">Add</button>
    <button class="btn secondary" onclick="toggleWishlist('${escapeHTML(p.id)}')">Remove</button>
@@ -516,10 +537,13 @@ function openProduct(id){
  selectedProduct=p;
  const visiblePage=document.querySelector(".section.show")?.id;
  previousListingPage=visiblePage==="listing"?"listing":"home";
+ const photo=productImage(p);
 
  $("detailContent").innerHTML=`
  <div class="panel">
-  <div class="photo detail-photo">${p.photo||p.image?`<img src="${escapeHTML(p.photo||p.image)}">`:"♡"}</div>
+  <div class="photo detail-photo">
+   ${photo?`<img src="${escapeHTML(photo)}" onerror="this.style.display='none'">`:"♡"}
+  </div>
   <h2>${escapeHTML(p.name||p.productName||"Product")}</h2>
   <div class="price">${money(p.price)}</div>
   <p>${escapeHTML(p.description||"")}</p>
@@ -536,20 +560,24 @@ function backFromDetail(){
  if(previousListingPage==="listing")showPage("listing",null,true);
  else showPage("home",null,true);
 }
+
 function renderCart(){
  const container=$("cartItems");
  if(!container)return;
  if(!cart.length){
   container.innerHTML='<div class="panel">Your cart is empty.</div>';
-  $("cartTotal").textContent="Total: ₹0";return;
+  $("cartTotal").textContent="Total: ₹0";
+  return;
  }
  let total=0;
  container.innerHTML=cart.map((item,index)=>{
   const p=getProduct(item.id);
   const price=Number(p?.price??item.price??0);
-  const qty=Number(item.qty||1);total+=price*qty;
+  const qty=Number(item.qty||1);
+  total+=price*qty;
+  const photo=p?productImage(p):safeImage(item.photo);
   return `<div class="item">
-   <img src="${escapeHTML(p?.photo||p?.image||item.photo||"")}" onerror="this.style.display='none'">
+   ${photo?`<img src="${escapeHTML(photo)}" onerror="this.style.display='none'">`:""}
    <div class="iteminfo">
     <b>${escapeHTML(p?.name||p?.productName||item.productName||"Product")}</b>${money(price)}
     <div class="row" style="margin-top:7px">
@@ -563,17 +591,32 @@ function renderCart(){
  }).join("");
  $("cartTotal").textContent="Total: "+money(total);
 }
+
 function changeQty(index,change){
  if(!cart[index])return;
  cart[index].qty=Number(cart[index].qty||1)+change;
  if(cart[index].qty<=0)cart.splice(index,1);
- persist();renderCart();
+ persist();
+ renderCart();
 }
-function removeCartItem(index){cart.splice(index,1);persist();renderCart()}
+
+function removeCartItem(index){
+ cart.splice(index,1);
+ persist();
+ renderCart();
+}
 
 function openCheckout(){
- if(!current){alert("Please login first to place your order.");showPage("account");showAuth("login");return}
- if(!cart.length){alert("Your cart is empty.");return}
+ if(!current){
+  alert("Please login first to place your order.");
+  showPage("account");
+  showAuth("login");
+  return;
+ }
+ if(!cart.length){
+  alert("Your cart is empty.");
+  return;
+ }
  if(!$("checkoutName").value)$("checkoutName").value=current.name||current.displayName||"";
  if(!$("checkoutMobile").value)$("checkoutMobile").value=current.mobile||current.phone||"";
  if(addresses.length){
@@ -585,58 +628,99 @@ function openCheckout(){
 }
 
 async function checkout(){
- if(!current){alert("Please login first.");showPage("account");showAuth("login");return}
- if(!cart.length){alert("Your cart is empty.");showPage("cart");return}
+ if(!current){
+  alert("Please login first.");
+  showPage("account");
+  showAuth("login");
+  return;
+ }
+ if(!cart.length){
+  alert("Your cart is empty.");
+  showPage("cart");
+  return;
+ }
  const name=$("checkoutName").value.trim();
  const mobile=$("checkoutMobile").value.trim();
  const address=$("checkoutAddress").value.trim();
  const pin=$("checkoutPin").value.trim();
- if(!name||!mobile||!address||!pin){alert("Please fill all delivery details.");return}
- if(!/^[0-9]{10}$/.test(mobile)){alert("Please enter a valid 10 digit mobile number.");return}
- if(!/^[0-9]{6}$/.test(pin)){alert("Please enter a valid 6 digit PIN code.");return}
+
+ if(!name||!mobile||!address||!pin){
+  alert("Please fill all delivery details.");
+  return;
+ }
+ if(!/^[0-9]{10}$/.test(mobile)){
+  alert("Please enter a valid 10 digit mobile number.");
+  return;
+ }
+ if(!/^[0-9]{6}$/.test(pin)){
+  alert("Please enter a valid 6 digit PIN code.");
+  return;
+ }
 
  const button=$("placeOrderBtn");
- button.disabled=true;button.textContent="Placing Order...";
+ button.disabled=true;
+ button.textContent="Placing Order...";
+
  try{
   const items=cart.map(item=>{
    const p=getProduct(item.id);
    return {
-    id:String(item.id),qty:Number(item.qty||1),
+    id:String(item.id),
+    qty:Number(item.qty||1),
     productName:p?.name||p?.productName||item.productName||"",
     price:Number(p?.price??item.price??0),
-    photo:p?.photo||p?.image||item.photo||"",
-    variant:item.variant||"",size:item.size||"",colour:item.colour||""
+    photo:p?productImage(p):safeImage(item.photo),
+    variant:item.variant||"",
+    size:item.size||"",
+    colour:item.colour||""
    };
   });
+
   const total=items.reduce((sum,item)=>sum+item.price*item.qty,0);
   const order={
-   id:"CFU"+Date.now(),uid:current.uid||current.id||"",
-   user:current.email||"",name,mobile,address,pin,items,
-   productIds:items.map(x=>String(x.id)),total,
-   status:"Order Placed",paymentMethod:"Cash on Delivery",
+   id:"CFU"+Date.now(),
+   uid:current.uid||current.id||"",
+   user:current.email||"",
+   name,mobile,address,pin,items,
+   productIds:items.map(x=>String(x.id)),
+   total,
+   status:"Order Placed",
+   paymentMethod:"Cash on Delivery",
    createdAt:new Date().toISOString()
   };
+
   let saved=false;
-  if(typeof saveRemotePromise==="function")saved=await saveRemotePromise("orders",order.id,order);
+  if(typeof saveRemotePromise==="function"){
+   saved=await saveRemotePromise("orders",order.id,order);
+  }
   if(saved===false)throw new Error("Order could not be saved to server.");
-  orders.unshift(order);cart=[];persist();
+
+  orders.unshift(order);
+  cart=[];
+  persist();
   alert("Order placed successfully! Order ID: "+order.id);
   showPage("orders");
  }catch(error){
   console.error(error);
   alert("Order place nahi hua. Internet check karke dobara try karein.");
  }finally{
-  button.disabled=false;button.textContent="Place Order · Cash on Delivery";
+  button.disabled=false;
+  button.textContent="Place Order · Cash on Delivery";
  }
 }
 
 function openSavedAddresses(){
- renderAddresses();showPage("addresses");
+ renderAddresses();
+ showPage("addresses");
 }
+
 function renderAddresses(){
  const container=$("savedAddresses");
  if(!container)return;
- if(!addresses.length){container.innerHTML='<div class="panel">No saved addresses yet. Add your first address above.</div>';return}
+ if(!addresses.length){
+  container.innerHTML='<div class="panel">No saved addresses yet. Add your first address above.</div>';
+  return;
+ }
  container.innerHTML=addresses.map((a,i)=>`
   <div class="address-card ${i===0?"default":""}">
    ${i===0?'<span class="badge">Saved Address</span>':""}
@@ -650,36 +734,61 @@ function renderAddresses(){
    </div>
   </div>`).join("");
 }
+
 function saveAddress(){
  const name=$("addressName").value.trim();
  const mobile=$("addressMobile").value.trim();
  const address=$("addressText").value.trim();
  const pin=$("addressPin").value.trim();
- if(!name||!mobile||!address||!pin){alert("Please fill all address details.");return}
- if(!/^[0-9]{10}$/.test(mobile)){alert("Enter a valid 10 digit mobile number.");return}
- if(!/^[0-9]{6}$/.test(pin)){alert("Enter a valid 6 digit PIN code.");return}
- addresses.push({name,mobile,address,pin});persist();
- $("addressName").value="";$("addressMobile").value="";
- $("addressText").value="";$("addressPin").value="";
- renderAddresses();alert("Address saved successfully.");
+
+ if(!name||!mobile||!address||!pin){
+  alert("Please fill all address details.");
+  return;
+ }
+ if(!/^[0-9]{10}$/.test(mobile)){
+  alert("Enter a valid 10 digit mobile number.");
+  return;
+ }
+ if(!/^[0-9]{6}$/.test(pin)){
+  alert("Enter a valid 6 digit PIN code.");
+  return;
+ }
+
+ addresses.push({name,mobile,address,pin});
+ persist();
+ $("addressName").value="";
+ $("addressMobile").value="";
+ $("addressText").value="";
+ $("addressPin").value="";
+ renderAddresses();
+ alert("Address saved successfully.");
 }
+
 function deleteAddress(index){
  if(!confirm("Delete this saved address?"))return;
- addresses.splice(index,1);persist();renderAddresses();
+ addresses.splice(index,1);
+ persist();
+ renderAddresses();
 }
+
 function useAddress(index){
- const a=addresses[index];if(!a)return;
+ const a=addresses[index];
+ if(!a)return;
  $("checkoutName").value=a.name||"";
  $("checkoutMobile").value=a.mobile||"";
  $("checkoutAddress").value=a.address||"";
  $("checkoutPin").value=a.pin||"";
- showPage("checkout");alert("Address selected.");
+ showPage("checkout");
+ alert("Address selected.");
 }
 
 function renderOrders(){
  const container=$("ordersList");
  if(!container)return;
- if(!orders.length){container.innerHTML='<div class="panel">You have not placed any orders yet.</div>';return}
+ if(!orders.length){
+  container.innerHTML='<div class="panel">You have not placed any orders yet.</div>';
+  return;
+ }
  container.innerHTML=orders.map(order=>`
   <div class="panel">
    <b>Order ID: ${escapeHTML(order.id)}</b>
@@ -934,3 +1043,4 @@ document.addEventListener("DOMContentLoaded",async()=>{
 </script>
 </body>
 </html>
+ 
