@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -98,6 +100,7 @@ public class MainActivity extends Activity {
                 );
 
                 try {
+
                     Intent chooser = Intent.createChooser(
                         intent,
                         "Select Product Photos"
@@ -234,6 +237,75 @@ public class MainActivity extends Activity {
             || collection.equals("users");
     }
 
+    private boolean isAdmin() {
+
+        FirebaseUser user = auth.getCurrentUser();
+
+        return user != null &&
+            ADMIN_UID.equals(user.getUid());
+    }
+
+    private boolean isLoggedIn() {
+        return auth.getCurrentUser() != null;
+    }
+
+    private boolean canReadDocument(
+        String collection,
+        String documentId
+    ) {
+
+        if (collection.equals("products")) {
+            return true;
+        }
+
+        if (!isLoggedIn()) {
+            return false;
+        }
+
+        if (isAdmin()) {
+            return true;
+        }
+
+        if (collection.equals("users")) {
+            return documentId.equals(auth.getCurrentUser().getUid());
+        }
+
+        return collection.equals("reviews");
+    }
+
+    private boolean canWriteDocument(
+        String collection,
+        String documentId,
+        Map<String, Object> data
+    ) {
+
+        if (!isLoggedIn()) {
+            return false;
+        }
+
+        if (isAdmin()) {
+            return true;
+        }
+
+        if (collection.equals("products")) {
+            return false;
+        }
+
+        if (collection.equals("users")) {
+            return documentId.equals(auth.getCurrentUser().getUid());
+        }
+
+        if (collection.equals("orders")) {
+
+            Object uid = data.get("uid");
+
+            return uid != null &&
+                uid.toString().equals(auth.getCurrentUser().getUid());
+        }
+
+        return collection.equals("reviews");
+    }
+
     private Map<String, Object> jsonToMap(
         JSONObject object
     ) throws Exception {
@@ -248,12 +320,15 @@ public class MainActivity extends Activity {
             Object value = object.get(key);
 
             if (value instanceof JSONObject) {
+
                 value = jsonToMap((JSONObject) value);
 
             } else if (value instanceof JSONArray) {
+
                 value = jsonToList((JSONArray) value);
 
             } else if (value == JSONObject.NULL) {
+
                 value = null;
             }
 
@@ -274,12 +349,15 @@ public class MainActivity extends Activity {
             Object value = array.get(i);
 
             if (value instanceof JSONObject) {
+
                 value = jsonToMap((JSONObject) value);
 
             } else if (value instanceof JSONArray) {
+
                 value = jsonToList((JSONArray) value);
 
             } else if (value == JSONObject.NULL) {
+
                 value = null;
             }
 
@@ -304,11 +382,22 @@ public class MainActivity extends Activity {
 
                 try {
 
+                    FirebaseUser user = result.getUser();
+
                     JSONObject data =
                         makeResult(true, "Login successful");
 
-                    data.put("uid", result.getUser().getUid());
-                    data.put("email", result.getUser().getEmail());
+                    if (user != null) {
+
+                        data.put("uid", user.getUid());
+                        data.put("email", user.getEmail());
+                        data.put(
+                            "displayName",
+                            user.getDisplayName() == null
+                                ? ""
+                                : user.getDisplayName()
+                        );
+                    }
 
                     sendResult(callbackId, data);
 
@@ -323,10 +412,14 @@ public class MainActivity extends Activity {
             );
         }
 
+        // Registration: email, password, name, mobile, callbackId
+
         @JavascriptInterface
         public void createAccount(
             String email,
             String password,
+            String name,
+            String mobile,
             String callbackId
         ) {
 
@@ -334,19 +427,39 @@ public class MainActivity extends Activity {
 
             .addOnSuccessListener(result -> {
 
-                try {
+                FirebaseUser user = result.getUser();
 
-                    JSONObject data =
-                        makeResult(true, "Account created");
-
-                    data.put("uid", result.getUser().getUid());
-                    data.put("email", result.getUser().getEmail());
-
-                    sendResult(callbackId, data);
-
-                } catch (Exception e) {
-                    sendError(callbackId, e.getMessage());
+                if (user == null) {
+                    sendError(callbackId, "Account creation failed");
+                    return;
                 }
+
+                UserProfileChangeRequest profile =
+                    new UserProfileChangeRequest.Builder()
+                        .setDisplayName(name)
+                        .build();
+
+                user.updateProfile(profile)
+
+                .addOnCompleteListener(task -> {
+
+                    try {
+
+                        JSONObject data =
+                            makeResult(true, "Account created");
+
+                        data.put("uid", user.getUid());
+                        data.put("email", user.getEmail());
+                        data.put("name", name);
+                        data.put("mobile", mobile);
+                        data.put("displayName", name);
+
+                        sendResult(callbackId, data);
+
+                    } catch (Exception e) {
+                        sendError(callbackId, e.getMessage());
+                    }
+                });
 
             })
 
@@ -375,7 +488,9 @@ public class MainActivity extends Activity {
         @JavascriptInterface
         public String currentUser() {
 
-            if (auth.getCurrentUser() == null) {
+            FirebaseUser user = auth.getCurrentUser();
+
+            if (user == null) {
                 return "";
             }
 
@@ -383,8 +498,21 @@ public class MainActivity extends Activity {
 
                 JSONObject data = new JSONObject();
 
-                data.put("uid", auth.getCurrentUser().getUid());
-                data.put("email", auth.getCurrentUser().getEmail());
+                data.put("uid", user.getUid());
+                data.put("email", user.getEmail());
+                data.put(
+                    "displayName",
+                    user.getDisplayName() == null
+                        ? ""
+                        : user.getDisplayName()
+                );
+
+                data.put(
+                    "phoneNumber",
+                    user.getPhoneNumber() == null
+                        ? ""
+                        : user.getPhoneNumber()
+                );
 
                 return data.toString();
 
@@ -411,15 +539,15 @@ public class MainActivity extends Activity {
                 return;
             }
 
-            if (auth.getCurrentUser() == null) {
-                sendError(callbackId, "Please login first");
-                return;
-            }
-
             try {
 
                 JSONObject object = new JSONObject(jsonData);
                 Map<String, Object> data = jsonToMap(object);
+
+                if (!canWriteDocument(collection, documentId, data)) {
+                    sendError(callbackId, "Permission denied");
+                    return;
+                }
 
                 db.collection(collection)
                     .document(documentId)
@@ -450,7 +578,7 @@ public class MainActivity extends Activity {
                 return;
             }
 
-            if (auth.getCurrentUser() == null) {
+            if (!canReadDocument(collection, documentId)) {
                 sendError(callbackId, "Please login first");
                 return;
             }
@@ -463,15 +591,32 @@ public class MainActivity extends Activity {
 
                     try {
 
+                        if (collection.equals("orders") &&
+                            !isAdmin() &&
+                            document.exists()) {
+
+                            String uid = document.getString("uid");
+
+                            if (uid == null ||
+                                !uid.equals(auth.getCurrentUser().getUid())) {
+
+                                sendError(callbackId, "Permission denied");
+                                return;
+                            }
+                        }
+
                         JSONObject result =
                             makeResult(true, "Data loaded");
 
                         if (document.exists()) {
+
                             result.put(
                                 "data",
                                 new JSONObject(document.getData())
                             );
+
                         } else {
+
                             result.put("data", JSONObject.NULL);
                         }
 
@@ -499,8 +644,18 @@ public class MainActivity extends Activity {
                 return;
             }
 
-            if (auth.getCurrentUser() == null) {
+            // Products can be read without login.
+            // Other collections require authentication.
+
+            if (!collection.equals("products") && !isLoggedIn()) {
                 sendError(callbackId, "Please login first");
+                return;
+            }
+
+            // Customer accounts cannot read the complete users collection.
+
+            if (collection.equals("users") && !isAdmin()) {
+                sendError(callbackId, "Permission denied");
                 return;
             }
 
@@ -508,7 +663,7 @@ public class MainActivity extends Activity {
 
             if (
                 collection.equals("orders") &&
-                !ADMIN_UID.equals(auth.getCurrentUser().getUid())
+                !isAdmin()
             ) {
 
                 query = query.whereEqualTo(
@@ -531,6 +686,7 @@ public class MainActivity extends Activity {
                                 new JSONObject(document.getData());
 
                             item.put("id", document.getId());
+
                             array.put(item);
                         }
 
@@ -564,10 +720,64 @@ public class MainActivity extends Activity {
                 return;
             }
 
-            if (auth.getCurrentUser() == null) {
+            if (!isLoggedIn()) {
                 sendError(callbackId, "Please login first");
                 return;
             }
+
+            if (collection.equals("products") && !isAdmin()) {
+                sendError(callbackId, "Only admin can delete products");
+                return;
+            }
+
+            if (collection.equals("users") &&
+                !isAdmin() &&
+                !documentId.equals(auth.getCurrentUser().getUid())) {
+
+                sendError(callbackId, "Permission denied");
+                return;
+            }
+
+            if (collection.equals("orders") && !isAdmin()) {
+
+                db.collection(collection)
+                    .document(documentId)
+                    .get()
+
+                    .addOnSuccessListener(document -> {
+
+                        String uid = document.getString("uid");
+
+                        if (uid == null ||
+                            !uid.equals(auth.getCurrentUser().getUid())) {
+
+                            sendError(callbackId, "Permission denied");
+                            return;
+                        }
+
+                        deleteDocumentNow(collection, documentId, callbackId);
+                    })
+
+                    .addOnFailureListener(error ->
+                        sendError(callbackId, error.getMessage())
+                    );
+
+                return;
+            }
+
+            if (collection.equals("reviews") && !isAdmin()) {
+                // Reviews can be deleted by authenticated users here.
+                // Firestore Rules should enforce the actual ownership policy.
+            }
+
+            deleteDocumentNow(collection, documentId, callbackId);
+        }
+
+        private void deleteDocumentNow(
+            String collection,
+            String documentId,
+            String callbackId
+        ) {
 
             db.collection(collection)
                 .document(documentId)
