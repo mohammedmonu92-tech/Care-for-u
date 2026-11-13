@@ -697,35 +697,53 @@ public class MainActivity extends Activity {
     // BACK BUTTON HANDLING
 
     @Override
-    public void onBackPressed() {
+    @Override
+public void onBackPressed() {
 
-        if (webView != null && webView.canGoBack()) {
+    if (webView != null) {
 
-            webView.goBack();
-            backPressedTime = 0;
+        webView.evaluateJavascript(
+            "(function() {" +
+            "if (typeof handleAppBack === 'function' " +
+            "&& handleAppBack()) {" +
+            "return 'handled';" +
+            "}" +
+            "return 'home';" +
+            "})()",
+            value -> {
 
-        } else {
+                if ("\"home\"".equals(value)) {
 
-            if (
-                backPressedTime + 2000 >
-                System.currentTimeMillis()
-            ) {
+                    if (
+                        backPressedTime + 2000 >
+                        System.currentTimeMillis()
+                    ) {
 
-                super.onBackPressed();
+                        super.onBackPressed();
 
-            } else {
+                    } else {
 
-                backPressedTime =
-                    System.currentTimeMillis();
+                        backPressedTime =
+                            System.currentTimeMillis();
 
-                Toast.makeText(
-                    this,
-                    "Dobara Back dabao app band ho jayegi",
-                    Toast.LENGTH_SHORT
-                ).show();
+                        Toast.makeText(
+                            MainActivity.this,
+                            "Dobara Back dabao app band ho jayegi",
+                            Toast.LENGTH_SHORT
+                        ).show();
+                    }
+
+                } else {
+
+                    backPressedTime = 0;
+                }
             }
-        }
+        );
+
+    } else {
+        super.onBackPressed();
     }
+}
 
     // DESTROY
 
