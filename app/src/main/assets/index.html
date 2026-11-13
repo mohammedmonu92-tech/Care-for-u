@@ -39,17 +39,17 @@ select option{background:white;color:#292027}
 .btn{border:0;border-radius:11px;background:linear-gradient(110deg,#800020,#a52a45);color:white;padding:11px 14px;font-weight:700;cursor:pointer}
 .btn.secondary{background:#fff0f3;color:#800020;border:1px solid #e5bdc7}
 .btn.danger{background:#a52a45;color:white}
-.btn:disabled{opacity:.5}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
-.card{background:white;border:1px solid #ead9dd;border-radius:15px;overflow:hidden;box-shadow:0 4px 14px #80002012}
+.card{background:white;border:1px solid #ead9dd;border-radius:15px;overflow:hidden;box-shadow:0 4px 14px #80002012;min-width:0}
 .photo{height:155px;background:#f8eeee;display:flex;align-items:center;justify-content:center;color:#800020;font-size:42px;overflow:hidden;cursor:pointer}
 .photo img{width:100%;height:100%;object-fit:contain}
 .cardbody{padding:11px}
 .price{font-size:18px;font-weight:800;color:#800020}
 .old{font-size:12px;color:#766a70;text-decoration:line-through;margin-left:5px}
 .card h3{font-size:14px;margin:0 0 6px;line-height:1.35}
-.actions{display:flex;gap:6px;margin-top:9px}
-.actions button{flex:1;padding:9px 5px;font-size:12px}
+.actions{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.actions button{flex:1;padding:9px 5px;font-size:12px;min-width:0}
 .section{display:none}
 .section.show{display:block}
 .panel{background:white;border:1px solid #ead9dd;border-radius:15px;padding:14px;margin:12px 0}
@@ -97,7 +97,23 @@ select option{background:white;color:#292027}
 .rating-select button.selected{background:#fff0c9;border-color:#b47a19}
 .address-card{border:1px solid #ead9dd;background:#fffafa;padding:12px;border-radius:12px;margin:9px 0}
 .address-card.default{border-color:#800020}
-@media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.photo{height:185px}main{padding:20px}}
+.stepbar{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:12px 0 18px}
+.stepbar div{font-size:10px;text-align:center;padding:8px 3px;border-radius:9px;background:#f8e5eb;color:#766a70;font-weight:bold}
+.stepbar div.active{background:#800020;color:white}
+.stepbar div.done{background:#f0d4dc;color:#800020}
+.checkout-title{font-size:20px;margin:5px 0}
+.checkout-actions{display:flex;gap:9px;margin-top:14px}
+.checkout-actions button{flex:1}
+.summary-line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #f0e3e6}
+.summary-line:last-child{border-bottom:0}
+.success-wrap{text-align:center;padding:25px 12px}
+.success-check{width:104px;height:104px;border-radius:50%;background:#e1f5e8;color:#168344;display:grid;place-items:center;font-size:62px;font-weight:bold;margin:10px auto 20px;border:5px solid #bce8ca}
+.success-wrap h1{font-size:27px;color:#168344;margin:10px 0}
+.gallery-thumbs{display:flex;gap:8px;overflow-x:auto;margin-top:10px}
+.gallery-thumbs button{width:62px;height:62px;flex:0 0 62px;padding:3px;border:2px solid #ead9dd;border-radius:9px;background:white;overflow:hidden}
+.gallery-thumbs button.active{border-color:#800020}
+.gallery-thumbs img{width:100%;height:100%;object-fit:contain}
+@media(min-width:650px){.photo{height:185px}main{padding:20px}}
 </style>
 </head>
 <body>
@@ -156,20 +172,17 @@ select option{background:white;color:#292027}
 </section>
 
 <section id="listing" class="section">
- <div class="listing-head">
-  <h2 id="listingTitle">Products</h2>
- </div>
+ <div class="listing-head"><h2 id="listingTitle">Products</h2></div>
  <div class="muted" id="listingCount"></div>
  <div class="grid" id="listingProducts"></div>
 </section>
 
-<section id="detail" class="section">
- <div id="detailContent"></div>
-</section>
+<section id="detail" class="section"><div id="detailContent"></div></section>
 
 <section id="wishlist" class="section">
  <h2>♡ My Wishlist</h2><div id="wishlistItems"></div>
 </section>
+
 <section id="cart" class="section">
  <h2>🛒 Your Cart</h2><div id="cartItems"></div>
  <div class="panel">
@@ -178,18 +191,106 @@ select option{background:white;color:#292027}
   <p class="muted">Cash on Delivery. Online payment is not connected.</p>
  </div>
 </section>
+
 <section id="checkout" class="section">
- <h2>Delivery Details</h2>
- <div class="panel">
-  <label>Full Name</label><input class="input" id="checkoutName" placeholder="Enter your full name" autocomplete="name">
-  <label>Mobile Number</label><input class="input" id="checkoutMobile" type="tel" maxlength="10" placeholder="10 digit mobile number" autocomplete="tel">
-  <label>Full Address</label><textarea id="checkoutAddress" placeholder="House no., street, area, landmark" rows="3" autocomplete="street-address"></textarea>
-  <label>PIN Code</label><input class="input" id="checkoutPin" inputmode="numeric" maxlength="6" placeholder="6 digit PIN code" autocomplete="postal-code">
-  <button class="btn secondary" style="width:100%;margin:8px 0" onclick="openSavedAddresses()">Choose Saved Address</button>
-  <button class="btn" id="placeOrderBtn" style="width:100%;margin-top:8px" onclick="checkout()">Place Order · Cash on Delivery</button>
-  <p class="muted">Please check your delivery details before placing the order.</p>
+ <div class="stepbar" id="checkoutStepbar">
+  <div data-step="1">1. Delivery</div>
+  <div data-step="2">2. Billing</div>
+  <div data-step="3">3. Payment</div>
+  <div data-step="4">4. Review</div>
+ </div>
+
+ <div id="checkoutDelivery" class="checkout-step">
+  <h2 class="checkout-title">📍 Delivery Address</h2>
+  <div class="panel">
+   <p class="muted">Where should we deliver your order?</p>
+   <label>Full Name</label>
+   <input class="input" id="checkoutName" placeholder="Enter your full name" autocomplete="name">
+   <label>Mobile Number</label>
+   <input class="input" id="checkoutMobile" type="tel" maxlength="10" placeholder="10 digit mobile number" autocomplete="tel">
+   <label>Full Address</label>
+   <textarea id="checkoutAddress" placeholder="House no., street, area, landmark" rows="3" autocomplete="street-address"></textarea>
+   <label>PIN Code</label>
+   <input class="input" id="checkoutPin" inputmode="numeric" maxlength="6" placeholder="6 digit PIN code" autocomplete="postal-code">
+   <button class="btn secondary" style="width:100%;margin:8px 0" onclick="openSavedAddresses()">Choose Saved Address</button>
+   <div class="checkout-actions">
+    <button class="btn secondary" onclick="showPage('cart')">Back to Cart</button>
+    <button class="btn" onclick="continueToBilling()">Continue</button>
+   </div>
+  </div>
+ </div>
+
+ <div id="checkoutBilling" class="checkout-step hidden">
+  <h2 class="checkout-title">🧾 Billing Address</h2>
+  <div class="panel">
+   <label style="display:flex;align-items:center;gap:9px;margin:5px 0 15px">
+    <input type="checkbox" id="sameBilling" checked onchange="toggleBillingFields()">
+    Same as delivery address
+   </label>
+   <div id="billingFields" class="hidden">
+    <label>Billing Full Name</label>
+    <input class="input" id="billingName" placeholder="Billing name">
+    <label>Billing Mobile Number</label>
+    <input class="input" id="billingMobile" type="tel" maxlength="10" placeholder="10 digit mobile number">
+    <label>Billing Address</label>
+    <textarea id="billingAddress" rows="3" placeholder="House no., street, area, landmark"></textarea>
+    <label>Billing PIN Code</label>
+    <input class="input" id="billingPin" inputmode="numeric" maxlength="6" placeholder="6 digit PIN code">
+   </div>
+   <div class="checkout-actions">
+    <button class="btn secondary" onclick="setCheckoutStep(1)">Back</button>
+    <button class="btn" onclick="continueToPayment()">Continue</button>
+   </div>
+  </div>
+ </div>
+
+ <div id="checkoutPayment" class="checkout-step hidden">
+  <h2 class="checkout-title">💳 Payment Method</h2>
+  <div class="panel">
+   <label class="address-card" style="display:flex;align-items:center;gap:10px">
+    <input type="radio" name="paymentMethod" value="Cash on Delivery" checked>
+    <span><b>Cash on Delivery (COD)</b><br><small class="muted">Pay when your order arrives.</small></span>
+   </label>
+   <p class="muted">Online payment is not connected yet. You can pay in cash at delivery.</p>
+   <div class="checkout-actions">
+    <button class="btn secondary" onclick="setCheckoutStep(2)">Back</button>
+    <button class="btn" onclick="continueToReview()">Continue</button>
+   </div>
+  </div>
+ </div>
+
+ <div id="checkoutReview" class="checkout-step hidden">
+  <h2 class="checkout-title">🛍️ Order Summary</h2>
+  <div class="panel">
+   <div id="reviewItems"></div>
+   <h3>Delivery Address</h3>
+   <div id="reviewDelivery" class="muted"></div>
+   <h3>Billing Address</h3>
+   <div id="reviewBilling" class="muted"></div>
+   <h3>Payment</h3>
+   <div id="reviewPayment" class="muted">Cash on Delivery</div>
+   <div class="summary-line"><b>Order Total</b><b id="reviewTotal" class="price">₹0</b></div>
+   <div class="checkout-actions">
+    <button class="btn secondary" onclick="setCheckoutStep(3)">Back</button>
+    <button class="btn" id="placeOrderBtn" onclick="checkout()">Place Order</button>
+   </div>
+   <p class="muted">Please confirm your items and address before placing the order.</p>
+  </div>
  </div>
 </section>
+
+<section id="orderSuccess" class="section">
+ <div class="panel success-wrap">
+  <div class="success-check">✓</div>
+  <h1>ORDER PLACED!</h1>
+  <p>Your order has been placed successfully.</p>
+  <p class="muted">Thank you for shopping with CARE FOR U 💗</p>
+  <div id="successOrderDetails" class="track-panel" style="text-align:left"></div>
+  <button class="btn" style="width:100%;margin-top:15px" onclick="showPage('orders')">View My Orders</button>
+  <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showPage('home')">Continue Shopping</button>
+ </div>
+</section>
+
 <section id="addresses" class="section">
  <h2>📍 Saved Addresses</h2>
  <div class="panel">
@@ -202,10 +303,13 @@ select option{background:white;color:#292027}
  </div>
  <div id="savedAddresses"></div>
 </section>
+
 <section id="orders" class="section"><h2>📦 My Orders</h2><div id="ordersList"></div></section>
 <section id="account" class="section"><h2>👤 My Profile</h2><div id="accountInfo"></div></section>
+
 <div class="footer">CARE FOR U · Shop No. 2, Calicut, Port Blair, Andaman & Nicobar Islands · PIN 744105<br>WhatsApp: 9476041513</div>
 </main>
+
 <nav class="bottomnav">
  <button id="navHome" class="active" onclick="showPage('home',this)"><span>⌂</span>Home</button>
  <button id="navOrders" onclick="showPage('orders',this)"><span>▣</span>My Orders</button>
@@ -213,7 +317,6 @@ select option{background:white;color:#292027}
  <button id="navCart" onclick="showPage('cart',this)"><span>🛒</span>Cart</button>
  <button id="navAccount" onclick="showPage('account',this)"><span>👤</span>Profile</button>
 </nav>
-
 <script>
 const $ = id => document.getElementById(id);
 
@@ -231,6 +334,11 @@ let currentReviewProduct=null;
 let previousListingPage="home";
 let listingProducts=[];
 let listingMode="";
+let checkoutItems=[];
+let checkoutSource="cart";
+let checkoutStep=1;
+let addressReturnPage="checkout";
+let selectedDetailImages=[];
 
 const pageHistory=["home"];
 let handlingBack=false;
@@ -254,65 +362,45 @@ function safeImage(url){return String(url||"").trim()}
 function showPage(id,button,skipHistory=false){
  const target=$(id);
  if(!target){console.error("Page not found:",id);return}
-
  const currentPage=document.querySelector(".section.show")?.id||"home";
-
  if(!skipHistory&&currentPage!==id){
   pageHistory.push(id);
   if(pageHistory.length>30)pageHistory.shift();
  }
-
  document.querySelectorAll(".section").forEach(s=>s.classList.remove("show"));
  target.classList.add("show");
-
  document.querySelectorAll(".bottomnav button").forEach(b=>b.classList.remove("active"));
  const navMap={home:"navHome",orders:"navOrders",wishlist:"navWishlist",cart:"navCart",account:"navAccount"};
  const nav=$(navMap[id]);
  if(nav)nav.classList.add("active");
-
  if(id==="home")renderProducts();
  if(id==="cart")renderCart();
  if(id==="wishlist")renderWishlist();
  if(id==="orders")renderOrders();
  if(id==="account")renderAccount();
  if(id==="addresses")renderAddresses();
-
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function goBackPage(){
  const currentPage=document.querySelector(".section.show")?.id||"home";
-
  if(currentPage==="home")return false;
-
- if(currentPage==="detail"){
-  backFromDetail();
-  return true;
- }
-
- if(currentPage==="listing"){
-  backToHome();
-  return true;
- }
-
+ if(currentPage==="detail"){backFromDetail();return true}
+ if(currentPage==="listing"){backToHome();return true}
  if(currentPage==="checkout"){
-  showPage("cart",null,true);
+  if(checkoutStep>1){setCheckoutStep(checkoutStep-1);return true}
+  if(checkoutSource==="buyNow")showPage("detail",null,true);
+  else showPage("cart",null,true);
   return true;
  }
-
  if(currentPage==="addresses"){
-  showPage("account",null,true);
+  showPage(addressReturnPage||"account",null,true);
   return true;
  }
-
+ if(currentPage==="orderSuccess"){showPage("orders",null,true);return true}
  let previous=pageHistory.pop();
-
- while(previous===currentPage&&pageHistory.length){
-  previous=pageHistory.pop();
- }
-
+ while(previous===currentPage&&pageHistory.length)previous=pageHistory.pop();
  if(!previous||!$(previous)||previous===currentPage)previous="home";
-
  showPage(previous,null,true);
  return true;
 }
@@ -327,35 +415,22 @@ function handleAppBack(){
 
 /* LEFT EDGE SWIPE */
 (function(){
- let startX=0;
- let startY=0;
- let tracking=false;
-
+ let startX=0,startY=0,tracking=false;
  document.addEventListener("touchstart",function(e){
   if(!e.touches||e.touches.length!==1)return;
   startX=e.touches[0].clientX;
   startY=e.touches[0].clientY;
   tracking=startX<=40;
  },{passive:true});
-
  document.addEventListener("touchend",function(e){
   if(!tracking||!e.changedTouches||e.changedTouches.length!==1)return;
-
   const endX=e.changedTouches[0].clientX;
   const endY=e.changedTouches[0].clientY;
-  const dx=endX-startX;
-  const dy=Math.abs(endY-startY);
-
+  const dx=endX-startX,dy=Math.abs(endY-startY);
   tracking=false;
-
-  if(dx>=75&&dy<90){
-   handleAppBack();
-  }
+  if(dx>=75&&dy<90)handleAppBack();
  },{passive:true});
-
- document.addEventListener("touchcancel",function(){
-  tracking=false;
- },{passive:true});
+ document.addEventListener("touchcancel",()=>{tracking=false},{passive:true});
 })();
 
 function updateCounts(){
@@ -371,20 +446,23 @@ function chooseCategory(category,button){
 }
 
 function productMatches(p,term){
- return [p.name,p.productName,p.category,p.description]
-  .join(" ").toLowerCase().includes(term);
+ return [p.name,p.productName,p.category,p.description].join(" ").toLowerCase().includes(term);
 }
-// Admin app ke images array se bhi product photo read karega
-function productImage(p){
- const images=Array.isArray(p?.images)?p.images:[];
- return safeImage(
-  p?.photo ||
-  p?.image ||
-  p?.imageUrl ||
-  images[0] ||
-  ""
- );
+
+function productImages(p){
+ const result=[];
+ const add=url=>{
+  const clean=safeImage(url);
+  if(clean&&!result.includes(clean))result.push(clean);
+ };
+ if(Array.isArray(p?.images))p.images.forEach(add);
+ add(p?.photo);
+ add(p?.image);
+ add(p?.imageUrl);
+ return result;
 }
+
+function productImage(p){return productImages(p)[0]||""}
 
 function productCard(p){
  const id=String(p.id);
@@ -401,6 +479,7 @@ function productCard(p){
    <div class="muted">${escapeHTML(p.category||"")}</div>
    <div class="actions">
     <button class="btn" onclick="addToCart('${escapeHTML(id)}')">Add</button>
+    <button class="btn secondary" onclick="buyNow('${escapeHTML(id)}')">Buy Now</button>
     <button class="btn secondary" onclick="toggleWishlist('${escapeHTML(id)}')">♡</button>
    </div>
   </div>
@@ -411,15 +490,11 @@ function renderProducts(){
  const container=$("products");
  if(!container)return;
  let list=[...products];
- if(selectedCategory){
-  list=list.filter(p=>(p.category||"").toLowerCase()===selectedCategory.toLowerCase());
- }
+ if(selectedCategory)list=list.filter(p=>(p.category||"").toLowerCase()===selectedCategory.toLowerCase());
  container.innerHTML=list.length?list.map(productCard).join():'<div class="panel">No products available.</div>';
 }
 
-function getProduct(id){
- return products.find(p=>String(p.id)===String(id));
-}
+function getProduct(id){return products.find(p=>String(p.id)===String(id))}
 
 function openPriceSlab(min,max,title){
  listingMode="price";
@@ -427,12 +502,10 @@ function openPriceSlab(min,max,title){
  $("search").value="";
  selectedCategory="";
  document.querySelectorAll("#categoryChips button").forEach((b,i)=>b.classList.toggle("active",i===0));
-
  $("listingTitle").textContent=title;
  $("listingProducts").innerHTML='<div class="loading-box"><div class="loader"></div>Loading products...</div>';
  $("listingCount").textContent="";
  showPage("listing");
-
  setTimeout(()=>{
   listingProducts=products.filter(p=>{
    const price=Number(p.price||0);
@@ -445,18 +518,14 @@ function openPriceSlab(min,max,title){
 function submitSearch(){
  const term=($("search").value||"").trim().toLowerCase();
  if(!term){alert("Please enter a product name to search.");return}
-
  listingMode="search";
  previousListingPage="home";
  selectedCategory="";
  document.querySelectorAll("#categoryChips button").forEach((b,i)=>b.classList.toggle("active",i===0));
-
  $("listingTitle").textContent="Search Results";
  $("listingCount").textContent="";
  $("listingProducts").innerHTML='<div class="loading-box"><div class="loader"></div>Searching products...</div>';
-
  showPage("listing");
-
  setTimeout(()=>{
   listingProducts=products.filter(p=>productMatches(p,term));
   $("listingTitle").textContent='Results for "'+term+'"';
@@ -468,9 +537,7 @@ function renderListing(){
  const container=$("listingProducts");
  if(!container)return;
  $("listingCount").textContent=listingProducts.length+" product(s) found";
- container.innerHTML=listingProducts.length
-  ?listingProducts.map(productCard).join()
-  :'<div class="panel">No matching products found. Please try another search.</div>';
+ container.innerHTML=listingProducts.length?listingProducts.map(productCard).join():'<div class="panel">No matching products found. Please try another search.</div>';
 }
 
 function backToHome(){
@@ -490,17 +557,33 @@ function addToCart(id){
  const found=cart.find(x=>String(x.id)===String(id));
  if(found)found.qty=Number(found.qty||1)+1;
  else cart.push({
-  id:String(p.id),
-  qty:1,
+  id:String(p.id),qty:1,
   productName:p.name||p.productName||"",
-  price:Number(p.price||0),
-  photo:productImage(p),
-  variant:"",
-  size:"",
-  colour:""
+  price:Number(p.price||0),photo:productImage(p),
+  variant:"",size:"",colour:""
  });
  persist();
  alert("Product added to cart.");
+}
+
+function buyNow(id){
+ const p=getProduct(id);
+ if(!p)return alert("Product not found.");
+ if(!current){
+  alert("Please login first to place your order.");
+  showPage("account");
+  showAuth("login");
+  return;
+ }
+ checkoutSource="buyNow";
+ checkoutItems=[{
+  id:String(p.id),qty:1,
+  productName:p.name||p.productName||"",
+  price:Number(p.price||0),
+  photo:productImage(p),
+  variant:"",size:"",colour:""
+ }];
+ prepareCheckout();
 }
 
 function toggleWishlist(id){
@@ -514,10 +597,7 @@ function toggleWishlist(id){
 function renderWishlist(){
  const container=$("wishlistItems");
  if(!container)return;
- if(!wishlist.length){
-  container.innerHTML='<div class="panel">Your wishlist is empty.</div>';
-  return;
- }
+ if(!wishlist.length){container.innerHTML='<div class="panel">Your wishlist is empty.</div>';return}
  container.innerHTML=wishlist.map(id=>{
   const p=getProduct(id);
   if(!p)return "";
@@ -537,23 +617,40 @@ function openProduct(id){
  selectedProduct=p;
  const visiblePage=document.querySelector(".section.show")?.id;
  previousListingPage=visiblePage==="listing"?"listing":"home";
- const photo=productImage(p);
-
+ selectedDetailImages=productImages(p);
+ const photo=selectedDetailImages[0]||"";
  $("detailContent").innerHTML=`
  <div class="panel">
-  <div class="photo detail-photo">
+  <div class="photo detail-photo" id="detailMainPhoto">
    ${photo?`<img src="${escapeHTML(photo)}" onerror="this.style.display='none'">`:"♡"}
   </div>
+  ${selectedDetailImages.length>1?`
+   <div class="gallery-thumbs">
+    ${selectedDetailImages.map((img,i)=>`
+     <button class="${i===0?"active":""}" onclick="selectDetailImage(${i},this)">
+      <img src="${escapeHTML(img)}" onerror="this.style.display='none'">
+     </button>`).join("")}
+   </div>`:""}
   <h2>${escapeHTML(p.name||p.productName||"Product")}</h2>
-  <div class="price">${money(p.price)}</div>
+  <div class="price">${money(p.price)} ${p.mrp?`<span class="old">${money(p.mrp)}</span>`:""}</div>
   <p>${escapeHTML(p.description||"")}</p>
   <p class="muted">Category: ${escapeHTML(p.category||"")}</p>
   <button class="btn" style="width:100%" onclick="addToCart('${escapeHTML(p.id)}')">Add to Cart</button>
+  <button class="btn" style="width:100%;margin-top:8px" onclick="buyNow('${escapeHTML(p.id)}')">Buy Now</button>
   <button class="btn secondary" style="width:100%;margin-top:8px" onclick="toggleWishlist('${escapeHTML(p.id)}')">♡ Wishlist</button>
  </div>
  <div class="panel"><h3>Customer Reviews</h3><div id="productReviews"></div></div>`;
  showPage("detail");
  renderProductReviews(id);
+}
+
+function selectDetailImage(index,button){
+ const image=selectedDetailImages[index];
+ if(!image)return;
+ const container=$("detailMainPhoto");
+ if(container)container.innerHTML=`<img src="${escapeHTML(image)}" onerror="this.style.display='none'">`;
+ document.querySelectorAll(".gallery-thumbs button").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");
 }
 
 function backFromDetail(){
@@ -596,120 +693,230 @@ function changeQty(index,change){
  if(!cart[index])return;
  cart[index].qty=Number(cart[index].qty||1)+change;
  if(cart[index].qty<=0)cart.splice(index,1);
- persist();
- renderCart();
+ persist();renderCart();
 }
 
 function removeCartItem(index){
  cart.splice(index,1);
- persist();
- renderCart();
+ persist();renderCart();
 }
 
+/* CHECKOUT FLOW */
 function openCheckout(){
  if(!current){
   alert("Please login first to place your order.");
-  showPage("account");
-  showAuth("login");
-  return;
+  showPage("account");showAuth("login");return;
  }
- if(!cart.length){
-  alert("Your cart is empty.");
-  return;
+ if(!cart.length){alert("Your cart is empty.");return}
+ checkoutSource="cart";
+ checkoutItems=cart.map(item=>({...item}));
+ prepareCheckout();
+}
+
+function prepareCheckout(){
+ if(!current){
+  alert("Please login first.");
+  showPage("account");showAuth("login");return;
  }
+ if(!checkoutItems.length){alert("No products selected for checkout.");return}
  if(!$("checkoutName").value)$("checkoutName").value=current.name||current.displayName||"";
  if(!$("checkoutMobile").value)$("checkoutMobile").value=current.mobile||current.phone||"";
  if(addresses.length){
   const first=addresses[0];
   if(!$("checkoutAddress").value)$("checkoutAddress").value=first.address||"";
   if(!$("checkoutPin").value)$("checkoutPin").value=first.pin||"";
+  if(!$("checkoutName").value)$("checkoutName").value=first.name||"";
+  if(!$("checkoutMobile").value)$("checkoutMobile").value=first.mobile||"";
  }
+ $("sameBilling").checked=true;
+ toggleBillingFields();
+ checkoutStep=1;
+ renderCheckoutStep();
  showPage("checkout");
+}
+
+function renderCheckoutStep(){
+ const steps=["checkoutDelivery","checkoutBilling","checkoutPayment","checkoutReview"];
+ steps.forEach((id,index)=>{
+  const el=$(id);
+  if(el)el.classList.toggle("hidden",index+1!==checkoutStep);
+ });
+ document.querySelectorAll("#checkoutStepbar div").forEach(el=>{
+  const n=Number(el.dataset.step);
+  el.classList.toggle("active",n===checkoutStep);
+  el.classList.toggle("done",n<checkoutStep);
+ });
+}
+
+function setCheckoutStep(step){
+ checkoutStep=Math.max(1,Math.min(4,Number(step)||1));
+ renderCheckoutStep();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function validAddressFields(name,mobile,address,pin,label){
+ if(!name||!mobile||!address||!pin){
+  alert("Please fill all "+label+" details.");
+  return false;
+ }
+ if(!/^[0-9]{10}$/.test(mobile)){
+  alert("Please enter a valid 10 digit "+label+" mobile number.");
+  return false;
+ }
+ if(!/^[0-9]{6}$/.test(pin)){
+  alert("Please enter a valid 6 digit "+label+" PIN code.");
+  return false;
+ }
+ return true;
+}
+
+function getDeliveryAddress(){
+ return {
+  name:$("checkoutName").value.trim(),
+  mobile:$("checkoutMobile").value.trim(),
+  address:$("checkoutAddress").value.trim(),
+  pin:$("checkoutPin").value.trim()
+ };
+}
+
+function continueToBilling(){
+ const a=getDeliveryAddress();
+ if(!validAddressFields(a.name,a.mobile,a.address,a.pin,"delivery"))return;
+ if(!$("billingName").value)$("billingName").value=a.name;
+ if(!$("billingMobile").value)$("billingMobile").value=a.mobile;
+ if(!$("billingAddress").value)$("billingAddress").value=a.address;
+ if(!$("billingPin").value)$("billingPin").value=a.pin;
+ setCheckoutStep(2);
+}
+
+function toggleBillingFields(){
+ const same=$("sameBilling").checked;
+ $("billingFields").classList.toggle("hidden",same);
+}
+
+function getBillingAddress(){
+ if($("sameBilling").checked)return getDeliveryAddress();
+ return {
+  name:$("billingName").value.trim(),
+  mobile:$("billingMobile").value.trim(),
+  address:$("billingAddress").value.trim(),
+  pin:$("billingPin").value.trim()
+ };
+}
+
+function continueToPayment(){
+ const billing=getBillingAddress();
+ if(!validAddressFields(billing.name,billing.mobile,billing.address,billing.pin,"billing"))return;
+ setCheckoutStep(3);
+}
+
+function getCheckoutOrderItems(){
+ return checkoutItems.map(item=>{
+  const p=getProduct(item.id);
+  return {
+   id:String(item.id),
+   qty:Number(item.qty||1),
+   productName:p?.name||p?.productName||item.productName||"",
+   price:Number(p?.price??item.price??0),
+   photo:p?productImage(p):safeImage(item.photo),
+   variant:item.variant||"",
+   size:item.size||"",
+   colour:item.colour||""
+  };
+ });
+}
+
+function continueToReview(){
+ const payment=document.querySelector('input[name="paymentMethod"]:checked')?.value||"Cash on Delivery";
+ const items=getCheckoutOrderItems();
+ if(!items.length){alert("No products selected.");return}
+ const total=items.reduce((sum,item)=>sum+item.price*item.qty,0);
+ $("reviewItems").innerHTML=items.map(item=>`
+  <div class="summary-line">
+   <span>${escapeHTML(item.productName)} × ${item.qty}</span>
+   <b>${money(item.price*item.qty)}</b>
+  </div>`).join("");
+ const delivery=getDeliveryAddress();
+ const billing=getBillingAddress();
+ $("reviewDelivery").innerHTML=
+  `${escapeHTML(delivery.name)}<br>${escapeHTML(delivery.mobile)}<br>${escapeHTML(delivery.address)}<br>PIN: ${escapeHTML(delivery.pin)}`;
+ $("reviewBilling").innerHTML=
+  `${escapeHTML(billing.name)}<br>${escapeHTML(billing.mobile)}<br>${escapeHTML(billing.address)}<br>PIN: ${escapeHTML(billing.pin)}`;
+ $("reviewPayment").textContent=payment;
+ $("reviewTotal").textContent=money(total);
+ setCheckoutStep(4);
 }
 
 async function checkout(){
  if(!current){
   alert("Please login first.");
-  showPage("account");
-  showAuth("login");
+  showPage("account");showAuth("login");return;
+ }
+ if(!checkoutItems.length){
+  alert("No products selected for checkout.");
   return;
  }
- if(!cart.length){
-  alert("Your cart is empty.");
-  showPage("cart");
-  return;
- }
- const name=$("checkoutName").value.trim();
- const mobile=$("checkoutMobile").value.trim();
- const address=$("checkoutAddress").value.trim();
- const pin=$("checkoutPin").value.trim();
-
- if(!name||!mobile||!address||!pin){
-  alert("Please fill all delivery details.");
-  return;
- }
- if(!/^[0-9]{10}$/.test(mobile)){
-  alert("Please enter a valid 10 digit mobile number.");
-  return;
- }
- if(!/^[0-9]{6}$/.test(pin)){
-  alert("Please enter a valid 6 digit PIN code.");
-  return;
- }
+ const delivery=getDeliveryAddress();
+ const billing=getBillingAddress();
+ if(!validAddressFields(delivery.name,delivery.mobile,delivery.address,delivery.pin,"delivery")){setCheckoutStep(1);return}
+ if(!validAddressFields(billing.name,billing.mobile,billing.address,billing.pin,"billing")){setCheckoutStep(2);return}
 
  const button=$("placeOrderBtn");
  button.disabled=true;
  button.textContent="Placing Order...";
 
  try{
-  const items=cart.map(item=>{
-   const p=getProduct(item.id);
-   return {
-    id:String(item.id),
-    qty:Number(item.qty||1),
-    productName:p?.name||p?.productName||item.productName||"",
-    price:Number(p?.price??item.price??0),
-    photo:p?productImage(p):safeImage(item.photo),
-    variant:item.variant||"",
-    size:item.size||"",
-    colour:item.colour||""
-   };
-  });
-
+  const items=getCheckoutOrderItems();
   const total=items.reduce((sum,item)=>sum+item.price*item.qty,0);
+  const paymentMethod=document.querySelector('input[name="paymentMethod"]:checked')?.value||"Cash on Delivery";
   const order={
    id:"CFU"+Date.now(),
    uid:current.uid||current.id||"",
    user:current.email||"",
-   name,mobile,address,pin,items,
+   name:delivery.name,
+   mobile:delivery.mobile,
+   address:delivery.address,
+   pin:delivery.pin,
+   billingName:billing.name,
+   billingMobile:billing.mobile,
+   billingAddress:billing.address,
+   billingPin:billing.pin,
+   billingSameAsDelivery:$("sameBilling").checked,
+   items,
    productIds:items.map(x=>String(x.id)),
    total,
    status:"Order Placed",
-   paymentMethod:"Cash on Delivery",
+   paymentMethod,
    createdAt:new Date().toISOString()
   };
 
   let saved=false;
-  if(typeof saveRemotePromise==="function"){
-   saved=await saveRemotePromise("orders",order.id,order);
-  }
+  if(typeof saveRemotePromise==="function")saved=await saveRemotePromise("orders",order.id,order);
   if(saved===false)throw new Error("Order could not be saved to server.");
 
   orders.unshift(order);
-  cart=[];
+  if(checkoutSource==="cart")cart=[];
   persist();
-  alert("Order placed successfully! Order ID: "+order.id);
-  showPage("orders");
+
+  $("successOrderDetails").innerHTML=`
+   <b>Order ID: ${escapeHTML(order.id)}</b>
+   <p><span class="badge">Order Placed</span></p>
+   <div class="summary-line"><span>Items</span><b>${items.reduce((n,x)=>n+x.qty,0)}</b></div>
+   <div class="summary-line"><span>Total</span><b>${money(total)}</b></div>
+   <div class="summary-line"><span>Payment</span><b>${escapeHTML(paymentMethod)}</b></div>
+   <p><b>Delivery to:</b><br>${escapeHTML(delivery.name)}<br>${escapeHTML(delivery.mobile)}<br>${escapeHTML(delivery.address)}<br>PIN: ${escapeHTML(delivery.pin)}</p>`;
+  checkoutItems=[];
+  showPage("orderSuccess");
  }catch(error){
   console.error(error);
   alert("Order place nahi hua. Internet check karke dobara try karein.");
  }finally{
   button.disabled=false;
-  button.textContent="Place Order · Cash on Delivery";
+  button.textContent="Place Order";
  }
 }
-
-function openSavedAddresses(){
+ function openSavedAddresses(){
+ addressReturnPage="checkout";
  renderAddresses();
  showPage("addresses");
 }
@@ -778,7 +985,8 @@ function useAddress(index){
  $("checkoutMobile").value=a.mobile||"";
  $("checkoutAddress").value=a.address||"";
  $("checkoutPin").value=a.pin||"";
- showPage("checkout");
+ showPage(addressReturnPage||"checkout",null,true);
+ if(addressReturnPage==="checkout")setCheckoutStep(1);
  alert("Address selected.");
 }
 
@@ -798,19 +1006,28 @@ function renderOrders(){
    <p class="muted">Payment: ${escapeHTML(order.paymentMethod||"Cash on Delivery")}</p>
    <p>${escapeHTML(order.name||"")} · ${escapeHTML(order.mobile||"")}</p>
    <p>${escapeHTML(order.address||"")} - ${escapeHTML(order.pin||"")}</p>
-   ${(order.items||[]).map(item=>`<div class="item"><div class="iteminfo"><b>${escapeHTML(item.productName||"Product")}</b>${item.qty} × ${money(item.price)}</div></div>`).join("")}
+   ${(order.billingAddress?`
+    <p class="muted"><b>Billing:</b> ${escapeHTML(order.billingName||"")} · ${escapeHTML(order.billingMobile||"")}<br>
+    ${escapeHTML(order.billingAddress)} - ${escapeHTML(order.billingPin||"")}</p>`:"")}
+   ${(order.items||[]).map(item=>`
+    <div class="item">
+     <div class="iteminfo"><b>${escapeHTML(item.productName||"Product")}</b>${item.qty} × ${money(item.price)}</div>
+    </div>`).join("")}
   </div>`).join("");
 }
 
 function renderAccount(){
- const container=$("accountInfo");if(!container)return;
+ const container=$("accountInfo");
+ if(!container)return;
  if(!current){
   container.innerHTML=`
    <div class="panel">
-    <h3>Welcome to CARE FOR U</h3><p>Please login or create an account.</p>
+    <h3>Welcome to CARE FOR U</h3>
+    <p>Please login or create an account.</p>
     <button class="btn" style="width:100%" onclick="showAuth('login')">Login</button>
     <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('register')">Create Account</button>
-   </div>`;return;
+   </div>`;
+  return;
  }
  container.innerHTML=`
   <div class="panel">
@@ -827,8 +1044,10 @@ function setRating(value){
  selectedRating=value;
  document.querySelectorAll(".rating-select button").forEach((b,i)=>b.classList.toggle("selected",i<value));
 }
+
 function renderProductReviews(id){
- const container=$("productReviews");if(!container)return;
+ const container=$("productReviews");
+ if(!container)return;
  const reviews=JSON.parse(localStorage.getItem("cfu_reviews")||"[]").filter(r=>String(r.productId)===String(id));
  if(!reviews.length)container.innerHTML='<p class="muted">No reviews yet.</p>';
  else container.innerHTML=reviews.map(r=>`
@@ -839,32 +1058,44 @@ function renderProductReviews(id){
   </div>`).join("");
  container.innerHTML+=`
   <h4>Write a Review</h4>
-  <div class="rating-select">${[1,2,3,4,5].map(n=>`<button class="${n<=selectedRating?"selected":""}" onclick="setRating(${n})">★</button>`).join("")}</div>
+  <div class="rating-select">${[1,2,3,4,5].map(n=>`
+   <button class="${n<=selectedRating?"selected":""}" onclick="setRating(${n})">★</button>`).join("")}</div>
   <textarea id="reviewText" placeholder="Write your review..." rows="3"></textarea>
   <button class="btn" onclick="submitReview('${String(id)}')">Submit Review</button>`;
 }
+
 function submitReview(id){
  const text=$("reviewText")?.value.trim()||"";
  if(!text)return alert("Please write your review.");
  const reviews=JSON.parse(localStorage.getItem("cfu_reviews")||"[]");
- reviews.unshift({productId:String(id),name:current?.name||"Customer",rating:selectedRating,text,createdAt:new Date().toISOString()});
+ reviews.unshift({
+  productId:String(id),
+  name:current?.name||"Customer",
+  rating:selectedRating,
+  text,
+  createdAt:new Date().toISOString()
+ });
  localStorage.setItem("cfu_reviews",JSON.stringify(reviews));
- renderProductReviews(id);alert("Thank you for your review.");
+ renderProductReviews(id);
+ alert("Thank you for your review.");
 }
 
 /* LOGIN + FIREBASE */
 function showAuth(type){
- const container=$("accountInfo");if(!container)return;
+ const container=$("accountInfo");
+ if(!container)return;
  const isRegister=type==="register",isReset=type==="reset";
  container.innerHTML=`
   <div class="panel">
    <h3>${isRegister?"Create Account":isReset?"Reset Password":"Customer Login"}</h3>
-   ${isRegister?`
-    <label>Full Name</label><input class="input" id="authName" placeholder="Your full name">
-    <label>Mobile Number</label><input class="input" id="authMobile" type="tel" maxlength="10" placeholder="10 digit mobile number">`:""}
-   <label>Email Address</label><input class="input" id="authEmail" type="email" placeholder="Enter email">
-   ${!isReset?`<label>Password</label><input class="input" id="authPassword" type="password" placeholder="Enter password">`:""}
-   <button class="btn" id="authSubmit" style="width:100%;margin-top:8px" onclick="submitAuth('${type}')">${isRegister?"Create Account":isReset?"Send Reset Link":"Login"}</button>
+   <label>Email Address</label>
+   <input class="input" id="authEmail" type="email" placeholder="Enter email">
+   ${!isReset?`
+    <label>Password</label>
+    <input class="input" id="authPassword" type="password" placeholder="Enter password">`:""}
+   <button class="btn" id="authSubmit" style="width:100%;margin-top:8px" onclick="submitAuth('${type}')">
+    ${isRegister?"Create Account":isReset?"Send Reset Link":"Login"}
+   </button>
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('login')">Login</button>
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('register')">Create New Account</button>
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('reset')">Forgot Password?</button>
@@ -874,107 +1105,121 @@ function showAuth(type){
 async function submitAuth(type){
  const email=$("authEmail")?.value.trim()||"";
  const password=$("authPassword")?.value||"";
- const name=$("authName")?.value.trim()||"";
- const mobile=$("authMobile")?.value.trim()||"";
+
  if(!email){alert("Please enter your email.");return}
  if(type!=="reset"&&!password){alert("Please enter your password.");return}
- if(type==="register"&&(!name||!/^[0-9]{10}$/.test(mobile))){alert("Please enter your name and valid 10 digit mobile number.");return}
+
  const button=$("authSubmit");
  if(button){button.disabled=true;button.textContent="Please wait..."}
+
  try{
   let result;
   if(type==="login")result=await bridgeCall("signIn",email,password);
-  else if(type==="register")result=await bridgeCall("createAccount",email,password,name,mobile);
+  else if(type==="register")result=await bridgeCall("createAccount",email,password);
   else result=await bridgeCall("resetPassword",email);
+
   if(!result||result.success===false)throw new Error(result?.error||"Authentication failed.");
-  if(type==="reset"){alert("Password reset email sent. Please check your inbox.");showAuth("login");return}
+
+  if(type==="reset"){
+   alert("Password reset email sent. Please check your inbox.");
+   showAuth("login");
+   return;
+  }
+
   if(type==="register"){
-   current={uid:result.uid||result.user?.uid||"",email,name,mobile};
+   const user=result.user||result;
+   current={
+    uid:user.uid||result.uid||"",
+    email:user.email||email,
+    name:user.displayName||user.name||"",
+    mobile:user.phoneNumber||""
+   };
   }else{
    const user=result.user||result;
-   current={uid:user.uid||result.uid||"",email:user.email||email,name:user.displayName||user.name||"",mobile:user.phoneNumber||""};
+   current={
+    uid:user.uid||result.uid||"",
+    email:user.email||email,
+    name:user.displayName||user.name||"",
+    mobile:user.phoneNumber||""
+   };
   }
-  persist();alert(type==="register"?"Account created successfully.":"Login successful.");
-  renderAccount();await refreshCloudData();
+
+  persist();
+  alert(type==="register"?"Account created successfully.":"Login successful.");
+  renderAccount();
+  await refreshCloudData();
  }catch(error){
-  console.error(error);alert(error.message||"Login failed. Please try again.");
+  console.error(error);
+  alert(error.message||"Login failed. Please try again.");
  }finally{
-  if(button){button.disabled=false;button.textContent=type==="register"?"Create Account":type==="reset"?"Send Reset Link":"Login"}
+  if(button){
+   button.disabled=false;
+   button.textContent=type==="register"?"Create Account":type==="reset"?"Send Reset Link":"Login";
+  }
  }
 }
 
 async function logout(){
  try{await bridgeCall("signOut")}catch(e){console.log(e)}
- current=null;persist();renderAccount();alert("You have been logged out.");showPage("account");
+ current=null;
+ persist();
+ renderAccount();
+ alert("You have been logged out.");
+ showPage("account");
 }
 
+window.__firebaseCallbacks=window.__firebaseCallbacks||{};
+window.__firebaseCallbackCounter=0;
 
-window.__firebaseCallbacks = window.__firebaseCallbacks || {};
-window.__firebaseCallbackCounter = 0;
-
-window.onFirebaseResult = function(callbackId, result) {
-    const callback = window.__firebaseCallbacks[callbackId];
-
-    if (!callback) return;
-
-    delete window.__firebaseCallbacks[callbackId];
-    callback.resolve(result);
+window.onFirebaseResult=function(callbackId,result){
+ const callback=window.__firebaseCallbacks[callbackId];
+ if(!callback)return;
+ delete window.__firebaseCallbacks[callbackId];
+ callback.resolve(result);
 };
 
-function bridgeCall(method, ...args) {
-    return new Promise((resolve, reject) => {
-        try {
-            if (
-                !window.AndroidFirebase ||
-                typeof window.AndroidFirebase[method] !== "function"
-            ) {
-                resolve({
-                    success: false,
-                    error: "Firebase method not found: " + method
-                });
-                return;
-            }
+function bridgeCall(method,...args){
+ return new Promise((resolve,reject)=>{
+  try{
+   if(!window.AndroidFirebase||typeof window.AndroidFirebase[method]!=="function"){
+    resolve({success:false,error:"Firebase method not found: "+method});
+    return;
+   }
 
-            // Synchronous currentUser method
-            if (method === "currentUser") {
-                const result = window.AndroidFirebase.currentUser();
+   if(method==="currentUser"){
+    const result=window.AndroidFirebase.currentUser();
+    try{resolve(result?JSON.parse(result):null)}
+    catch(e){resolve(result)}
+    return;
+   }
 
-                try {
-                    resolve(result ? JSON.parse(result) : null);
-                } catch (e) {
-                    resolve(result);
-                }
-                return;
-            }
+   if(method==="signOut"){
+    window.AndroidFirebase.signOut();
+    resolve({success:true});
+    return;
+   }
 
-            // Synchronous signOut method
-            if (method === "signOut") {
-                window.AndroidFirebase.signOut();
-                resolve({ success: true });
-                return;
-            }
-
-            // Asynchronous Firebase methods
-            const callbackId =
-                "firebase_" + (++window.__firebaseCallbackCounter);
-
-            window.__firebaseCallbacks[callbackId] = { resolve, reject };
-
-            window.AndroidFirebase[method](...args, callbackId);
-
-        } catch (error) {
-            reject(error);
-        }
-    });
+   const callbackId="firebase_"+(++window.__firebaseCallbackCounter);
+   window.__firebaseCallbacks[callbackId]={resolve,reject};
+   window.AndroidFirebase[method](...args,callbackId);
+  }catch(error){
+   reject(error);
+  }
+ });
 }
-
 
 async function saveRemotePromise(collection,id,data){
  try{
   const result=await bridgeCall("saveDocument",collection,String(id),JSON.stringify(data));
-  if(result===false||result?.success===false){console.error("Firebase save failed:",result);return false}
+  if(result===false||result?.success===false){
+   console.error("Firebase save failed:",result);
+   return false;
+  }
   return true;
- }catch(error){console.error("Firebase save error:",error);return false}
+ }catch(error){
+  console.error("Firebase save error:",error);
+  return false;
+ }
 }
 
 async function getRemoteCollection(collection){
@@ -984,7 +1229,10 @@ async function getRemoteCollection(collection){
   if(Array.isArray(result?.data))return result.data;
   if(Array.isArray(result?.documents))return result.documents;
   return [];
- }catch(error){console.error("Firebase collection error:",error);return []}
+ }catch(error){
+  console.error("Firebase collection error:",error);
+  return [];
+ }
 }
 
 async function refreshCloudData(){
@@ -994,6 +1242,7 @@ async function refreshCloudData(){
    products=cloudProducts.map(p=>p.data&&typeof p.data==="object"?{...p.data,id:p.id||p.data.id}:p);
    localStorage.setItem("cfu_products",JSON.stringify(products));
   }
+
   if(current){
    const cloudOrders=await getRemoteCollection("orders");
    if(Array.isArray(cloudOrders)&&cloudOrders.length){
@@ -1002,14 +1251,32 @@ async function refreshCloudData(){
     localStorage.setItem("cfu_orders",JSON.stringify(orders));
    }
   }
-  renderProducts();renderCart();renderWishlist();renderOrders();updateCounts();
-  if($("listing").classList.contains("show")&&listingMode==="price"){
+
+  renderProducts();
+  renderCart();
+  renderWishlist();
+  renderOrders();
+  updateCounts();
+
+  if($("listing")?.classList.contains("show")&&listingMode==="price"){
    const title=$("listingTitle").textContent;
-   const ranges={"Under ₹99":[0,99],"₹100–₹199":[100,199],"₹200–₹299":[200,299],"₹300–₹399":[300,399],"₹400–₹499":[400,499]};
-   if(ranges[title])listingProducts=products.filter(p=>Number(p.price||0)>=ranges[title][0]&&Number(p.price||0)<=ranges[title][1]);
+   const ranges={
+    "Under ₹99":[0,99],
+    "₹100–₹199":[100,199],
+    "₹200–₹299":[200,299],
+    "₹300–₹399":[300,399],
+    "₹400–₹499":[400,499]
+   };
+   if(ranges[title]){
+    listingProducts=products.filter(p=>
+     Number(p.price||0)>=ranges[title][0]&&Number(p.price||0)<=ranges[title][1]
+    );
+   }
    renderListing();
   }
- }catch(error){console.error("Cloud refresh error:",error)}
+ }catch(error){
+  console.error("Cloud refresh error:",error);
+ }
 }
 
 function loadLocalData(){
@@ -1020,21 +1287,38 @@ function loadLocalData(){
   orders=JSON.parse(localStorage.getItem("cfu_orders")||"[]");
   addresses=JSON.parse(localStorage.getItem("cfu_addresses")||"[]");
   current=JSON.parse(localStorage.getItem("cfu_user")||"null");
- }catch(error){console.error("Local data error:",error)}
- updateCounts();renderProducts();renderCart();renderWishlist();renderOrders();renderAccount();
+ }catch(error){
+  console.error("Local data error:",error);
+ }
+ updateCounts();
+ renderProducts();
+ renderCart();
+ renderWishlist();
+ renderOrders();
+ renderAccount();
 }
 
 document.addEventListener("DOMContentLoaded",async()=>{
  loadLocalData();
+
  try{
   if(window.AndroidFirebase&&typeof window.AndroidFirebase.currentUser==="function"){
    const result=await bridgeCall("currentUser");
    if(result&&result.uid){
-    current={uid:result.uid,email:result.email||"",name:result.displayName||result.name||"",mobile:result.phoneNumber||""};
-    persist();renderAccount();
+    current={
+     uid:result.uid,
+     email:result.email||"",
+     name:result.displayName||result.name||"",
+     mobile:result.phoneNumber||""
+    };
+    persist();
+    renderAccount();
    }
   }
- }catch(error){console.log("Current user check:",error)}
+ }catch(error){
+  console.log("Current user check:",error);
+ }
+
  await refreshCloudData();
  pageHistory.length=0;
  pageHistory.push("home");
@@ -1043,4 +1327,3 @@ document.addEventListener("DOMContentLoaded",async()=>{
 </script>
 </body>
 </html>
- 
