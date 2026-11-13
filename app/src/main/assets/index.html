@@ -81,7 +81,6 @@ select option{background:white;color:#292027}
 .offer-banner small{font-size:11px;color:#ffe8ed}
 .listing-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .listing-head h2{font-size:19px;margin:0;flex:1}
-.back-btn{padding:9px 12px}
 .loading-box{text-align:center;padding:55px 15px;color:#800020}
 .loader{width:35px;height:35px;border:4px solid #f2cbd5;border-top-color:#800020;border-radius:50%;margin:0 auto 14px;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -159,7 +158,6 @@ select option{background:white;color:#292027}
 
 <section id="listing" class="section">
  <div class="listing-head">
-  <button class="btn secondary back-btn" onclick="backToHome()">← Back</button>
   <h2 id="listingTitle">Products</h2>
  </div>
  <div class="muted" id="listingCount"></div>
@@ -167,7 +165,6 @@ select option{background:white;color:#292027}
 </section>
 
 <section id="detail" class="section">
- <button class="btn secondary" onclick="backFromDetail()">← Back</button>
  <div id="detailContent"></div>
 </section>
 
@@ -183,7 +180,6 @@ select option{background:white;color:#292027}
  </div>
 </section>
 <section id="checkout" class="section">
- <button class="btn secondary" onclick="showPage('cart')">← Back to Cart</button>
  <h2>Delivery Details</h2>
  <div class="panel">
   <label>Full Name</label><input class="input" id="checkoutName" placeholder="Enter your full name" autocomplete="name">
@@ -196,7 +192,6 @@ select option{background:white;color:#292027}
  </div>
 </section>
 <section id="addresses" class="section">
- <button class="btn secondary" onclick="showPage('account')">← Back to Profile</button>
  <h2>📍 Saved Addresses</h2>
  <div class="panel">
   <h3>Add New Address</h3>
@@ -219,8 +214,8 @@ select option{background:white;color:#292027}
  <button id="navCart" onclick="showPage('cart',this)"><span>🛒</span>Cart</button>
  <button id="navAccount" onclick="showPage('account',this)"><span>👤</span>Profile</button>
 </nav>
-<script>
 
+<script>
 const $ = id => document.getElementById(id);
 
 let products=[];
@@ -238,6 +233,9 @@ let previousListingPage="home";
 let listingProducts=[];
 let listingMode="";
 
+const pageHistory=["home"];
+let handlingBack=false;
+
 function saveLocal(){
  try{
   localStorage.setItem("cfu_cart",JSON.stringify(cart));
@@ -254,10 +252,18 @@ function escapeHTML(value){
 }
 function safeImage(url){return String(url||"").trim()}
 
-function showPage(id,button){
- document.querySelectorAll(".section").forEach(s=>s.classList.remove("show"));
+function showPage(id,button,skipHistory=false){
  const target=$(id);
  if(!target){console.error("Page not found:",id);return}
+
+ const currentPage=document.querySelector(".section.show")?.id||"home";
+
+ if(!skipHistory&&currentPage!==id){
+  pageHistory.push(id);
+  if(pageHistory.length>30)pageHistory.shift();
+ }
+
+ document.querySelectorAll(".section").forEach(s=>s.classList.remove("show"));
  target.classList.add("show");
 
  document.querySelectorAll(".bottomnav button").forEach(b=>b.classList.remove("active"));
@@ -271,8 +277,87 @@ function showPage(id,button){
  if(id==="orders")renderOrders();
  if(id==="account")renderAccount();
  if(id==="addresses")renderAddresses();
+
  window.scrollTo({top:0,behavior:"smooth"});
 }
+
+function goBackPage(){
+ const currentPage=document.querySelector(".section.show")?.id||"home";
+
+ if(currentPage==="home")return false;
+
+ if(currentPage==="detail"){
+  backFromDetail();
+  return true;
+ }
+
+ if(currentPage==="listing"){
+  backToHome();
+  return true;
+ }
+
+ if(currentPage==="checkout"){
+  showPage("cart",null,true);
+  return true;
+ }
+
+ if(currentPage==="addresses"){
+  showPage("account",null,true);
+  return true;
+ }
+
+ let previous=pageHistory.pop();
+
+ while(previous===currentPage&&pageHistory.length){
+  previous=pageHistory.pop();
+ }
+
+ if(!previous||!$(previous)||previous===currentPage)previous="home";
+
+ showPage(previous,null,true);
+ return true;
+}
+
+function handleAppBack(){
+ if(handlingBack)return false;
+ handlingBack=true;
+ const handled=goBackPage();
+ setTimeout(()=>{handlingBack=false},250);
+ return handled;
+}
+
+/* LEFT EDGE SWIPE */
+(function(){
+ let startX=0;
+ let startY=0;
+ let tracking=false;
+
+ document.addEventListener("touchstart",function(e){
+  if(!e.touches||e.touches.length!==1)return;
+  startX=e.touches[0].clientX;
+  startY=e.touches[0].clientY;
+  tracking=startX<=40;
+ },{passive:true});
+
+ document.addEventListener("touchend",function(e){
+  if(!tracking||!e.changedTouches||e.changedTouches.length!==1)return;
+
+  const endX=e.changedTouches[0].clientX;
+  const endY=e.changedTouches[0].clientY;
+  const dx=endX-startX;
+  const dy=Math.abs(endY-startY);
+
+  tracking=false;
+
+  if(dx>=75&&dy<90){
+   handleAppBack();
+  }
+ },{passive:true});
+
+ document.addEventListener("touchcancel",function(){
+  tracking=false;
+ },{passive:true});
+})();
 
 function updateCounts(){
  if($("cartCount"))$("cartCount").textContent=cart.reduce((n,x)=>n+Number(x.qty||1),0);
@@ -358,7 +443,6 @@ function submitSearch(){
  $("listingCount").textContent="";
  $("listingProducts").innerHTML='<div class="loading-box"><div class="loader"></div>Searching products...</div>';
 
- // Home screen is hidden while the fresh results are prepared.
  showPage("listing");
 
  setTimeout(()=>{
@@ -385,7 +469,7 @@ function backToHome(){
  document.querySelectorAll("#categoryChips button").forEach((b,i)=>b.classList.toggle("active",i===0));
  $("listingProducts").innerHTML="";
  $("listingCount").textContent="";
- showPage("home");
+ showPage("home",null,true);
 }
 
 function addToCart(id){
@@ -449,10 +533,9 @@ function openProduct(id){
 }
 
 function backFromDetail(){
- if(previousListingPage==="listing")showPage("listing");
- else showPage("home");
+ if(previousListingPage==="listing")showPage("listing",null,true);
+ else showPage("home",null,true);
 }
-
 function renderCart(){
  const container=$("cartItems");
  if(!container)return;
@@ -676,7 +759,6 @@ function showAuth(type){
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('login')">Login</button>
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('register')">Create New Account</button>
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('reset')">Forgot Password?</button>
-   <button class="btn secondary" style="width:100%;margin-top:8px" onclick="renderAccount()">Back</button>
   </div>`;
 }
 
@@ -798,7 +880,9 @@ document.addEventListener("DOMContentLoaded",async()=>{
   }
  }catch(error){console.log("Current user check:",error)}
  await refreshCloudData();
- showPage("home");
+ pageHistory.length=0;
+ pageHistory.push("home");
+ showPage("home",null,true);
 });
 </script>
 </body>
