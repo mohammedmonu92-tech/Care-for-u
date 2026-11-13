@@ -416,15 +416,24 @@ function productOptions(list,fallback){
   .map(x=>`<option value="${safe(x)}">${safe(x)}</option>`).join("");
 }
  
-function hasDeliveredPurchase(productId){
- if(!current?.uid)return false;
 
- return orders.some(o=>
+function deliveredOrderForProduct(productId){
+ if(!current?.uid)return null;
+
+ return orders.find(o=>
   o.uid===current.uid &&
   String(o.status||"").trim().toLowerCase()==="delivered" &&
-  Array.isArray(o.items) &&
-  o.items.some(item=>String(item.id)===String(productId))
- );
+  (
+   (Array.isArray(o.productIds) &&
+    o.productIds.some(id=>String(id)===String(productId))) ||
+   (Array.isArray(o.items) &&
+    o.items.some(item=>String(item.id)===String(productId)))
+  )
+ ) || null;
+}
+
+function hasDeliveredPurchase(productId){
+ return !!deliveredOrderForProduct(productId);
 }
 
 function alreadyReviewed(productId){
@@ -496,7 +505,7 @@ function openProduct(id){
     <p class="stars">${"★".repeat(Math.max(0,Math.min(5,Number(r.rating)||0)))}${"☆".repeat(5-Math.max(0,Math.min(5,Number(r.rating)||0)))}</p>
     <p>${safe(r.text)}</p>
     ${r.imageUrl||r.photo?`<img class="review-photo" src="${safe(r.imageUrl||r.photo)}">`:""}
-    <span class="badge">Verified Purchase</span>
+    ${r.verified===true?'<span class="badge">Verified Purchase</span>':''}
     <div class="muted">${safe(r.createdAt||"")}</div>
    </div>
   `).join("")||"<p class='muted'>No reviews yet.</p>"}
@@ -569,15 +578,24 @@ async function addReview(id){
  try{
   let imageUrl=file?await uploadCloudinary(file,"care-for-u-reviews"):"";
 
-  const r={
-   id:reviewDocId(current.uid,id),
-   productId:id,
-   uid:current.uid,
-   text,
-   rating:selectedRating,
-   imageUrl,
-   createdAt:new Date().toISOString()
-  };
+  const deliveredOrder=deliveredOrderForProduct(id);
+
+if(!deliveredOrder){
+ alert("Delivered order nahi mila. Review submit nahi ho sakta.");
+ return;
+}
+
+const r={
+ id:reviewDocId(current.uid,id),
+ productId:String(id),
+ uid:current.uid,
+ orderId:String(deliveredOrder.id),
+ verified:true,
+ text,
+ rating:selectedRating,
+ imageUrl,
+ createdAt:new Date().toISOString()
+};
 
   const ok=await saveRemotePromise("reviews",r.id,r);
 
