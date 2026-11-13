@@ -13,7 +13,6 @@ html{scroll-behavior:smooth}
 body{margin:0;background:#fff8f8;color:#292027;font:15px Arial,sans-serif;padding-bottom:90px}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-
 header{background:#800020;color:white;padding:13px 15px 12px;position:sticky;top:0;z-index:10;border-bottom:1px solid #6c001b;box-shadow:0 4px 18px #80002022}
 .toprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .brand{font-size:23px;font-weight:900;letter-spacing:1px;cursor:pointer;color:white}
@@ -22,32 +21,27 @@ header{background:#800020;color:white;padding:13px 15px 12px;position:sticky;top
 .brand-logo{display:flex;align-items:center;justify-content:flex-end;gap:8px}
 .brand-name{color:white;font-size:22px;font-weight:bold}
 .brand-heart{color:white;font-size:38px;line-height:1}
-
 .iconbtn{width:40px;height:40px;border:1px solid #ead9dd;border-radius:13px;background:white;color:#800020;font-size:20px;display:grid;place-items:center;position:relative}
 .count{position:absolute;right:-5px;top:-5px;background:#a52a45;color:white;border-radius:20px;font-size:10px;min-width:17px;height:17px;display:grid;place-items:center;padding:0 4px}
 .searchtools{display:flex;gap:8px;align-items:center;margin-top:12px}
 .searchbox{flex:1;min-width:0;position:relative}
 .searchbox input{width:100%;height:42px;border:1px solid #ead9dd;border-radius:13px;background:white;color:#292027;padding:0 13px;outline:none}
 .searchbox input:focus{border-color:#800020}
-
 main{max-width:980px;margin:auto;padding:14px}
 .hero{background:linear-gradient(120deg,#800020,#a52a45);border:0;padding:20px;border-radius:19px;margin-bottom:15px}
 .hero h2{margin:0 0 7px;color:white;font-size:22px}
 .hero p{margin:0;color:#ffe8ed}
 .muted{color:#766a70;font-size:13px}
-
 .input,select,textarea{width:100%;padding:11px;border:1px solid #ead9dd;border-radius:11px;background:white;color:#292027;font:inherit;margin:5px 0 10px;outline:none}
 .input:focus,select:focus,textarea:focus{border-color:#800020}
 input::placeholder,textarea::placeholder{color:#766a70;opacity:1}
 select option{background:white;color:#292027}
-
 .row{display:flex;gap:9px;align-items:center}
 .row>*{flex:1;min-width:0}
 .btn{border:0;border-radius:11px;background:linear-gradient(110deg,#800020,#a52a45);color:white;padding:11px 14px;font-weight:700;cursor:pointer}
 .btn.secondary{background:#fff0f3;color:#800020;border:1px solid #e5bdc7}
 .btn.danger{background:#a52a45;color:white}
 .btn:disabled{opacity:.5}
-
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
 .card{background:white;border:1px solid #ead9dd;border-radius:15px;overflow:hidden;box-shadow:0 4px 14px #80002012}
 .photo{height:155px;background:#f8eeee;display:flex;align-items:center;justify-content:center;color:#800020;font-size:42px;overflow:hidden;cursor:pointer}
@@ -58,7 +52,6 @@ select option{background:white;color:#292027}
 .card h3{font-size:14px;margin:0 0 6px;line-height:1.35}
 .actions{display:flex;gap:6px;margin-top:9px}
 .actions button{flex:1;padding:9px 5px;font-size:12px}
-
 .section{display:none}
 .section.show{display:block}
 .panel{background:white;border:1px solid #ead9dd;border-radius:15px;padding:14px;margin:12px 0}
@@ -75,21 +68,17 @@ select option{background:white;color:#292027}
 .detail-photo{height:260px!important}
 .qty{max-width:120px}
 .hidden{display:none!important}
-
 .bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:20;background:white;border-top:1px solid #ead9dd;display:flex;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 15px #80002012}
 .bottomnav button{border:0;background:transparent;color:#766a70;font-size:11px;font-weight:700;flex:1;min-width:0;padding:5px 2px;display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap}
 .bottomnav button span{font-size:21px}
 .bottomnav button.active{color:#800020}
-
 .footer{text-align:center;color:#766a70;font-size:12px;padding:25px 8px}
 .categorychips{display:flex;gap:8px;overflow:auto;padding:4px 0 12px}
 .categorychips button{white-space:nowrap;border:1px solid #ead9dd;border-radius:20px;background:white;color:#800020;padding:8px 12px;font-size:12px}
 .categorychips button.active{background:#800020;border-color:#800020;color:white}
-
 .pricechips{display:flex;gap:8px;overflow-x:auto;padding:5px 0 13px}
 .pricechips button{flex-shrink:0;border:1px solid #ead9dd;border-radius:20px;background:white;color:#800020;padding:9px 13px;font-size:12px;font-weight:700}
 .pricechips button.active{background:#800020;border-color:#800020;color:white}
-
 .track-panel{background:#fffafa;border:1px solid #ead9dd;border-radius:13px;padding:13px;margin-top:12px}
 .track-line{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid #ead9dd}
 .track-line:last-child{border-bottom:0}
@@ -99,47 +88,38 @@ select option{background:white;color:#292027}
 .track-info{flex:1}
 .track-info b{display:block;font-size:13px}
 .track-info small{color:#766a70}
-
 .rating-select{display:flex;gap:7px;margin:10px 0}
 .rating-select button{border:1px solid #ead9dd;background:white;border-radius:9px;padding:8px 12px;color:#b47a19;font-size:22px}
 .rating-select button.selected{background:#fff0c9;border-color:#b47a19}
-
 .address-card{border:1px solid #ead9dd;background:#fffafa;padding:12px;border-radius:12px;margin:9px 0}
 .address-card.default{border-color:#800020}
-
 @media(min-width:650px){
-.grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-.photo{height:185px}
-main{padding:20px}
+ .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .photo{height:185px}
+ main{padding:20px}
 }
 </style>
 </head>
-
 <body>
 
 <header>
-  <div class="toprow">
-    <button class="profile-icon" aria-label="Profile" onclick="showPage('account')">👤</button>
-    <div class="brand-block">
-      <div class="brand-logo">
-        <div class="brand-name">CARE FOR U</div>
-        <div class="brand-heart">♡</div>
-      </div>
-      <div class="tag">Care That Makes You Feel Special.</div>
-    </div>
+ <div class="toprow">
+  <button class="profile-icon" aria-label="Profile" onclick="showPage('account')">👤</button>
+  <div class="brand-block">
+   <div class="brand-logo">
+    <div class="brand-name">CARE FOR U</div>
+    <div class="brand-heart">♡</div>
+   </div>
+   <div class="tag">Care That Makes You Feel Special.</div>
   </div>
-
-  <div class="searchtools">
-    <div class="searchbox">
-      <input id="search" placeholder="Search products..." oninput="renderProducts()">
-    </div>
-    <button class="iconbtn" aria-label="Wishlist" onclick="showPage('wishlist')">
-      ♡<span class="count" id="wishCount">0</span>
-    </button>
-    <button class="iconbtn" aria-label="Cart" onclick="showPage('cart')">
-      🛒<span class="count" id="cartCount">0</span>
-    </button>
+ </div>
+ <div class="searchtools">
+  <div class="searchbox">
+   <input id="search" placeholder="Search products..." oninput="renderProducts()">
   </div>
+  <button class="iconbtn" aria-label="Wishlist" onclick="showPage('wishlist')">♡<span class="count" id="wishCount">0</span></button>
+  <button class="iconbtn" aria-label="Cart" onclick="showPage('cart')">🛒<span class="count" id="cartCount">0</span></button>
+ </div>
 </header>
 
 <main>
@@ -149,7 +129,6 @@ main{padding:20px}
   <p>Everyday care, delivered with love.</p>
   <div class="muted" style="margin-top:8px">Port Blair & Andaman and Nicobar Islands</div>
  </div>
-
  <div class="categorychips" id="categoryChips">
   <button class="active" onclick="chooseCategory('',this)">All</button>
   <button onclick="chooseCategory('Baby Care',this)">Baby Care</button>
@@ -165,7 +144,6 @@ main{padding:20px}
   <button onclick="chooseCategory('Bags',this)">Bags</button>
   <button onclick="chooseCategory('Daily Essentials',this)">Daily Essentials</button>
  </div>
-
  <h3>Shop by Price</h3>
  <div class="pricechips" id="priceChips">
   <button onclick="choosePrice(99,this)">Under ₹99</button>
@@ -174,7 +152,6 @@ main{padding:20px}
   <button onclick="choosePrice(399,this)">₹300–₹399</button>
   <button onclick="choosePrice(499,this)">₹400–₹499</button>
  </div>
-
  <div class="row">
   <select id="sort" onchange="renderProducts()">
    <option value="default">Recommended</option>
@@ -186,6 +163,7 @@ main{padding:20px}
  <div id="priceHeading" class="muted"></div>
  <div class="grid" id="products"></div>
 </section>
+
 <section id="detail" class="section">
  <button class="btn secondary" onclick="showPage('home')">← Back to shopping</button>
  <div id="detailContent"></div>
@@ -201,9 +179,45 @@ main{padding:20px}
  <div id="cartItems"></div>
  <div class="panel">
   <b id="cartTotal">Total: ₹0</b>
-  <button class="btn" style="width:100%;margin-top:10px" onclick="checkout()">Continue to Checkout</button>
+  <button class="btn" style="width:100%;margin-top:10px" onclick="openCheckout()">Continue to Checkout</button>
   <p class="muted">Cash on Delivery. Online payment is not connected.</p>
  </div>
+</section>
+
+<section id="checkout" class="section">
+ <button class="btn secondary" onclick="showPage('cart')">← Back to Cart</button>
+ <h2>Delivery Details</h2>
+ <div class="panel">
+  <label>Full Name</label>
+  <input class="input" id="checkoutName" placeholder="Enter your full name" autocomplete="name">
+  <label>Mobile Number</label>
+  <input class="input" id="checkoutMobile" type="tel" maxlength="10" placeholder="10 digit mobile number" autocomplete="tel">
+  <label>Full Address</label>
+  <textarea id="checkoutAddress" placeholder="House no., street, area, landmark" rows="3" autocomplete="street-address"></textarea>
+  <label>PIN Code</label>
+  <input class="input" id="checkoutPin" inputmode="numeric" maxlength="6" placeholder="6 digit PIN code" autocomplete="postal-code">
+  <button class="btn secondary" style="width:100%;margin:8px 0" onclick="openSavedAddresses()">Choose Saved Address</button>
+  <button class="btn" id="placeOrderBtn" style="width:100%;margin-top:8px" onclick="checkout()">Place Order · Cash on Delivery</button>
+  <p class="muted">Please check your delivery details before placing the order.</p>
+ </div>
+</section>
+
+<section id="addresses" class="section">
+ <button class="btn secondary" onclick="showPage('account')">← Back to Profile</button>
+ <h2>📍 Saved Addresses</h2>
+ <div class="panel">
+  <h3>Add New Address</h3>
+  <label>Full Name</label>
+  <input class="input" id="addressName" placeholder="Full name">
+  <label>Mobile Number</label>
+  <input class="input" id="addressMobile" type="tel" maxlength="10" placeholder="10 digit mobile number">
+  <label>Full Address</label>
+  <textarea id="addressText" placeholder="House no., street, area, landmark" rows="3"></textarea>
+  <label>PIN Code</label>
+  <input class="input" id="addressPin" inputmode="numeric" maxlength="6" placeholder="6 digit PIN code">
+  <button class="btn" style="width:100%" onclick="saveAddress()">Save Address</button>
+ </div>
+ <div id="savedAddresses"></div>
 </section>
 
 <section id="orders" class="section">
@@ -223,121 +237,77 @@ main{padding:20px}
 </main>
 
 <nav class="bottomnav">
- <button id="navHome" class="active" onclick="showPage('home',this)">
-  <span>⌂</span>Home
- </button>
- <button id="navOrders" onclick="showPage('orders',this)">
-  <span>▣</span>My Orders
- </button>
- <button id="navWishlist" onclick="showPage('wishlist',this)">
-  <span>♡</span>Wishlist
- </button>
- <button id="navCart" onclick="showPage('cart',this)">
-  <span>🛒</span>Cart
- </button>
- <button id="navAccount" onclick="showPage('account',this)">
-  <span>👤</span>Profile
- </button>
+ <button id="navHome" class="active" onclick="showPage('home',this)"><span>⌂</span>Home</button>
+ <button id="navOrders" onclick="showPage('orders',this)"><span>▣</span>My Orders</button>
+ <button id="navWishlist" onclick="showPage('wishlist',this)"><span>♡</span>Wishlist</button>
+ <button id="navCart" onclick="showPage('cart',this)"><span>🛒</span>Cart</button>
+ <button id="navAccount" onclick="showPage('account',this)"><span>👤</span>Profile</button>
 </nav>
 
+
+
 <script>
-const CFU_CLOUD_NAME="s5ofzzbt";
-const CFU_UPLOAD_PRESET="careforu_products";
+/* =========================
+   CARE FOR U - CUSTOMER APP
+   PART 2: APP LOGIC
+========================= */
 
-const $=id=>document.getElementById(id);
+const $ = id => document.getElementById(id);
 
-const read=(k,d=[])=>{
+let products = [];
+let cart = JSON.parse(localStorage.getItem("cfu_cart") || "[]");
+let wishlist = JSON.parse(localStorage.getItem("cfu_wishlist") || "[]");
+let orders = JSON.parse(localStorage.getItem("cfu_orders") || "[]");
+let addresses = JSON.parse(localStorage.getItem("cfu_addresses") || "[]");
+let current = JSON.parse(localStorage.getItem("cfu_user") || "null");
+
+let selectedCategory = "";
+let activePriceLimit = 0;
+let selectedProduct = null;
+let selectedRating = 5;
+let currentReviewProduct = null;
+
+function saveLocal(){
  try{
-  const v=JSON.parse(localStorage.getItem("cfu_"+k));
-  return v??d;
- }catch(e){return d}
-};
-
-const write=(k,v)=>localStorage.setItem("cfu_"+k,JSON.stringify(v));
-
-let products=read("products",[
- {
-  id:"p1",
-  name:"Pampers Baby Dry Pants",
-  category:"Baby Care",
-  price:699,
-  oldPrice:799,
-  stock:20,
-  description:"Soft and comfortable baby diapers.",
-  sizes:["NB","S","M","L","XL","XXL"],
-  colors:["Standard"],
-  images:[]
- },
- {
-  id:"p2",
-  name:"Kids Clothing",
-  category:"Fashion",
-  price:299,
-  oldPrice:399,
-  stock:15,
-  description:"Comfortable daily wear.",
-  sizes:["S","M","L","XL","XXL"],
-  colors:["Pink","Blue","Black"],
-  images:[]
- }
-]);
-
-let cart=read("cart");
-let orders=read("orders");
-let reviews=read("reviews");
-let current=read("current",null);
-let wishlist=read("wishlist",[]);
-let activeProduct=null;
-let activeCategory="";
-let activePriceLimit=null;
-let selectedRating=5;
+  localStorage.setItem("cfu_cart",JSON.stringify(cart));
+  localStorage.setItem("cfu_wishlist",JSON.stringify(wishlist));
+  localStorage.setItem("cfu_orders",JSON.stringify(orders));
+  localStorage.setItem("cfu_addresses",JSON.stringify(addresses));
+  localStorage.setItem("cfu_user",JSON.stringify(current));
+ }catch(e){console.log(e)}
+}
 
 function persist(){
- write("products",products);
- write("cart",cart);
- write("orders",orders);
- write("reviews",reviews);
- write("current",current);
- write("wishlist",wishlist);
+ saveLocal();
  updateCounts();
 }
 
-function updateCounts(){
- $("cartCount").textContent=cart.reduce((n,x)=>n+x.qty,0);
- $("wishCount").textContent=wishlist.length;
+function money(value){
+ return "₹"+Number(value||0).toLocaleString("en-IN");
 }
 
-function safe(s){
- return String(s??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;",
-  "<":"&lt;",
-  ">":"&gt;",
-  '"':"&quot;",
-  "'":"&#39;"
+function escapeHTML(value){
+ return String(value??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
  }[c]));
 }
 
-let pageHistory = [];
+function safeImage(url){
+ return String(url||"").trim();
+}
 
-function showPage(id,btn){
+function showPage(id,button){
+ const sections=document.querySelectorAll(".section");
+ sections.forEach(section=>section.classList.remove("show"));
 
- const current = document.querySelector(".section.show");
-
- if(
-  current &&
-  current.id !== id &&
-  !window.isGoingBack
- ){
-  pageHistory.push(current.id);
+ const target=$(id);
+ if(!target){
+  console.error("Page not found:",id);
+  return;
  }
+ target.classList.add("show");
 
- document.querySelectorAll(".section")
- .forEach(x=>x.classList.remove("show"));
-
- $(id).classList.add("show");
-
- document.querySelectorAll(".bottomnav button")
- .forEach(x=>x.classList.remove("active"));
+ document.querySelectorAll(".bottomnav button").forEach(b=>b.classList.remove("active"));
 
  const navMap={
   home:"navHome",
@@ -347,564 +317,409 @@ function showPage(id,btn){
   account:"navAccount"
  };
 
- if(navMap[id])$(navMap[id]).classList.add("active");
+ const nav=$(navMap[id]);
+ if(nav)nav.classList.add("active");
 
  if(id==="home")renderProducts();
  if(id==="cart")renderCart();
+ if(id==="wishlist")renderWishlist();
  if(id==="orders")renderOrders();
  if(id==="account")renderAccount();
- if(id==="wishlist")renderWishlist();
+ if(id==="addresses")renderAddresses();
 
- window.scrollTo(0,0);
-}
-  function handleAppBack(){
-
- if(pageHistory.length > 0){
-
-  const previousPage = pageHistory.pop();
-
-  window.isGoingBack = true;
-
-  showPage(previousPage);
-
-  window.isGoingBack = false;
-
-  return true;
- }
-
- return false;
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 
-function chooseCategory(cat,btn){
- activeCategory=cat;
- document.querySelectorAll("#categoryChips button").forEach(x=>x.classList.remove("active"));
- btn.classList.add("active");
+function updateCounts(){
+ const cartCount=$("cartCount");
+ const wishCount=$("wishCount");
+
+ if(cartCount)cartCount.textContent=cart.reduce((n,x)=>n+Number(x.qty||1),0);
+ if(wishCount)wishCount.textContent=wishlist.length;
+}
+
+function chooseCategory(category,button){
+ selectedCategory=category;
+
+ document.querySelectorAll("#categoryChips button").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");
+
  renderProducts();
 }
 
-function choosePrice(limit,btn){
+function choosePrice(limit,button){
  activePriceLimit=limit;
- document.querySelectorAll("#priceChips button").forEach(x=>x.classList.remove("active"));
- btn.classList.add("active");
- const labels={99:"Under ₹99",199:"₹100–₹199",299:"₹200–₹299",399:"₹300–₹399",499:"₹400–₹499"};
- $("priceHeading").textContent=labels[limit]+" products";
+
+ document.querySelectorAll("#priceChips button").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");
+
  renderProducts();
 }
-
-function imgOf(p){
- return p.images&&p.images[0]
-  ?`<img src="${safe(p.images[0])}" alt="${safe(p.name)}">`
-  :"🛍️";
-}
-
 
 function renderProducts(){
- const q=($("search")?.value||"").toLowerCase();
+ const container=$("products");
+ if(!container)return;
 
- let arr=products.filter(p=>{
-  const text=(p.name+" "+(p.description||"")+" "+(p.category||p.cat||"")).toLowerCase();
-  const category=!activeCategory||((p.category||p.cat)==="Women Care"?"Women Hygiene":(p.category||p.cat))===activeCategory;
-  const price=Number(p.price)||0;
-  let priceMatch=true;
+ const search=($("search")?.value||"").toLowerCase().trim();
+ const sort=$("sort")?.value||"default";
 
-  if(activePriceLimit===99)priceMatch=price<99;
-  else if(activePriceLimit===199)priceMatch=price>=100&&price<=199;
-  else if(activePriceLimit===299)priceMatch=price>=200&&price<=299;
-  else if(activePriceLimit===399)priceMatch=price>=300&&price<=399;
-  else if(activePriceLimit===499)priceMatch=price>=400&&price<=499;
+ let list=[...products];
 
-  return text.includes(q)&&category&&priceMatch;
- });
-
- const sort=$("sort")?.value;
- if(sort==="low")arr.sort((a,b)=>a.price-b.price);
- if(sort==="high")arr.sort((a,b)=>b.price-a.price);
-
- $("products").innerHTML=arr.map(p=>`
-  <article class="card">
-   <div class="photo" onclick="openProduct('${safe(p.id)}')">${imgOf(p)}</div>
-   <div class="cardbody">
-    <h3>${safe(p.name)}</h3>
-    <div class="muted">${safe(p.category||p.cat||"Daily Essentials")}</div>
-    <p>
-     <span class="price">₹${Number(p.price)||0}</span>
-     <span class="old">₹${p.oldPrice||p.mrp||""}</span>
-    </p>
-    <div class="muted">${p.stock>0?"In stock":"Out of stock"}</div>
-    <div class="actions">
-     <button class="btn secondary" onclick="openProduct('${safe(p.id)}')">Buy Now</button>
-     <button class="btn" onclick="quickAdd('${safe(p.id)}')">Add</button>
-    </div>
-    <div class="actions">
-     <button class="btn secondary" onclick="toggleWish('${safe(p.id)}')">${wishlist.includes(String(p.id))?"♥ Saved":"♡ Wishlist"}</button>
-    </div>
-   </div>
-  </article>
- `).join("")||"<p class='muted'>No products found.</p>";
-
- persist();
-}
-
-
-
-function productOptions(list,fallback){
- return (Array.isArray(list)&&list.length?list:[fallback])
-  .map(x=>`<option value="${safe(x)}">${safe(x)}</option>`).join("");
-}
- 
-
-function deliveredOrderForProduct(productId){
- if(!current?.uid)return null;
-
- return orders.find(o=>
-  o.uid===current.uid &&
-  String(o.status||"").trim().toLowerCase()==="delivered" &&
-  (
-   (Array.isArray(o.productIds) &&
-    o.productIds.some(id=>String(id)===String(productId))) ||
-   (Array.isArray(o.items) &&
-    o.items.some(item=>String(item.id)===String(productId)))
-  )
- ) || null;
-}
-
-function hasDeliveredPurchase(productId){
- return !!deliveredOrderForProduct(productId);
-}
-
-function alreadyReviewed(productId){
- if(!current?.uid)return false;
-
- return reviews.some(r=>
-  r.uid===current.uid &&
-  String(r.productId||r.pid)===String(productId)
- );
-}
-
-function openProduct(id){
- activeProduct=products.find(p=>String(p.id)===String(id));
- if(!activeProduct)return;
-
- const p=activeProduct;
- const pr=reviews.filter(r=>String(r.productId||r.pid)===String(p.id));
- const sizes=p.sizes||p.variants||["Regular"];
- const colors=p.colors||["Default"];
- const eligible=hasDeliveredPurchase(p.id);
- const reviewed=alreadyReviewed(p.id);
-
- $("detailContent").innerHTML=`
- <div class="panel">
-  <div class="photo detail-photo">${imgOf(p)}</div>
-
-  <div class="thumbs">
-   ${(p.images||[]).map(src=>`
-    <img onclick="setMainPhoto(this.src)" src="${safe(src)}"
-    style="width:62px;height:62px;object-fit:cover;border-radius:9px">
-   `).join("")}
-  </div>
-
-  <h2>${safe(p.name)}</h2>
-  <span class="badge">${safe(p.category||p.cat||"")}</span>
-
-  <p class="price">
-   ₹${Number(p.price)||0}
-   <span class="old">₹${p.oldPrice||p.mrp||""}</span>
-  </p>
-
-  <p>${safe(p.description||p.desc||"")}</p>
-  <p class="muted">Available stock: ${p.stock}</p>
-
-  <label>Size / Variant</label>
-  <select id="variant">${productOptions(sizes,"Standard")}</select>
-
-  <label>Colour</label>
-  <select id="colour">${productOptions(colors,"Default")}</select>
-
-  <label>Quantity</label>
-  <input class="input qty" type="number" id="qty"
-   min="1" max="${Math.max(1,p.stock)}" value="1">
-
-  <div class="row">
-   <button class="btn secondary" onclick="addCart('${safe(p.id)}',true)">Add to Cart</button>
-   <button class="btn" onclick="buyNow('${safe(p.id)}')">Buy Now</button>
-  </div>
-
-  <button class="btn secondary" style="width:100%;margin-top:9px"
-   onclick="toggleWish('${safe(p.id)}')">♡ Add / Remove Wishlist</button>
- </div>
-
- <div class="panel">
-  <h3>Customer Reviews</h3>
-
-  ${pr.map(r=>`
-   <div class="review-card">
-    <p class="stars">${"★".repeat(Math.max(0,Math.min(5,Number(r.rating)||0)))}${"☆".repeat(5-Math.max(0,Math.min(5,Number(r.rating)||0)))}</p>
-    <p>${safe(r.text)}</p>
-    ${r.imageUrl||r.photo?`<img class="review-photo" src="${safe(r.imageUrl||r.photo)}">`:""}
-    ${r.verified===true?'<span class="badge">Verified Purchase</span>':''}
-    <div class="muted">${safe(r.createdAt||"")}</div>
-   </div>
-  `).join("")||"<p class='muted'>No reviews yet.</p>"}
-
-  <h4>Write a Review</h4>
-
-  ${!current?.uid?`
-   <p class="muted">Please login to write a review.</p>
-   <button class="btn secondary" onclick="showPage('account')">Login</button>
-  `:!eligible?`
-   <p class="muted">Review option is available only after your order is delivered.</p>
-  `:reviewed?`
-   <p class="muted">You have already reviewed this product. Only one review per product is allowed.</p>
-  `:`
-   <p class="muted">Your delivered purchase is eligible for review.</p>
-   <label>Select Rating</label>
-   <div class="rating-select" id="ratingSelect">
-    ${[1,2,3,4,5].map(n=>`
-     <button type="button" class="${n<=selectedRating?"selected":""}"
-      onclick="selectRating(${n})">${n<=selectedRating?"★":"☆"}</button>
-    `).join("")}
-   </div>
-   <textarea id="reviewText" placeholder="Write your review"></textarea>
-   <input class="input" id="reviewPhoto" type="file" accept="image/*">
-   <button class="btn secondary" id="reviewSubmitBtn"
-    onclick="addReview('${safe(p.id)}')">Submit Review</button>
-  `}
- </div>`;
-
- showPage("detail");
-}
-
-function selectRating(n){
- selectedRating=n;
- document.querySelectorAll("#ratingSelect button").forEach((b,i)=>{
-  b.classList.toggle("selected",i<n);
-  b.textContent=i<n?"★":"☆";
- });
-}
-
-function setMainPhoto(src){
- const box=document.querySelector("#detailContent .detail-photo");
- if(box)box.innerHTML=`<img src="${safe(src)}">`;
-}
-
-function reviewDocId(uid,productId){
- return "review_"+String(uid)+"_"+String(productId).replace(/[^a-zA-Z0-9_-]/g,"_");
-}
-
-async function addReview(id){
- if(!current?.uid)return alert("Please login first.");
-
- if(!hasDeliveredPurchase(id))
-  return alert("Only delivered purchases can be reviewed.");
-
- if(alreadyReviewed(id))
-  return alert("You have already reviewed this product.");
-
- const text=$("reviewText")?.value.trim();
- const file=$("reviewPhoto")?.files?.[0];
-
- if(!text)return alert("Write your review first.");
-
- if(file&&(!file.type.startsWith("image/")||file.size>8*1024*1024))
-  return alert("Choose an image smaller than 8 MB.");
-
- const btn=$("reviewSubmitBtn");
- btn.disabled=true;
-
- try{
-  let imageUrl=file?await uploadCloudinary(file,"care-for-u-reviews"):"";
-
-  const deliveredOrder=deliveredOrderForProduct(id);
-
-if(!deliveredOrder){
- alert("Delivered order nahi mila. Review submit nahi ho sakta.");
- return;
-}
-
-const r={
- id:reviewDocId(current.uid,id),
- productId:String(id),
- uid:current.uid,
- orderId:String(deliveredOrder.id),
- verified:true,
- text,
- rating:selectedRating,
- imageUrl,
- createdAt:new Date().toISOString()
-};
-
-  const ok=await saveRemotePromise("reviews",r.id,r);
-
-  if(!ok){
-   btn.disabled=false;
-   return alert("Review could not be saved to cloud. Please try again.");
-  }
-
-  reviews.unshift(r);
-  persist();
-  selectedRating=5;
-  openProduct(id);
-  alert("Verified review submitted successfully!");
- }catch(e){
-  alert("Review upload failed: "+e.message);
-  btn.disabled=false;
+ if(selectedCategory){
+  list=list.filter(p=>(p.category||"").toLowerCase()===selectedCategory.toLowerCase());
  }
+
+ if(activePriceLimit){
+  list=list.filter(p=>Number(p.price||0)<=activePriceLimit);
+ }
+
+ if(search){
+  list=list.filter(p=>
+   [p.name,p.productName,p.category,p.description]
+   .join(" ").toLowerCase().includes(search)
+  );
+ }
+
+ if(sort==="low")list.sort((a,b)=>Number(a.price)-Number(b.price));
+ if(sort==="high")list.sort((a,b)=>Number(b.price)-Number(a.price));
+
+ if(!list.length){
+  container.innerHTML='<div class="panel">No products found.</div>';
+ }else{
+  container.innerHTML=list.map(p=>{
+   const id=String(p.id);
+   const name=escapeHTML(p.name||p.productName||"Product");
+   const photo=safeImage(p.photo||p.image);
+   return `
+    <div class="card">
+     <div class="photo" onclick="openProduct('${id}')">
+      ${photo?`<img src="${escapeHTML(photo)}" onerror="this.style.display='none'">`:"♡"}
+     </div>
+     <div class="cardbody">
+      <h3>${name}</h3>
+      <div class="price">${money(p.price)}
+       ${p.mrp?`<span class="old">${money(p.mrp)}</span>`:""}
+      </div>
+      <div class="muted">${escapeHTML(p.category||"")}</div>
+      <div class="actions">
+       <button class="btn" onclick="addToCart('${id}')">Add</button>
+       <button class="btn secondary" onclick="toggleWishlist('${id}')">♡</button>
+      </div>
+     </div>
+    </div>
+   `;
+  }).join("");
+ }
+
+ const heading=$("priceHeading");
+ if(heading)heading.textContent=activePriceLimit?"Price filter: "+money(activePriceLimit):"";
 }
 
-function toggleWish(id){
- id=String(id);
- wishlist.includes(id)
-  ?wishlist=wishlist.filter(x=>x!==id)
-  :wishlist.push(id);
+function getProduct(id){
+ return products.find(p=>String(p.id)===String(id));
+}
+
+function addToCart(id){
+ const p=getProduct(id);
+ if(!p)return alert("Product not found.");
+
+ const found=cart.find(x=>String(x.id)===String(id));
+ if(found)found.qty=Number(found.qty||1)+1;
+ else cart.push({
+  id:String(p.id),
+  qty:1,
+  productName:p.name||p.productName||"",
+  price:Number(p.price||0),
+  photo:p.photo||p.image||"",
+  variant:"",
+  size:"",
+  colour:""
+ });
 
  persist();
+ alert("Product added to cart.");
+}
 
- if($("wishlist").classList.contains("show"))renderWishlist();
- if($("home").classList.contains("show"))renderProducts();
+function toggleWishlist(id){
+ const index=wishlist.findIndex(x=>String(x)===String(id));
+ if(index>=0)wishlist.splice(index,1);
+ else wishlist.push(String(id));
+
+ persist();
+ renderWishlist();
 }
 
 function renderWishlist(){
- $("wishlistItems").innerHTML=wishlist.map(id=>{
-  const p=products.find(x=>String(x.id)===id);
-  if(!p)return"";
+ const container=$("wishlistItems");
+ if(!container)return;
 
-  return `
-   <div class="item">
-    ${p.images?.[0]?`<img src="${safe(p.images[0])}">`:""}
-    <div class="iteminfo">
-     <b>${safe(p.name)}</b>
-     <span class="price">₹${p.price}</span>
-    </div>
-    <button class="btn secondary" onclick="openProduct('${safe(p.id)}')">View</button>
-    <button class="btn danger" onclick="toggleWish('${safe(p.id)}')">×</button>
-   </div>`;
- }).join("")||"<p class='muted'>Your wishlist is empty.</p>";
-}
-
-function quickAdd(id){
- const p=products.find(x=>String(x.id)===String(id));
- if(!p||p.stock<1)return alert("Product out of stock");
-
- putInCart(
-  p,
-  (p.sizes||p.variants||["Standard"])[0],
-  (p.colors||["Default"])[0],
-  1
- );
-}
-
-function putInCart(p,size,color,qty){
- if(qty>p.stock)return alert("Only "+p.stock+" items available.");
-
- let found=cart.find(x=>
-  String(x.id)===String(p.id)&&
-  x.variant===size&&
-  x.colour===color
- );
-
- if(found)found.qty+=qty;
- else cart.push({id:p.id,qty,variant:size,size,colour:color});
-
- persist();
- renderCart();
-}
-
-function addCart(id,fromDetail=false){
- let p=products.find(x=>String(x.id)===String(id));
- if(!p||p.stock<1)return alert("Product out of stock");
-
- let qty=fromDetail?Math.max(1,Number($("qty").value)||1):1;
- let size=fromDetail?$("variant").value:(p.sizes||p.variants||["Standard"])[0];
- let color=fromDetail?$("colour").value:(p.colors||["Default"])[0];
-
- putInCart(p,size,color,qty);
- alert("Added to cart 💗");
-}
-
-
-function buyNow(id){
- let p=products.find(x=>String(x.id)===String(id));
- if(!p||p.stock<1)return alert("Product out of stock");
-
- if(!current || !current.uid){
-  const box=$("detailContent");
-
-  if(box){
-   const old=$("checkoutLoginOptions");
-   if(old)old.remove();
-
-   box.insertAdjacentHTML("beforeend",`
-    <div class="panel" id="checkoutLoginOptions">
-     <h3>Plz login before chekout</h3>
-     <button class="btn" onclick="showAuth('login')">
-      Login
-     </button>
-     <button class="btn secondary" onclick="showAuth('register')">
-      Register
-     </button>
-    </div>
-   `);
-  }else{
-   alert("Plz login before chekout");
-  }
-
+ if(!wishlist.length){
+  container.innerHTML='<div class="panel">Your wishlist is empty.</div>';
   return;
  }
 
- let qty=Math.max(1,Number($("qty").value)||1);
- putInCart(p,$("variant").value,$("colour").value,qty);
- showPage("cart");
+ container.innerHTML=wishlist.map(id=>{
+  const p=getProduct(id);
+  if(!p)return "";
+  return `
+   <div class="item">
+    <img src="${escapeHTML(p.photo||p.image||"")}" onerror="this.style.display='none'">
+    <div class="iteminfo">
+     <b>${escapeHTML(p.name||p.productName||"Product")}</b>
+     ${money(p.price)}
+    </div>
+    <button class="btn" onclick="addToCart('${String(p.id)}')">Add</button>
+    <button class="btn secondary" onclick="toggleWishlist('${String(p.id)}')">Remove</button>
+   </div>
+  `;
+ }).join("");
 }
 
+function openProduct(id){
+ const p=getProduct(id);
+ if(!p)return;
+
+ selectedProduct=p;
+
+ $("detailContent").innerHTML=`
+  <div class="panel">
+   <div class="photo detail-photo">
+    ${p.photo||p.image?`<img src="${escapeHTML(p.photo||p.image)}">`:"♡"}
+   </div>
+   <h2>${escapeHTML(p.name||p.productName||"Product")}</h2>
+   <div class="price">${money(p.price)}</div>
+   <p>${escapeHTML(p.description||"")}</p>
+   <p class="muted">Category: ${escapeHTML(p.category||"")}</p>
+   <button class="btn" style="width:100%" onclick="addToCart('${String(p.id)}')">Add to Cart</button>
+   <button class="btn secondary" style="width:100%;margin-top:8px" onclick="toggleWishlist('${String(p.id)}')">♡ Wishlist</button>
+  </div>
+  <div class="panel">
+   <h3>Customer Reviews</h3>
+   <div id="productReviews"></div>
+  </div>
+ `;
+
+ showPage("detail");
+ renderProductReviews(id);
+}
 
 function renderCart(){
+ const container=$("cartItems");
+ if(!container)return;
+
+ if(!cart.length){
+  container.innerHTML='<div class="panel">Your cart is empty.</div>';
+  $("cartTotal").textContent="Total: ₹0";
+  return;
+ }
+
  let total=0;
 
- $("cartItems").innerHTML=cart.map((c,i)=>{
-  let p=products.find(x=>String(x.id)===String(c.id));
-  if(!p)return"";
-
-  total+=p.price*c.qty;
+ container.innerHTML=cart.map((item,index)=>{
+  const p=getProduct(item.id);
+  const price=Number(p?.price??item.price??0);
+  const qty=Number(item.qty||1);
+  total+=price*qty;
 
   return `
    <div class="item">
-    ${p.images?.[0]?`<img src="${safe(p.images[0])}">`:""}
+    <img src="${escapeHTML(p?.photo||p?.image||item.photo||"")}" onerror="this.style.display='none'">
     <div class="iteminfo">
-     <b>${safe(p.name)}</b>
-     <small class="muted">
-      ${safe(c.variant||c.size||"Standard")} ·
-      ${safe(c.colour||"Default")} ·
-      ₹${p.price} × ${c.qty}
-     </small>
-    </div>
-    <button class="btn secondary" onclick="changeQty(${i},-1)">−</button>
-    <button class="btn secondary" onclick="changeQty(${i},1)">+</button>
-    <button class="btn danger" onclick="removeCart(${i})">×</button>
-   </div>`;
- }).join("")||"<p class='muted'>Your cart is empty.</p>";
-
- $("cartTotal").textContent="Total: ₹"+total;
-}
-
-function changeQty(i,n){
- let c=cart[i];
- if(!c)return;
-
- let p=products.find(x=>String(x.id)===String(c.id));
- let next=c.qty+n;
-
- if(next>0&&p&&next>p.stock)
-  return alert("Only "+p.stock+" items available.");
-
- c.qty=next;
- if(c.qty<=0)cart.splice(i,1);
-
- persist();
- renderCart();
-}
-
-function removeCart(i){
- cart.splice(i,1);
- persist();
- renderCart();
- }
- 
-let expandedTrackingId=null;
-
-function trackingStep(status){
- const s=String(status||"").trim().toLowerCase();
-
- if(s.includes("deliver"))return 4;
- if(s.includes("ship")||s.includes("dispatch")||s.includes("out for delivery"))return 3;
- if(s.includes("pack"))return 2;
- if(s.includes("process")||s.includes("confirm"))return 1;
-
- return 0;
-}
-
-function renderTracking(order){
- const steps=["Placed","Processing","Packed","Shipped","Delivered"];
- const currentStep=trackingStep(order.status);
-
- return `
- <div class="track-panel">
-  <h4>🚚 Order Tracking</h4>
-  <p>Current Status: <b>${safe(order.status||"Order Placed")}</b></p>
-  <div class="track-line">
-   ${steps.map((step,i)=>`
-    <div class="track-info ${i<=currentStep?"done":""}">
-     <div class="track-dot">${i<=currentStep?"✓":"🚚"}</div>
-     <div>
-      <b>🚚 ${step}</b>
-      <small>${i===currentStep?"Current progress":i<currentStep?"Completed":"Pending"}</small>
+     <b>${escapeHTML(p?.name||p?.productName||item.productName||"Product")}</b>
+     ${money(price)}
+     <div class="row" style="margin-top:7px">
+      <button class="btn secondary" onclick="changeQty(${index},-1)">−</button>
+      <b>${qty}</b>
+      <button class="btn secondary" onclick="changeQty(${index},1)">+</button>
      </div>
     </div>
-   `).join("")}
-  </div>
- </div>`;
+    <button class="btn secondary" onclick="removeCartItem(${index})">✕</button>
+   </div>
+  `;
+ }).join("");
+
+ $("cartTotal").textContent="Total: "+money(total);
 }
 
-function toggleTracking(id){
- expandedTrackingId=expandedTrackingId===id?null:id;
- renderOrders();
+function changeQty(index,change){
+ if(!cart[index])return;
+ cart[index].qty=Number(cart[index].qty||1)+change;
+ if(cart[index].qty<=0)cart.splice(index,1);
+ persist();
+ renderCart();
 }
 
-function renderOrders(){
- $("ordersList").innerHTML=orders.map(o=>{
-  const items=Array.isArray(o.items)?o.items:[];
-  const expanded=expandedTrackingId===o.id;
-
-  return `
-   <div class="panel order-card">
-    <h3>Order #${safe(o.id)}</h3>
-    <p><b>Status:</b> ${safe(o.status||"Order Placed")}</p>
-    <p><b>Date:</b> ${safe(o.createdAt||"")}</p>
-    <div class="order-products">
-     ${items.map(item=>`
-      <div class="item">
-       ${item.photo?`<img src="${safe(item.photo)}">`:""}
-       <div class="iteminfo">
-        <b>${safe(item.productName||"Product")}</b>
-        <small>${safe(item.variant||item.size||"")} · Qty: ${item.qty}</small>
-        <span>₹${Number(item.price)||0}</span>
-       </div>
-      </div>
-     `).join("")}
-    </div>
-    <h4>Total: ₹${Number(o.total)||0}</h4>
-    <p>Payment: ${safe(o.paymentMethod||"Cash on Delivery")}</p>
-    <button class="btn secondary" onclick="toggleTracking('${safe(o.id)}')">
-     🚚 ${expanded?"Hide Tracking":"Track Order"}
-    </button>
-    ${expanded?renderTracking(o):""}
-   </div>`;
- }).join("")||"<p class='muted'>You have no orders yet.</p>";
+function removeCartItem(index){
+ cart.splice(index,1);
+ persist();
+ renderCart();
 }
 
-function getAddresses(){
+/* =========================
+   CHECKOUT
+========================= */
+
+function openCheckout(){
+ if(!current){
+  alert("Please login first to place your order.");
+  showPage("account");
+  showAuth("login");
+  return;
+ }
+
+ if(!cart.length){
+  alert("Your cart is empty.");
+  return;
+ }
+
+ const userName=current.name||current.displayName||"";
+ const userMobile=current.mobile||current.phone||"";
+
+ if(!$("checkoutName").value)$("checkoutName").value=userName;
+ if(!$("checkoutMobile").value)$("checkoutMobile").value=userMobile;
+
+ if(addresses.length){
+  const first=addresses[0];
+  if(!$("checkoutAddress").value)$("checkoutAddress").value=first.address||"";
+  if(!$("checkoutPin").value)$("checkoutPin").value=first.pin||"";
+ }
+
+ showPage("checkout");
+}
+
+async function checkout(){
+ if(!current){
+  alert("Please login first.");
+  showPage("account");
+  showAuth("login");
+  return;
+ }
+
+ if(!cart.length){
+  alert("Your cart is empty.");
+  showPage("cart");
+  return;
+ }
+
+ const name=$("checkoutName").value.trim();
+ const mobile=$("checkoutMobile").value.trim();
+ const address=$("checkoutAddress").value.trim();
+ const pin=$("checkoutPin").value.trim();
+
+ if(!name||!mobile||!address||!pin){
+  alert("Please fill all delivery details.");
+  return;
+ }
+
+ if(!/^[0-9]{10}$/.test(mobile)){
+  alert("Please enter a valid 10 digit mobile number.");
+  return;
+ }
+
+ if(!/^[0-9]{6}$/.test(pin)){
+  alert("Please enter a valid 6 digit PIN code.");
+  return;
+ }
+
+ const button=$("placeOrderBtn");
+ if(button){
+  button.disabled=true;
+  button.textContent="Placing Order...";
+ }
+
  try{
-  return JSON.parse(localStorage.getItem("cfu_addresses")||"[]");
- }catch(e){
-  return [];
+  const items=cart.map(item=>{
+   const p=getProduct(item.id);
+   return {
+    id:String(item.id),
+    qty:Number(item.qty||1),
+    productName:p?.name||p?.productName||item.productName||"",
+    price:Number(p?.price??item.price??0),
+    photo:p?.photo||p?.image||item.photo||"",
+    variant:item.variant||"",
+    size:item.size||"",
+    colour:item.colour||""
+   };
+  });
+
+  const total=items.reduce((sum,item)=>sum+item.price*item.qty,0);
+
+  const order={
+   id:"CFU"+Date.now(),
+   uid:current.uid||current.id||"",
+   user:current.email||"",
+   name,
+   mobile,
+   address,
+   pin,
+   items,
+   productIds:items.map(x=>String(x.id)),
+   total,
+   status:"Order Placed",
+   paymentMethod:"Cash on Delivery",
+   createdAt:new Date().toISOString()
+  };
+
+  let saved=false;
+
+  if(typeof saveRemotePromise==="function"){
+   saved=await saveRemotePromise("orders",order.id,order);
+  }
+
+  if(saved===false){
+   throw new Error("Order could not be saved to server.");
+  }
+
+  orders.unshift(order);
+  cart=[];
+  persist();
+
+  alert("Order placed successfully! Order ID: "+order.id);
+  showPage("orders");
+
+ }catch(error){
+  console.error(error);
+  alert("Order place nahi hua. Internet check karke dobara try karein.");
+ }finally{
+  if(button){
+   button.disabled=false;
+   button.textContent="Place Order · Cash on Delivery";
+  }
  }
 }
 
-function saveAddresses(list){
- localStorage.setItem("cfu_addresses",JSON.stringify(list));
+/* =========================
+   SAVED ADDRESSES
+========================= */
+
+function openSavedAddresses(){
+ if(!$("addresses"))return;
+ renderAddresses();
+ showPage("addresses");
 }
 
 function renderAddresses(){
- const list=getAddresses();
+ const container=$("savedAddresses");
+ if(!container)return;
 
- $("savedAddresses").innerHTML=list.map((a,i)=>`
-  <div class="panel">
-   <b>${safe(a.name)}</b>
-   <p>${safe(a.mobile)}</p>
-   <p>${safe(a.address)}, ${safe(a.pin)}</p>
-   <button class="btn danger" onclick="deleteAddress(${i})">Delete</button>
-   <button class="btn secondary" onclick="useAddress(${i})">Use Address</button>
+ if(!addresses.length){
+  container.innerHTML='<div class="panel">No saved addresses yet. Add your first address above.</div>';
+  return;
+ }
+
+ container.innerHTML=addresses.map((a,i)=>`
+  <div class="address-card ${i===0?"default":""}">
+   ${i===0?'<span class="badge">Saved Address</span>':""}
+   <h3>${escapeHTML(a.name||"")}</h3>
+   <div>${escapeHTML(a.mobile||"")}</div>
+   <p>${escapeHTML(a.address||"")}</p>
+   <div>PIN: ${escapeHTML(a.pin||"")}</div>
+   <div class="actions">
+    <button class="btn" onclick="useAddress(${i})">Use This Address</button>
+    <button class="btn secondary" onclick="deleteAddress(${i})">Delete</button>
+   </div>
   </div>
- `).join("")||"<p class='muted'>No saved addresses.</p>";
+ `).join("");
 }
 
 function saveAddress(){
@@ -913,535 +728,443 @@ function saveAddress(){
  const address=$("addressText").value.trim();
  const pin=$("addressPin").value.trim();
 
- if(!name||!mobile||!address||!pin)
-  return alert("Please fill all address details.");
+ if(!name||!mobile||!address||!pin){
+  alert("Please fill all address details.");
+  return;
+ }
 
- const list=getAddresses();
- list.push({name,mobile,address,pin});
- saveAddresses(list);
+ if(!/^[0-9]{10}$/.test(mobile)){
+  alert("Enter a valid 10 digit mobile number.");
+  return;
+ }
+
+ if(!/^[0-9]{6}$/.test(pin)){
+  alert("Enter a valid 6 digit PIN code.");
+  return;
+ }
+
+ addresses.push({name,mobile,address,pin});
+ persist();
+
+ $("addressName").value="";
+ $("addressMobile").value="";
+ $("addressText").value="";
+ $("addressPin").value="";
+
  renderAddresses();
-
- alert("Address saved.");
+ alert("Address saved successfully.");
 }
 
-function deleteAddress(i){
- const list=getAddresses();
- list.splice(i,1);
- saveAddresses(list);
+function deleteAddress(index){
+ if(!confirm("Delete this saved address?"))return;
+
+ addresses.splice(index,1);
+ persist();
  renderAddresses();
 }
 
-function useAddress(i){
- const a=getAddresses()[i];
+function useAddress(index){
+ const a=addresses[index];
  if(!a)return;
 
- $("checkoutName").value=a.name;
- $("checkoutMobile").value=a.mobile;
- $("checkoutAddress").value=a.address;
- $("checkoutPin").value=a.pin;
+ $("checkoutName").value=a.name||"";
+ $("checkoutMobile").value=a.mobile||"";
+ $("checkoutAddress").value=a.address||"";
+ $("checkoutPin").value=a.pin||"";
 
- showPage("cart");
+ showPage("checkout");
+ alert("Address selected.");
 }
+
+/* =========================
+   ORDERS
+========================= */
+
+function renderOrders(){
+ const container=$("ordersList");
+ if(!container)return;
+
+ if(!orders.length){
+  container.innerHTML='<div class="panel">You have not placed any orders yet.</div>';
+  return;
+ }
+
+ container.innerHTML=orders.map(order=>`
+  <div class="panel">
+   <b>Order ID: ${escapeHTML(order.id)}</b>
+   <p class="muted">${escapeHTML(order.createdAt||"")}</p>
+   <span class="badge">${escapeHTML(order.status||"Order Placed")}</span>
+   <p><b>Total: ${money(order.total)}</b></p>
+   <p class="muted">Payment: ${escapeHTML(order.paymentMethod||"Cash on Delivery")}</p>
+   <p>${escapeHTML(order.name||"")} · ${escapeHTML(order.mobile||"")}</p>
+   <p>${escapeHTML(order.address||"")} - ${escapeHTML(order.pin||"")}</p>
+   <div>
+    ${(order.items||[]).map(item=>`
+     <div class="item">
+      <div class="iteminfo">
+       <b>${escapeHTML(item.productName||"Product")}</b>
+       ${item.qty} × ${money(item.price)}
+      </div>
+     </div>
+    `).join("")}
+   </div>
+  </div>
+ `).join("");
+}
+
+/* =========================
+   PROFILE
+========================= */
 
 function renderAccount(){
+ const container=$("accountInfo");
+ if(!container)return;
+
  if(!current){
-  $("accountInfo").innerHTML=`
-   <h3>Welcome</h3>
-   <p>Please login or register to continue.</p>
-   <button class="btn" onclick="showAuth('login')">Login</button>
-   <button class="btn secondary" onclick="showAuth('register')">Register</button>
+  container.innerHTML=`
+   <div class="panel">
+    <h3>Welcome to CARE FOR U</h3>
+    <p>Please login or create an account.</p>
+    <button class="btn" style="width:100%" onclick="showAuth('login')">Login</button>
+    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('register')">Create Account</button>
+   </div>
   `;
+  return;
+ }
+
+ container.innerHTML=`
+  <div class="panel">
+   <h3>${escapeHTML(current.name||current.displayName||"Customer")}</h3>
+   <p>${escapeHTML(current.email||"")}</p>
+   <p>${escapeHTML(current.mobile||current.phone||"")}</p>
+   <button class="btn secondary" style="width:100%;margin-top:8px" onclick="openSavedAddresses()">📍 Saved Addresses</button>
+   <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showPage('orders')">📦 My Orders</button>
+   <button class="btn danger" style="width:100%;margin-top:8px" onclick="logout()">Logout</button>
+  </div>
+ `;
+}
+
+/* =========================
+   REVIEWS
+========================= */
+
+function setRating(value){
+ selectedRating=value;
+ document.querySelectorAll(".rating-select button").forEach((b,i)=>{
+  b.classList.toggle("selected",i<value);
+ });
+}
+
+function renderProductReviews(id){
+ const container=$("productReviews");
+ if(!container)return;
+
+ const reviews=JSON.parse(localStorage.getItem("cfu_reviews")||"[]")
+  .filter(r=>String(r.productId)===String(id));
+
+ if(!reviews.length){
+  container.innerHTML='<p class="muted">No reviews yet.</p>';
  }else{
-  $("accountInfo").innerHTML=`
-   <h3>My Account</h3>
-   <p>${safe(current.name||current.email||"Customer")}</p>
-   <p>${safe(current.email||"")}</p>
-   <button class="btn secondary" onclick="showPage('orders')">My Orders</button>
-   <button class="btn secondary" onclick="showPage('wishlist')">Wishlist</button>
-   <button class="btn secondary" onclick="renderAddresses();showPage('addresses')">Saved Addresses</button>
-   <button class="btn danger" onclick="logout()">Logout</button>
-  `;
+  container.innerHTML=reviews.map(r=>`
+   <div class="review-card">
+    <b>${escapeHTML(r.name||"Customer")}</b>
+    <div class="stars">${"★".repeat(Number(r.rating||5))}</div>
+    <p>${escapeHTML(r.text||"")}</p>
+   </div>
+  `).join("");
  }
+
+ container.innerHTML+=`
+  <h4>Write a Review</h4>
+  <div class="rating-select">
+   ${[1,2,3,4,5].map(n=>`<button class="${n<=selectedRating?"selected":""}" onclick="setRating(${n})">★</button>`).join("")}
+  </div>
+  <textarea id="reviewText" placeholder="Write your review..." rows="3"></textarea>
+  <button class="btn" onclick="submitReview('${String(id)}')">Submit Review</button>
+ `;
 }
 
-async function checkout(){
- if(!current?.uid)
-  return alert("Please login before checkout.");
+function submitReview(id){
+ const text=$("reviewText")?.value.trim()||"";
+ if(!text)return alert("Please write your review.");
 
- if(!cart.length)
-  return alert("Your cart is empty.");
-
- const name=$("checkoutName").value.trim();
- const mobile=$("checkoutMobile").value.trim();
- const address=$("checkoutAddress").value.trim();
- const pin=$("checkoutPin").value.trim();
-
- if(!name||!mobile||!address||!pin)
-  return alert("Please complete your delivery address.");
-
- let total=0;
- const items=[];
-
- for(const c of cart){
-  const p=products.find(x=>String(x.id)===String(c.id));
-
-  if(!p)return alert("A product in your cart is no longer available.");
-  if(c.qty>p.stock)return alert(p.name+" has only "+p.stock+" items available.");
-
-  total+=Number(p.price)*Number(c.qty);
-
-  items.push({
-   id:p.id,
-   qty:c.qty,
-   variant:c.variant||c.size||"Standard",
-   size:c.size||c.variant||"Standard",
-   colour:c.colour||"Default",
-   productName:p.name,
-   price:p.price,
-   photo:p.images?.[0]||p.image||""
-  });
- }
-
- const order={
-  id:"CFU"+Date.now(),
-  uid:current.uid,
-  user:current.email||"",
-  name,
-  mobile,
-  address,
-  pin,
-  items,
-  productIds:items.map(x=>String(x.id)),
-  total,
-  status:"Order Placed",
-  paymentMethod:"Cash on Delivery",
+ const reviews=JSON.parse(localStorage.getItem("cfu_reviews")||"[]");
+ reviews.unshift({
+  productId:String(id),
+  name:current?.name||"Customer",
+  rating:selectedRating,
+  text,
   createdAt:new Date().toISOString()
- };
+ });
 
- const saved=await saveRemotePromise("orders",order.id,order);
-
- if(!saved)
-  return alert("Order could not be saved. Please try again.");
-
- orders.unshift(order);
- cart=[];
- persist();
- renderCart();
- renderOrders();
-
- showPage("orders");
- alert("Your order has been placed successfully! 💗");
+ localStorage.setItem("cfu_reviews",JSON.stringify(reviews));
+ renderProductReviews(id);
+ alert("Thank you for your review.");
 }
+
+
+<script>
+/* =========================
+   PART 3: LOGIN + FIREBASE
+========================= */
 
 function showAuth(type){
- showPage("account");
+ const container=$("accountInfo");
+ if(!container)return;
 
- const box=$("accountInfo");
- if(!box)return;
+ const isRegister=type==="register";
+ const isReset=type==="reset";
 
- box.innerHTML=`
+ container.innerHTML=`
   <div class="panel">
-   <h3>${type==="register"?"Create Account":"Customer Login"}</h3>
-   ${type==="register"?`
-    <input class="input" id="authName" placeholder="Full Name">
+   <h3>${isRegister?"Create Account":isReset?"Reset Password":"Customer Login"}</h3>
+
+   ${isRegister?`
+    <label>Full Name</label>
+    <input class="input" id="authName" placeholder="Your full name">
+    <label>Mobile Number</label>
+    <input class="input" id="authMobile" type="tel" maxlength="10" placeholder="10 digit mobile number">
    `:""}
-   <input class="input" id="authEmail" type="email" placeholder="Email">
-   <input class="input" id="authPassword" type="password" placeholder="Password">
-   <button class="btn" onclick="${type==="register"?"register()":"login()"}">
-    ${type==="register"?"Register":"Login"}
+
+   <label>Email Address</label>
+   <input class="input" id="authEmail" type="email" placeholder="Enter email">
+
+   ${!isReset?`
+    <label>Password</label>
+    <input class="input" id="authPassword" type="password" placeholder="Enter password">
+   `:""}
+
+   <button class="btn" id="authSubmit" style="width:100%;margin-top:8px" onclick="submitAuth('${type}')">
+    ${isRegister?"Create Account":isReset?"Send Reset Link":"Login"}
    </button>
-   <p>
-    <button class="btn secondary" onclick="showAuth('${type==="register"?"login":"register"}')">
-     ${type==="register"?"Already registered? Login":"Create new account"}
-    </button>
-   </p>
-   <button class="btn secondary" onclick="resetPassword()">Forgot Password?</button>
-  </div>`;
- }
- 
-async function login(){
- const email=$("authEmail")?.value.trim();
- const password=$("authPassword")?.value;
 
- if(!email||!password)
-  return alert("Enter your email and password.");
-
- try{
-  const result=await bridgeCall("signIn",[email,password]);
-
-  if(result?.success===false)
-   throw new Error(result.message||"Login failed.");
-
-  const user=result?.data||result?.user||result;
-
-  if(!user?.uid)
-   throw new Error("Login could not be completed.");
-
-  current={
-   uid:user.uid,
-   email:user.email||email,
-   name:user.displayName||user.name||""
-  };
-
-  persist();
-  await refreshCloudData();
-  renderAccount();
-  renderOrders();
-  renderProducts();
-  showPage("home");
-
-  alert("Login successful! Welcome back 💗");
- }catch(e){
-  alert("Login failed: "+e.message);
- }
+   <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('login')">Login</button>
+   <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('register')">Create New Account</button>
+   <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('reset')">Forgot Password?</button>
+   <button class="btn secondary" style="width:100%;margin-top:8px" onclick="renderAccount()">Back</button>
+  </div>
+ `;
 }
 
-async function register(){
- const name=$("authName")?.value.trim();
- const email=$("authEmail")?.value.trim();
- const password=$("authPassword")?.value;
+async function submitAuth(type){
+ const email=$("authEmail")?.value.trim()||"";
+ const password=$("authPassword")?.value||"";
+ const name=$("authName")?.value.trim()||"";
+ const mobile=$("authMobile")?.value.trim()||"";
 
- if(!name||!email||!password)
-  return alert("Please fill all details.");
+ if(!email){
+  alert("Please enter your email.");
+  return;
+ }
 
- if(password.length<6)
-  return alert("Password must be at least 6 characters.");
+ if(type!=="reset"&&!password){
+  alert("Please enter your password.");
+  return;
+ }
+
+ if(type==="register"&&(!name||!/^[0-9]{10}$/.test(mobile))){
+  alert("Please enter your name and valid 10 digit mobile number.");
+  return;
+ }
+
+ const button=$("authSubmit");
+ if(button){
+  button.disabled=true;
+  button.textContent="Please wait...";
+ }
 
  try{
-  const result=await bridgeCall("createAccount",[email,password]);
+  let result;
 
-  if(result?.success===false)
-   throw new Error(result.message||"Registration failed.");
+  if(type==="login"){
+   result=await bridgeCall("signIn",email,password);
+  }else if(type==="register"){
+   result=await bridgeCall("createAccount",email,password,name,mobile);
+  }else{
+   result=await bridgeCall("resetPassword",email);
+  }
 
-  const user=result?.data||result?.user||result;
+  if(!result||result.success===false){
+   throw new Error(result?.error||"Authentication failed.");
+  }
 
-  if(!user?.uid)
-   throw new Error("Account could not be created.");
+  if(type==="reset"){
+   alert("Password reset email sent. Please check your inbox.");
+   showAuth("login");
+   return;
+  }
 
-  current={
-   uid:user.uid,
-   email:user.email||email,
-   name
-  };
-
-  await saveRemotePromise("users",current.uid,{
-   uid:current.uid,
-   name,
-   email:current.email,
-   createdAt:new Date().toISOString()
-  });
+  if(type==="register"){
+   current={
+    uid:result.uid||result.user?.uid||"",
+    email,
+    name,
+    mobile
+   };
+  }else{
+   const user=result.user||result;
+   current={
+    uid:user.uid||result.uid||"",
+    email:user.email||email,
+    name:user.displayName||user.name||"",
+    mobile:user.phoneNumber||""
+   };
+  }
 
   persist();
-  await refreshCloudData();
+  alert(type==="register"?"Account created successfully.":"Login successful.");
   renderAccount();
-  showPage("home");
 
-  alert("Account created successfully! 💗");
- }catch(e){
-  alert("Registration failed: "+e.message);
+  await refreshCloudData();
+
+ }catch(error){
+  console.error(error);
+  alert(error.message||"Login failed. Please try again.");
+ }finally{
+  if(button){
+   button.disabled=false;
+   button.textContent=type==="register"?"Create Account":type==="reset"?"Send Reset Link":"Login";
+  }
  }
 }
 
 async function logout(){
  try{
-  await bridgeCall("signOut",[]);
+  await bridgeCall("signOut");
  }catch(e){
-  console.log("Sign out:",e);
+  console.log(e);
  }
 
  current=null;
- orders=[];
- cart=[];
- wishlist=[];
- expandedTrackingId=null;
-
  persist();
  renderAccount();
- renderOrders();
- renderCart();
- renderProducts();
- showPage("home");
-
  alert("You have been logged out.");
+ showPage("account");
 }
 
-async function resetPassword(){
- const email=$("authEmail")?.value.trim();
+/* =========================
+   ANDROID FIREBASE BRIDGE
+========================= */
 
- if(!email)
-  return alert("Enter your email address first.");
-
- try{
-  const result=await bridgeCall("resetPassword",[email]);
-
-  if(result?.success===false)
-   throw new Error(result.message||"Password reset failed.");
-
-  alert("Password reset email request sent. Please check your inbox.");
- }catch(e){
-  alert("Password reset failed: "+e.message);
- }
-}
-
-async function loadCurrentUser(){
- try{
-  const result=await bridgeCall("currentUser",[]);
-  const user=result?.data||result?.user||result;
-
-  if(user?.uid){
-   current={
-    uid:user.uid,
-    email:user.email||"",
-    name:user.displayName||user.name||""
-   };
-  }
- }catch(e){
-  console.log("Current user:",e);
- }
-}
-
-function openSavedAddresses(){
- renderAddresses();
- showPage("addresses");
-}
-
-function updateProfileName(){
- if(!current?.uid)return alert("Please login first.");
-
- const name=$("profileName")?.value.trim();
- if(!name)return alert("Enter your name.");
-
- current.name=name;
- persist();
-
- saveRemotePromise("users",current.uid,{
-  uid:current.uid,
-  name,
-  email:current.email||""
- }).then(ok=>{
-  alert(ok?"Profile updated successfully.":"Profile update could not be saved.");
-  renderAccount();
- });
-}
-
-function normalizeOrderStatus(status){
- const s=String(status||"").trim().toLowerCase();
-
- if(s.includes("deliver"))return "Delivered";
- if(s.includes("ship")||s.includes("dispatch")||s.includes("out for delivery"))return "Shipped";
- if(s.includes("pack"))return "Packed";
- if(s.includes("process")||s.includes("confirm"))return "Processing";
- if(s.includes("place"))return "Order Placed";
-
- return status||"Order Placed";
-}
-
-function refreshVisiblePages(){
- updateCounts();
- renderProducts();
- renderCart();
- renderWishlist();
- renderOrders();
- renderAccount();
-}
-
-const firebasePendingCalls = {};
-let firebaseCallCounter = 0;
-
-function parseBridgeResult(value){
- if(typeof value==="string"){
-  try{return JSON.parse(value);}
-  catch(e){return value;}
- }
- return value;
-}
-
-function onFirebaseResult(callbackId,result){
- const pending=firebasePendingCalls[callbackId];
- if(!pending)return;
-
- delete firebasePendingCalls[callbackId];
-
- const data=parseBridgeResult(result);
-
- if(data?.success===false){
-  pending.reject(new Error(data.message||"Firebase request failed"));
- }else{
-  pending.resolve(data);
- }
-}
-
-function bridgeCall(method,args=[]){
+function bridgeCall(method,...args){
  return new Promise((resolve,reject)=>{
   try{
-   const bridge=window.AndroidFirebase;
-
-   if(!bridge||typeof bridge[method]!=="function"){
-    reject(new Error("AndroidFirebase method unavailable: "+method));
+   if(!window.AndroidFirebase||typeof window.AndroidFirebase[method]!=="function"){
+    resolve({success:false,error:"Firebase connection not available."});
     return;
    }
 
-   if(method==="currentUser"){
-    const result=parseBridgeResult(bridge.currentUser());
+   const result=window.AndroidFirebase[method](...args);
 
-    if(!result||!result.uid){
-     resolve(null);
-    }else{
+   if(typeof result==="string"){
+    try{
+     resolve(JSON.parse(result));
+    }catch(e){
      resolve(result);
     }
-    return;
+   }else{
+    resolve(result);
    }
-
-   if(method==="signOut"){
-    bridge.signOut();
-    resolve({success:true});
-    return;
-   }
-
-   const callbackId="cfu_"+(++firebaseCallCounter)+"_"+Date.now();
-
-   firebasePendingCalls[callbackId]={resolve,reject};
-
-   bridge[method](...args,callbackId);
-
-  }catch(e){
-   reject(e);
+  }catch(error){
+   reject(error);
   }
  });
 }
 
-function saveRemotePromise(collection,id,data){
- return bridgeCall("saveDocument",[
-  collection,
-  String(id),
-  JSON.stringify(data)
- ]).then(result=>result?.success===true)
- .catch(e=>{
-  console.log("Cloud save failed:",e);
-  return false;
- });
-}
-
-function saveRemote(collection,id,data){
- return saveRemotePromise(collection,id,data);
-}
-
-async function getRemoteDocument(collection,id){
+async function saveRemotePromise(collection,id,data){
  try{
-  const result=await bridgeCall("getDocument",[
-   collection,
-   String(id)
-  ]);
+  const result=await bridgeCall("saveDocument",collection,String(id),JSON.stringify(data));
 
-  return result?.data||null;
- }catch(e){
-  console.log("Document fetch failed:",e);
-  return null;
+  if(result===false||result?.success===false){
+   console.error("Firebase save failed:",result);
+   return false;
+  }
+
+  return true;
+ }catch(error){
+  console.error("Firebase save error:",error);
+  return false;
  }
 }
 
 async function getRemoteCollection(collection){
  try{
-  const result=await bridgeCall("getCollection",[collection]);
+  const result=await bridgeCall("getCollection",collection);
 
+  if(Array.isArray(result))return result;
   if(Array.isArray(result?.data))return result.data;
   if(Array.isArray(result?.documents))return result.documents;
-  if(Array.isArray(result))return result;
 
   return [];
- }catch(e){
-  console.log("Collection fetch failed:",collection,e);
+ }catch(error){
+  console.error("Firebase collection error:",error);
   return [];
  }
 }
 
-function mergeById(local,remote){
- const map=new Map();
-
- [...(Array.isArray(local)?local:[]),
-  ...(Array.isArray(remote)?remote:[])].forEach(item=>{
-  if(!item)return;
-
-  const id=String(item.id||item.uid||"");
-  if(id)map.set(id,{...map.get(id),...item});
- });
-
- return Array.from(map.values());
-}
+/* =========================
+   CLOUD DATA REFRESH
+========================= */
 
 async function refreshCloudData(){
- if(!current?.uid)return;
-
  try{
-  const [cloudProducts,cloudOrders,cloudReviews]=await Promise.all([
-   getRemoteCollection("products"),
-   getRemoteCollection("orders"),
-   getRemoteCollection("reviews")
-  ]);
+  const cloudProducts=await getRemoteCollection("products");
 
-  if(cloudProducts.length){
-   products=cloudProducts.map(p=>({
-    ...p,
-    id:p.id||p.productId
-   }));
+  if(Array.isArray(cloudProducts)&&cloudProducts.length){
+   products=cloudProducts.map(p=>{
+    if(p.data&&typeof p.data==="object"){
+     return {...p.data,id:p.id||p.data.id};
+    }
+    return p;
+   });
 
    localStorage.setItem("cfu_products",JSON.stringify(products));
   }
 
-  const myOrders=cloudOrders.filter(o=>
-   String(o.uid||"")===String(current.uid)
-  );
+  if(current){
+   const cloudOrders=await getRemoteCollection("orders");
 
-  orders=mergeById(orders,myOrders);
+   if(Array.isArray(cloudOrders)&&cloudOrders.length){
+    const userOrders=cloudOrders.map(o=>{
+     if(o.data&&typeof o.data==="object"){
+      return {...o.data,id:o.id||o.data.id};
+     }
+     return o;
+    }).filter(o=>
+     String(o.uid||"")===String(current.uid||current.id||"")
+    );
 
-  reviews=mergeById(reviews,cloudReviews);
+    orders=userOrders;
+    localStorage.setItem("cfu_orders",JSON.stringify(orders));
+   }
+  }
 
-  persist();
-  refreshVisiblePages();
+  renderProducts();
+  renderCart();
+  renderWishlist();
+  renderOrders();
+  updateCounts();
 
- }catch(e){
-  console.log("Cloud refresh failed:",e);
+ }catch(error){
+  console.error("Cloud refresh error:",error);
  }
 }
+
+/* =========================
+   LOCAL DATA
+========================= */
 
 function loadLocalData(){
  try{
-  const savedProducts=JSON.parse(localStorage.getItem("cfu_products")||"null");
-  const savedCart=JSON.parse(localStorage.getItem("cfu_cart")||"[]");
-  const savedOrders=JSON.parse(localStorage.getItem("cfu_orders")||"[]");
-  const savedReviews=JSON.parse(localStorage.getItem("cfu_reviews")||"[]");
-  const savedWishlist=JSON.parse(localStorage.getItem("cfu_wishlist")||"[]");
-  const savedUser=JSON.parse(localStorage.getItem("cfu_user")||"null");
-
-  if(Array.isArray(savedProducts)&&savedProducts.length)products=savedProducts;
-  if(Array.isArray(savedCart))cart=savedCart;
-  if(Array.isArray(savedOrders))orders=savedOrders;
-  if(Array.isArray(savedReviews))reviews=savedReviews;
-  if(Array.isArray(savedWishlist))wishlist=savedWishlist;
-  if(savedUser)current=savedUser;
-
- }catch(e){
-  console.log("Local data load:",e);
+  products=JSON.parse(localStorage.getItem("cfu_products")||"[]");
+  cart=JSON.parse(localStorage.getItem("cfu_cart")||"[]");
+  wishlist=JSON.parse(localStorage.getItem("cfu_wishlist")||"[]");
+  orders=JSON.parse(localStorage.getItem("cfu_orders")||"[]");
+  addresses=JSON.parse(localStorage.getItem("cfu_addresses")||"[]");
+  current=JSON.parse(localStorage.getItem("cfu_user")||"null");
+ }catch(error){
+  console.error("Local data error:",error);
  }
-}
-
-function persist(){
- try{
-  localStorage.setItem("cfu_products",JSON.stringify(products));
-  localStorage.setItem("cfu_cart",JSON.stringify(cart));
-  localStorage.setItem("cfu_orders",JSON.stringify(orders));
-  localStorage.setItem("cfu_reviews",JSON.stringify(reviews));
-  localStorage.setItem("cfu_wishlist",JSON.stringify(wishlist));
-  localStorage.setItem("cfu_user",JSON.stringify(current));
- }catch(e){
-  console.log("Local save failed:",e);
- }
-
- updateCounts();
-}
-
-async function init(){
- loadLocalData();
 
  updateCounts();
  renderProducts();
@@ -1449,33 +1172,39 @@ async function init(){
  renderWishlist();
  renderOrders();
  renderAccount();
-
- try{
-  const user=await bridgeCall("currentUser",[]);
-
-  if(user?.uid){
-   current={
-    uid:user.uid,
-    email:user.email||"",
-    name:user.displayName||user.name||""
-   };
-
-   persist();
-   renderAccount();
-   await refreshCloudData();
-  }
- }catch(e){
-  console.log("Firebase user loading:",e);
- }
-
- showPage("home");
 }
 
-document.addEventListener("DOMContentLoaded",init);
+/* =========================
+   START APP
+========================= */
+
+document.addEventListener("DOMContentLoaded",async()=>{
+ loadLocalData();
+
+ try{
+  if(window.AndroidFirebase&&typeof window.AndroidFirebase.currentUser==="function"){
+   const result=await bridgeCall("currentUser");
+
+   if(result&&result.uid){
+    current={
+     uid:result.uid,
+     email:result.email||"",
+     name:result.displayName||result.name||"",
+     mobile:result.phoneNumber||""
+    };
+    persist();
+    renderAccount();
+   }
+  }
+ }catch(error){
+  console.log("Current user check:",error);
+ }
+
+ await refreshCloudData();
+ showPage("home");
+});
 
 </script>
 </body>
 </html>
-
-
 
