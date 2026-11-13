@@ -397,6 +397,7 @@ function imgOf(p){
   :"🛍️";
 }
 
+
 function renderProducts(){
  const q=($("search")?.value||"").toLowerCase();
 
@@ -431,7 +432,7 @@ function renderProducts(){
     </p>
     <div class="muted">${p.stock>0?"In stock":"Out of stock"}</div>
     <div class="actions">
-     <button class="btn secondary" onclick="openProduct('${safe(p.id)}')">View</button>
+     <button class="btn secondary" onclick="openProduct('${safe(p.id)}')">Buy Now</button>
      <button class="btn" onclick="quickAdd('${safe(p.id)}')">Add</button>
     </div>
     <div class="actions">
@@ -443,6 +444,8 @@ function renderProducts(){
 
  persist();
 }
+
+
 
 function productOptions(list,fallback){
  return (Array.isArray(list)&&list.length?list:[fallback])
