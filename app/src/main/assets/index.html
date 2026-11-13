@@ -718,14 +718,41 @@ function addCart(id,fromDetail=false){
  alert("Added to cart 💗");
 }
 
+
 function buyNow(id){
  let p=products.find(x=>String(x.id)===String(id));
  if(!p||p.stock<1)return alert("Product out of stock");
+
+ if(!current || !current.uid){
+  const box=$("detailContent");
+
+  if(box){
+   const old=$("checkoutLoginOptions");
+   if(old)old.remove();
+
+   box.insertAdjacentHTML("beforeend",`
+    <div class="panel" id="checkoutLoginOptions">
+     <h3>Plz login before chekout</h3>
+     <button class="btn" onclick="showAuth('login')">
+      Login
+     </button>
+     <button class="btn secondary" onclick="showAuth('register')">
+      Register
+     </button>
+    </div>
+   `);
+  }else{
+   alert("Plz login before chekout");
+  }
+
+  return;
+ }
 
  let qty=Math.max(1,Number($("qty").value)||1);
  putInCart(p,$("variant").value,$("colour").value,qty);
  showPage("cart");
 }
+
 
 function renderCart(){
  let total=0;
