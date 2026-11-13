@@ -1331,11 +1331,7 @@ async function refreshCloudData(){
 
   orders=mergeById(orders,myOrders);
 
-  const myReviews=cloudReviews.filter(r=>
-   r.uid&&String(r.uid)===String(current.uid)
-  );
-
-  reviews=mergeById(reviews,myReviews);
+  reviews=mergeById(reviews,cloudReviews);
 
   persist();
   refreshVisiblePages();
