@@ -1164,6 +1164,9 @@ function refreshVisiblePages(){
  renderAccount();
 }
 
+const firebasePendingCalls = {};
+let firebaseCallCounter = 0;
+
 function parseBridgeResult(value){
  if(typeof value==="string"){
   try{return JSON.parse(value);}
@@ -1172,63 +1175,84 @@ function parseBridgeResult(value){
  return value;
 }
 
+function onFirebaseResult(callbackId,result){
+ const pending=firebasePendingCalls[callbackId];
+ if(!pending)return;
+
+ delete firebasePendingCalls[callbackId];
+
+ const data=parseBridgeResult(result);
+
+ if(data?.success===false){
+  pending.reject(new Error(data.message||"Firebase request failed"));
+ }else{
+  pending.resolve(data);
+ }
+}
+
 function bridgeCall(method,args=[]){
  return new Promise((resolve,reject)=>{
   try{
-   const bridge=window.AndroidBridge||window.Android||window.FirebaseBridge;
+   const bridge=window.AndroidFirebase;
 
-   if(!bridge||typeof bridge[method]!=="function")
-    return reject(new Error("Firebase bridge method unavailable: "+method));
-
-   const result=bridge[method](...args);
-
-   if(result&&typeof result.then==="function"){
-    result.then(v=>resolve(parseBridgeResult(v))).catch(reject);
-   }else{
-    resolve(parseBridgeResult(result));
+   if(!bridge||typeof bridge[method]!=="function"){
+    reject(new Error("AndroidFirebase method unavailable: "+method));
+    return;
    }
+
+   if(method==="currentUser"){
+    const result=parseBridgeResult(bridge.currentUser());
+
+    if(!result||!result.uid){
+     resolve(null);
+    }else{
+     resolve(result);
+    }
+    return;
+   }
+
+   if(method==="signOut"){
+    bridge.signOut();
+    resolve({success:true});
+    return;
+   }
+
+   const callbackId="cfu_"+(++firebaseCallCounter)+"_"+Date.now();
+
+   firebasePendingCalls[callbackId]={resolve,reject};
+
+   bridge[method](...args,callbackId);
+
   }catch(e){
    reject(e);
   }
  });
 }
 
-function onFirebaseResult(result){
- try{
-  const data=parseBridgeResult(result);
-  if(typeof window.firebaseResultCallback==="function"){
-   window.firebaseResultCallback(data);
-   window.firebaseResultCallback=null;
-  }
- }catch(e){
-  console.log("Firebase result error:",e);
- }
-}
-
-async function saveRemotePromise(collection,id,data){
- try{
-  const result=await bridgeCall("saveDocument",[
-   collection,
-   String(id),
-   JSON.stringify(data)
-  ]);
-
-  return result===true||
-   result?.success===true||
-   result?.status==="success";
- }catch(e){
-  console.log("Cloud save failed:",collection,e);
+function saveRemotePromise(collection,id,data){
+ return bridgeCall("saveDocument",[
+  collection,
+  String(id),
+  JSON.stringify(data)
+ ]).then(result=>result?.success===true)
+ .catch(e=>{
+  console.log("Cloud save failed:",e);
   return false;
- }
+ });
 }
 
 function saveRemote(collection,id,data){
- saveRemotePromise(collection,id,data);
+ return saveRemotePromise(collection,id,data);
 }
 
 async function getRemoteDocument(collection,id){
  try{
-  return await bridgeCall("getDocument",[collection,String(id)]);
+  const result=await bridgeCall("getDocument",[
+   collection,
+   String(id)
+  ]);
+
+  return result?.data||null;
  }catch(e){
   console.log("Document fetch failed:",e);
   return null;
@@ -1239,10 +1263,9 @@ async function getRemoteCollection(collection){
  try{
   const result=await bridgeCall("getCollection",[collection]);
 
-  if(Array.isArray(result))return result;
   if(Array.isArray(result?.data))return result.data;
   if(Array.isArray(result?.documents))return result.documents;
-  if(Array.isArray(result?.items))return result.items;
+  if(Array.isArray(result))return result;
 
   return [];
  }catch(e){
@@ -1257,6 +1280,7 @@ function mergeById(local,remote){
  [...(Array.isArray(local)?local:[]),
   ...(Array.isArray(remote)?remote:[])].forEach(item=>{
   if(!item)return;
+
   const id=String(item.id||item.uid||"");
   if(id)map.set(id,{...map.get(id),...item});
  });
@@ -1279,6 +1303,7 @@ async function refreshCloudData(){
     ...p,
     id:p.id||p.productId
    }));
+
    localStorage.setItem("cfu_products",JSON.stringify(products));
   }
 
@@ -1296,6 +1321,7 @@ async function refreshCloudData(){
 
   persist();
   refreshVisiblePages();
+
  }catch(e){
   console.log("Cloud refresh failed:",e);
  }
@@ -1316,6 +1342,7 @@ function loadLocalData(){
   if(Array.isArray(savedReviews))reviews=savedReviews;
   if(Array.isArray(savedWishlist))wishlist=savedWishlist;
   if(savedUser)current=savedUser;
+
  }catch(e){
   console.log("Local data load:",e);
  }
@@ -1336,7 +1363,7 @@ function persist(){
  updateCounts();
 }
 
-function init(){
+async function init(){
  loadLocalData();
 
  updateCounts();
@@ -1346,10 +1373,23 @@ function init(){
  renderOrders();
  renderAccount();
 
- loadCurrentUser().then(async()=>{
-  renderAccount();
-  await refreshCloudData();
- });
+ try{
+  const user=await bridgeCall("currentUser",[]);
+
+  if(user?.uid){
+   current={
+    uid:user.uid,
+    email:user.email||"",
+    name:user.displayName||user.name||""
+   };
+
+   persist();
+   renderAccount();
+   await refreshCloudData();
+  }
+ }catch(e){
+  console.log("Firebase user loading:",e);
+ }
 
  showPage("home");
 }
@@ -1360,4 +1400,5 @@ document.addEventListener("DOMContentLoaded",init);
 </body>
 </html>
 
- 
+
+
