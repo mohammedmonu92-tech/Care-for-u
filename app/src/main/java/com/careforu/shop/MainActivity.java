@@ -697,7 +697,6 @@ public class MainActivity extends Activity {
     // BACK BUTTON HANDLING
 
     @Override
-    @Override
 public void onBackPressed() {
 
     if (webView != null) {
