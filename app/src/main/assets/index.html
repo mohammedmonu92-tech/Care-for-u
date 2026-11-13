@@ -323,12 +323,12 @@ function showPage(id,btn){
 
  const current = document.querySelector(".section.show");
 
- if(current){
-  const currentId = current.id;
-
-  if(currentId !== id){
-   pageHistory.push(currentId);
-  }
+ if(
+  current &&
+  current.id !== id &&
+  !window.isGoingBack
+ ){
+  pageHistory.push(current.id);
  }
 
  document.querySelectorAll(".section")
@@ -363,13 +363,17 @@ function showPage(id,btn){
 
   const previousPage = pageHistory.pop();
 
+  window.isGoingBack = true;
+
   showPage(previousPage);
+
+  window.isGoingBack = false;
 
   return true;
  }
 
  return false;
-  }
+}
 
 function chooseCategory(cat,btn){
  activeCategory=cat;
