@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#800020">
 <title>CARE FOR U</title>
-
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -15,18 +14,18 @@ button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 header{background:#800020;color:white;padding:13px 15px 12px;position:sticky;top:0;z-index:10;border-bottom:1px solid #6c001b;box-shadow:0 4px 18px #80002022}
 .toprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.brand{font-size:23px;font-weight:900;letter-spacing:1px;cursor:pointer;color:white}
-.tag{font-size:11px;color:#ffe8ed;margin-top:3px}
-.profile-icon{width:48px;height:48px;flex-shrink:0;border:2px solid white;border-radius:50%;background:transparent;color:white;font-size:25px}
 .brand-logo{display:flex;align-items:center;justify-content:flex-end;gap:8px}
 .brand-name{color:white;font-size:22px;font-weight:bold}
 .brand-heart{color:white;font-size:38px;line-height:1}
+.tag{font-size:11px;color:#ffe8ed;margin-top:3px}
+.profile-icon{width:48px;height:48px;flex-shrink:0;border:2px solid white;border-radius:50%;background:transparent;color:white;font-size:25px}
 .iconbtn{width:40px;height:40px;border:1px solid #ead9dd;border-radius:13px;background:white;color:#800020;font-size:20px;display:grid;place-items:center;position:relative}
 .count{position:absolute;right:-5px;top:-5px;background:#a52a45;color:white;border-radius:20px;font-size:10px;min-width:17px;height:17px;display:grid;place-items:center;padding:0 4px}
 .searchtools{display:flex;gap:8px;align-items:center;margin-top:12px}
-.searchbox{flex:1;min-width:0;position:relative}
+.searchbox{flex:1;min-width:0;display:flex;gap:6px}
 .searchbox input{width:100%;height:42px;border:1px solid #ead9dd;border-radius:13px;background:white;color:#292027;padding:0 13px;outline:none}
 .searchbox input:focus{border-color:#800020}
+.search-submit{height:42px;width:44px;flex-shrink:0;border:0;border-radius:12px;background:white;color:#800020;font-size:20px}
 main{max-width:980px;margin:auto;padding:14px}
 .hero{background:linear-gradient(120deg,#800020,#a52a45);border:0;padding:20px;border-radius:19px;margin-bottom:15px}
 .hero h2{margin:0 0 7px;color:white;font-size:22px}
@@ -62,11 +61,7 @@ select option{background:white;color:#292027}
 .iteminfo b{display:block;margin-bottom:4px}
 .badge{display:inline-block;background:#f8e5eb;color:#800020;padding:4px 8px;border-radius:12px;font-size:11px}
 .stars{color:#b47a19}
-.thumbs{display:flex;gap:7px;overflow:auto;flex-wrap:wrap}
-.review-photo{width:100%;max-width:230px;max-height:200px;object-fit:cover;border-radius:12px;margin:8px 0}
-.review-card{border-bottom:1px solid #ead9dd;padding:10px 0}
 .detail-photo{height:260px!important}
-.qty{max-width:120px}
 .hidden{display:none!important}
 .bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:20;background:white;border-top:1px solid #ead9dd;display:flex;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 15px #80002012}
 .bottomnav button{border:0;background:transparent;color:#766a70;font-size:11px;font-weight:700;flex:1;min-width:0;padding:5px 2px;display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap}
@@ -76,9 +71,20 @@ select option{background:white;color:#292027}
 .categorychips{display:flex;gap:8px;overflow:auto;padding:4px 0 12px}
 .categorychips button{white-space:nowrap;border:1px solid #ead9dd;border-radius:20px;background:white;color:#800020;padding:8px 12px;font-size:12px}
 .categorychips button.active{background:#800020;border-color:#800020;color:white}
-.pricechips{display:flex;gap:8px;overflow-x:auto;padding:5px 0 13px}
-.pricechips button{flex-shrink:0;border:1px solid #ead9dd;border-radius:20px;background:white;color:#800020;padding:9px 13px;font-size:12px;font-weight:700}
-.pricechips button.active{background:#800020;border-color:#800020;color:white}
+.offer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0 18px}
+.offer-banner{border:0;border-radius:15px;padding:15px 12px;text-align:left;color:white;background:linear-gradient(135deg,#800020,#b83255);min-height:92px;box-shadow:0 4px 12px #80002020}
+.offer-banner:nth-child(2){background:linear-gradient(135deg,#a52a45,#d65b78)}
+.offer-banner:nth-child(3){background:linear-gradient(135deg,#6b1734,#a52a45)}
+.offer-banner:nth-child(4){background:linear-gradient(135deg,#b13c5d,#800020)}
+.offer-banner:nth-child(5){background:linear-gradient(135deg,#7b2544,#c44c6e)}
+.offer-banner b{display:block;font-size:17px;margin-bottom:5px}
+.offer-banner small{font-size:11px;color:#ffe8ed}
+.listing-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.listing-head h2{font-size:19px;margin:0;flex:1}
+.back-btn{padding:9px 12px}
+.loading-box{text-align:center;padding:55px 15px;color:#800020}
+.loader{width:35px;height:35px;border:4px solid #f2cbd5;border-top-color:#800020;border-radius:50%;margin:0 auto 14px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .track-panel{background:#fffafa;border:1px solid #ead9dd;border-radius:13px;padding:13px;margin-top:12px}
 .track-line{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid #ead9dd}
 .track-line:last-child{border-bottom:0}
@@ -93,41 +99,33 @@ select option{background:white;color:#292027}
 .rating-select button.selected{background:#fff0c9;border-color:#b47a19}
 .address-card{border:1px solid #ead9dd;background:#fffafa;padding:12px;border-radius:12px;margin:9px 0}
 .address-card.default{border-color:#800020}
-@media(min-width:650px){
- .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
- .photo{height:185px}
- main{padding:20px}
-}
+@media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.photo{height:185px}main{padding:20px}}
 </style>
 </head>
 <body>
-
 <header>
  <div class="toprow">
   <button class="profile-icon" aria-label="Profile" onclick="showPage('account')">👤</button>
   <div class="brand-block">
-   <div class="brand-logo">
-    <div class="brand-name">CARE FOR U</div>
-    <div class="brand-heart">♡</div>
-   </div>
+   <div class="brand-logo"><div class="brand-name">CARE FOR U</div><div class="brand-heart">♡</div></div>
    <div class="tag">Care That Makes You Feel Special.</div>
   </div>
  </div>
  <div class="searchtools">
   <div class="searchbox">
-   <input id="search" placeholder="Search products..." oninput="renderProducts()">
+   <input id="search" placeholder="Search products..." onkeydown="if(event.key==='Enter'){event.preventDefault();submitSearch()}">
+   <button class="search-submit" aria-label="Search" onclick="submitSearch()">⌕</button>
   </div>
   <button class="iconbtn" aria-label="Wishlist" onclick="showPage('wishlist')">♡<span class="count" id="wishCount">0</span></button>
   <button class="iconbtn" aria-label="Cart" onclick="showPage('cart')">🛒<span class="count" id="cartCount">0</span></button>
  </div>
 </header>
-
 <main>
 <section id="home" class="section show">
  <div class="hero">
   <h2>Welcome to CARE FOR U 💗</h2>
   <p>Everyday care, delivered with love.</p>
-  <div class="muted" style="margin-top:8px">Port Blair & Andaman and Nicobar Islands</div>
+  <div class="muted" style="margin-top:8px;color:#ffe8ed">Port Blair & Andaman and Nicobar Islands</div>
  </div>
  <div class="categorychips" id="categoryChips">
   <button class="active" onclick="chooseCategory('',this)">All</button>
@@ -144,98 +142,76 @@ select option{background:white;color:#292027}
   <button onclick="chooseCategory('Bags',this)">Bags</button>
   <button onclick="chooseCategory('Daily Essentials',this)">Daily Essentials</button>
  </div>
- <h3>Shop by Price</h3>
- <div class="pricechips" id="priceChips">
-  <button onclick="choosePrice(99,this)">Under ₹99</button>
-  <button onclick="choosePrice(199,this)">₹100–₹199</button>
-  <button onclick="choosePrice(299,this)">₹200–₹299</button>
-  <button onclick="choosePrice(399,this)">₹300–₹399</button>
-  <button onclick="choosePrice(499,this)">₹400–₹499</button>
+ <h3>✨ Shop by Price</h3>
+ <div class="offer-grid" id="priceChips">
+  <button class="offer-banner" onclick="openPriceSlab(0,99,'Under ₹99')"><b>Under ₹99</b><small>Budget-friendly finds →</small></button>
+  <button class="offer-banner" onclick="openPriceSlab(100,199,'₹100–₹199')"><b>₹100–₹199</b><small>Special price picks →</small></button>
+  <button class="offer-banner" onclick="openPriceSlab(200,299,'₹200–₹299')"><b>₹200–₹299</b><small>Shop your favourites →</small></button>
+  <button class="offer-banner" onclick="openPriceSlab(300,399,'₹300–₹399')"><b>₹300–₹399</b><small>Great value deals →</small></button>
+  <button class="offer-banner" onclick="openPriceSlab(400,499,'₹400–₹499')"><b>₹400–₹499</b><small>Explore more deals →</small></button>
  </div>
  <div class="row">
-  <select id="sort" onchange="renderProducts()">
-   <option value="default">Recommended</option>
-   <option value="low">Price: Low to High</option>
-   <option value="high">Price: High to Low</option>
-  </select>
+  <h3 style="flex:1">All Products</h3>
   <button class="btn secondary" style="flex:0 0 auto" onclick="refreshCloudData()">↻ Sync</button>
  </div>
- <div id="priceHeading" class="muted"></div>
  <div class="grid" id="products"></div>
 </section>
 
+<section id="listing" class="section">
+ <div class="listing-head">
+  <button class="btn secondary back-btn" onclick="backToHome()">← Back</button>
+  <h2 id="listingTitle">Products</h2>
+ </div>
+ <div class="muted" id="listingCount"></div>
+ <div class="grid" id="listingProducts"></div>
+</section>
+
 <section id="detail" class="section">
- <button class="btn secondary" onclick="showPage('home')">← Back to shopping</button>
+ <button class="btn secondary" onclick="backFromDetail()">← Back</button>
  <div id="detailContent"></div>
 </section>
 
 <section id="wishlist" class="section">
- <h2>♡ My Wishlist</h2>
- <div id="wishlistItems"></div>
+ <h2>♡ My Wishlist</h2><div id="wishlistItems"></div>
 </section>
-
 <section id="cart" class="section">
- <h2>🛒 Your Cart</h2>
- <div id="cartItems"></div>
+ <h2>🛒 Your Cart</h2><div id="cartItems"></div>
  <div class="panel">
   <b id="cartTotal">Total: ₹0</b>
   <button class="btn" style="width:100%;margin-top:10px" onclick="openCheckout()">Continue to Checkout</button>
   <p class="muted">Cash on Delivery. Online payment is not connected.</p>
  </div>
 </section>
-
 <section id="checkout" class="section">
  <button class="btn secondary" onclick="showPage('cart')">← Back to Cart</button>
  <h2>Delivery Details</h2>
  <div class="panel">
-  <label>Full Name</label>
-  <input class="input" id="checkoutName" placeholder="Enter your full name" autocomplete="name">
-  <label>Mobile Number</label>
-  <input class="input" id="checkoutMobile" type="tel" maxlength="10" placeholder="10 digit mobile number" autocomplete="tel">
-  <label>Full Address</label>
-  <textarea id="checkoutAddress" placeholder="House no., street, area, landmark" rows="3" autocomplete="street-address"></textarea>
-  <label>PIN Code</label>
-  <input class="input" id="checkoutPin" inputmode="numeric" maxlength="6" placeholder="6 digit PIN code" autocomplete="postal-code">
+  <label>Full Name</label><input class="input" id="checkoutName" placeholder="Enter your full name" autocomplete="name">
+  <label>Mobile Number</label><input class="input" id="checkoutMobile" type="tel" maxlength="10" placeholder="10 digit mobile number" autocomplete="tel">
+  <label>Full Address</label><textarea id="checkoutAddress" placeholder="House no., street, area, landmark" rows="3" autocomplete="street-address"></textarea>
+  <label>PIN Code</label><input class="input" id="checkoutPin" inputmode="numeric" maxlength="6" placeholder="6 digit PIN code" autocomplete="postal-code">
   <button class="btn secondary" style="width:100%;margin:8px 0" onclick="openSavedAddresses()">Choose Saved Address</button>
   <button class="btn" id="placeOrderBtn" style="width:100%;margin-top:8px" onclick="checkout()">Place Order · Cash on Delivery</button>
   <p class="muted">Please check your delivery details before placing the order.</p>
  </div>
 </section>
-
 <section id="addresses" class="section">
  <button class="btn secondary" onclick="showPage('account')">← Back to Profile</button>
  <h2>📍 Saved Addresses</h2>
  <div class="panel">
   <h3>Add New Address</h3>
-  <label>Full Name</label>
-  <input class="input" id="addressName" placeholder="Full name">
-  <label>Mobile Number</label>
-  <input class="input" id="addressMobile" type="tel" maxlength="10" placeholder="10 digit mobile number">
-  <label>Full Address</label>
-  <textarea id="addressText" placeholder="House no., street, area, landmark" rows="3"></textarea>
-  <label>PIN Code</label>
-  <input class="input" id="addressPin" inputmode="numeric" maxlength="6" placeholder="6 digit PIN code">
+  <label>Full Name</label><input class="input" id="addressName" placeholder="Full name">
+  <label>Mobile Number</label><input class="input" id="addressMobile" type="tel" maxlength="10" placeholder="10 digit mobile number">
+  <label>Full Address</label><textarea id="addressText" placeholder="House no., street, area, landmark" rows="3"></textarea>
+  <label>PIN Code</label><input class="input" id="addressPin" inputmode="numeric" maxlength="6" placeholder="6 digit PIN code">
   <button class="btn" style="width:100%" onclick="saveAddress()">Save Address</button>
  </div>
  <div id="savedAddresses"></div>
 </section>
-
-<section id="orders" class="section">
- <h2>📦 My Orders</h2>
- <div id="ordersList"></div>
-</section>
-
-<section id="account" class="section">
- <h2>👤 My Profile</h2>
- <div id="accountInfo"></div>
-</section>
-
-<div class="footer">
- CARE FOR U · Shop No. 2, Calicut, Port Blair, Andaman & Nicobar Islands · PIN 744105<br>
- WhatsApp: 9476041513
-</div>
+<section id="orders" class="section"><h2>📦 My Orders</h2><div id="ordersList"></div></section>
+<section id="account" class="section"><h2>👤 My Profile</h2><div id="accountInfo"></div></section>
+<div class="footer">CARE FOR U · Shop No. 2, Calicut, Port Blair, Andaman & Nicobar Islands · PIN 744105<br>WhatsApp: 9476041513</div>
 </main>
-
 <nav class="bottomnav">
  <button id="navHome" class="active" onclick="showPage('home',this)"><span>⌂</span>Home</button>
  <button id="navOrders" onclick="showPage('orders',this)"><span>▣</span>My Orders</button>
@@ -243,29 +219,24 @@ select option{background:white;color:#292027}
  <button id="navCart" onclick="showPage('cart',this)"><span>🛒</span>Cart</button>
  <button id="navAccount" onclick="showPage('account',this)"><span>👤</span>Profile</button>
 </nav>
-
-<!-- PART 2 CONTINUES HERE -->
-
 <script>
-/* =========================
-   CARE FOR U - CUSTOMER APP
-   PART 2: APP LOGIC
-========================= */
 
 const $ = id => document.getElementById(id);
 
-let products = [];
-let cart = JSON.parse(localStorage.getItem("cfu_cart") || "[]");
-let wishlist = JSON.parse(localStorage.getItem("cfu_wishlist") || "[]");
-let orders = JSON.parse(localStorage.getItem("cfu_orders") || "[]");
-let addresses = JSON.parse(localStorage.getItem("cfu_addresses") || "[]");
-let current = JSON.parse(localStorage.getItem("cfu_user") || "null");
+let products=[];
+let cart=JSON.parse(localStorage.getItem("cfu_cart")||"[]");
+let wishlist=JSON.parse(localStorage.getItem("cfu_wishlist")||"[]");
+let orders=JSON.parse(localStorage.getItem("cfu_orders")||"[]");
+let addresses=JSON.parse(localStorage.getItem("cfu_addresses")||"[]");
+let current=JSON.parse(localStorage.getItem("cfu_user")||"null");
 
-let selectedCategory = "";
-let activePriceLimit = 0;
-let selectedProduct = null;
-let selectedRating = 5;
-let currentReviewProduct = null;
+let selectedCategory="";
+let selectedProduct=null;
+let selectedRating=5;
+let currentReviewProduct=null;
+let previousListingPage="home";
+let listingProducts=[];
+let listingMode="";
 
 function saveLocal(){
  try{
@@ -276,47 +247,21 @@ function saveLocal(){
   localStorage.setItem("cfu_user",JSON.stringify(current));
  }catch(e){console.log(e)}
 }
-
-function persist(){
- saveLocal();
- updateCounts();
-}
-
-function money(value){
- return "₹"+Number(value||0).toLocaleString("en-IN");
-}
-
+function persist(){saveLocal();updateCounts()}
+function money(value){return "₹"+Number(value||0).toLocaleString("en-IN")}
 function escapeHTML(value){
- return String(value??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
+ return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
-
-function safeImage(url){
- return String(url||"").trim();
-}
+function safeImage(url){return String(url||"").trim()}
 
 function showPage(id,button){
- const sections=document.querySelectorAll(".section");
- sections.forEach(section=>section.classList.remove("show"));
-
+ document.querySelectorAll(".section").forEach(s=>s.classList.remove("show"));
  const target=$(id);
- if(!target){
-  console.error("Page not found:",id);
-  return;
- }
+ if(!target){console.error("Page not found:",id);return}
  target.classList.add("show");
 
  document.querySelectorAll(".bottomnav button").forEach(b=>b.classList.remove("active"));
-
- const navMap={
-  home:"navHome",
-  orders:"navOrders",
-  wishlist:"navWishlist",
-  cart:"navCart",
-  account:"navAccount"
- };
-
+ const navMap={home:"navHome",orders:"navOrders",wishlist:"navWishlist",cart:"navCart",account:"navAccount"};
  const nav=$(navMap[id]);
  if(nav)nav.classList.add("active");
 
@@ -326,116 +271,133 @@ function showPage(id,button){
  if(id==="orders")renderOrders();
  if(id==="account")renderAccount();
  if(id==="addresses")renderAddresses();
-
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function updateCounts(){
- const cartCount=$("cartCount");
- const wishCount=$("wishCount");
-
- if(cartCount)cartCount.textContent=cart.reduce((n,x)=>n+Number(x.qty||1),0);
- if(wishCount)wishCount.textContent=wishlist.length;
+ if($("cartCount"))$("cartCount").textContent=cart.reduce((n,x)=>n+Number(x.qty||1),0);
+ if($("wishCount"))$("wishCount").textContent=wishlist.length;
 }
 
 function chooseCategory(category,button){
  selectedCategory=category;
-
  document.querySelectorAll("#categoryChips button").forEach(b=>b.classList.remove("active"));
  if(button)button.classList.add("active");
-
  renderProducts();
 }
 
-function choosePrice(limit,button){
- activePriceLimit=limit;
+function productMatches(p,term){
+ return [p.name,p.productName,p.category,p.description]
+  .join(" ").toLowerCase().includes(term);
+}
 
- document.querySelectorAll("#priceChips button").forEach(b=>b.classList.remove("active"));
- if(button)button.classList.add("active");
-
- renderProducts();
+function productCard(p){
+ const id=String(p.id);
+ const name=escapeHTML(p.name||p.productName||"Product");
+ const photo=safeImage(p.photo||p.image);
+ return `
+ <div class="card">
+  <div class="photo" onclick="openProduct('${escapeHTML(id)}')">
+   ${photo?`<img src="${escapeHTML(photo)}" onerror="this.style.display='none'">`:"♡"}
+  </div>
+  <div class="cardbody">
+   <h3>${name}</h3>
+   <div class="price">${money(p.price)} ${p.mrp?`<span class="old">${money(p.mrp)}</span>`:""}</div>
+   <div class="muted">${escapeHTML(p.category||"")}</div>
+   <div class="actions">
+    <button class="btn" onclick="addToCart('${escapeHTML(id)}')">Add</button>
+    <button class="btn secondary" onclick="toggleWishlist('${escapeHTML(id)}')">♡</button>
+   </div>
+  </div>
+ </div>`;
 }
 
 function renderProducts(){
  const container=$("products");
  if(!container)return;
-
- const search=($("search")?.value||"").toLowerCase().trim();
- const sort=$("sort")?.value||"default";
-
  let list=[...products];
-
  if(selectedCategory){
   list=list.filter(p=>(p.category||"").toLowerCase()===selectedCategory.toLowerCase());
  }
-
- if(activePriceLimit){
-  list=list.filter(p=>Number(p.price||0)<=activePriceLimit);
- }
-
- if(search){
-  list=list.filter(p=>
-   [p.name,p.productName,p.category,p.description]
-   .join(" ").toLowerCase().includes(search)
-  );
- }
-
- if(sort==="low")list.sort((a,b)=>Number(a.price)-Number(b.price));
- if(sort==="high")list.sort((a,b)=>Number(b.price)-Number(a.price));
-
- if(!list.length){
-  container.innerHTML='<div class="panel">No products found.</div>';
- }else{
-  container.innerHTML=list.map(p=>{
-   const id=String(p.id);
-   const name=escapeHTML(p.name||p.productName||"Product");
-   const photo=safeImage(p.photo||p.image);
-   return `
-    <div class="card">
-     <div class="photo" onclick="openProduct('${id}')">
-      ${photo?`<img src="${escapeHTML(photo)}" onerror="this.style.display='none'">`:"♡"}
-     </div>
-     <div class="cardbody">
-      <h3>${name}</h3>
-      <div class="price">${money(p.price)}
-       ${p.mrp?`<span class="old">${money(p.mrp)}</span>`:""}
-      </div>
-      <div class="muted">${escapeHTML(p.category||"")}</div>
-      <div class="actions">
-       <button class="btn" onclick="addToCart('${id}')">Add</button>
-       <button class="btn secondary" onclick="toggleWishlist('${id}')">♡</button>
-      </div>
-     </div>
-    </div>
-   `;
-  }).join("");
- }
-
- const heading=$("priceHeading");
- if(heading)heading.textContent=activePriceLimit?"Price filter: "+money(activePriceLimit):"";
+ container.innerHTML=list.length?list.map(productCard).join():'<div class="panel">No products available.</div>';
 }
 
-function getProduct(id){
- return products.find(p=>String(p.id)===String(id));
+function getProduct(id){return products.find(p=>String(p.id)===String(id))}
+
+function openPriceSlab(min,max,title){
+ listingMode="price";
+ previousListingPage="home";
+ $("search").value="";
+ selectedCategory="";
+ document.querySelectorAll("#categoryChips button").forEach((b,i)=>b.classList.toggle("active",i===0));
+
+ $("listingTitle").textContent=title;
+ $("listingProducts").innerHTML='<div class="loading-box"><div class="loader"></div>Loading products...</div>';
+ $("listingCount").textContent="";
+ showPage("listing");
+
+ setTimeout(()=>{
+  listingProducts=products.filter(p=>{
+   const price=Number(p.price||0);
+   return price>=min&&price<=max;
+  });
+  renderListing();
+ },180);
+}
+
+function submitSearch(){
+ const term=($("search").value||"").trim().toLowerCase();
+ if(!term){alert("Please enter a product name to search.");return}
+
+ listingMode="search";
+ previousListingPage="home";
+ selectedCategory="";
+ document.querySelectorAll("#categoryChips button").forEach((b,i)=>b.classList.toggle("active",i===0));
+
+ $("listingTitle").textContent="Search Results";
+ $("listingCount").textContent="";
+ $("listingProducts").innerHTML='<div class="loading-box"><div class="loader"></div>Searching products...</div>';
+
+ // Home screen is hidden while the fresh results are prepared.
+ showPage("listing");
+
+ setTimeout(()=>{
+  listingProducts=products.filter(p=>productMatches(p,term));
+  $("listingTitle").textContent='Results for "'+term+'"';
+  renderListing();
+ },250);
+}
+
+function renderListing(){
+ const container=$("listingProducts");
+ if(!container)return;
+ $("listingCount").textContent=listingProducts.length+" product(s) found";
+ container.innerHTML=listingProducts.length
+  ?listingProducts.map(productCard).join()
+  :'<div class="panel">No matching products found. Please try another search.</div>';
+}
+
+function backToHome(){
+ listingMode="";
+ listingProducts=[];
+ selectedCategory="";
+ $("search").value="";
+ document.querySelectorAll("#categoryChips button").forEach((b,i)=>b.classList.toggle("active",i===0));
+ $("listingProducts").innerHTML="";
+ $("listingCount").textContent="";
+ showPage("home");
 }
 
 function addToCart(id){
  const p=getProduct(id);
  if(!p)return alert("Product not found.");
-
  const found=cart.find(x=>String(x.id)===String(id));
  if(found)found.qty=Number(found.qty||1)+1;
  else cart.push({
-  id:String(p.id),
-  qty:1,
-  productName:p.name||p.productName||"",
-  price:Number(p.price||0),
-  photo:p.photo||p.image||"",
-  variant:"",
-  size:"",
-  colour:""
+  id:String(p.id),qty:1,productName:p.name||p.productName||"",
+  price:Number(p.price||0),photo:p.photo||p.image||"",
+  variant:"",size:"",colour:""
  });
-
  persist();
  alert("Product added to cart.");
 }
@@ -444,7 +406,6 @@ function toggleWishlist(id){
  const index=wishlist.findIndex(x=>String(x)===String(id));
  if(index>=0)wishlist.splice(index,1);
  else wishlist.push(String(id));
-
  persist();
  renderWishlist();
 }
@@ -452,261 +413,147 @@ function toggleWishlist(id){
 function renderWishlist(){
  const container=$("wishlistItems");
  if(!container)return;
-
- if(!wishlist.length){
-  container.innerHTML='<div class="panel">Your wishlist is empty.</div>';
-  return;
- }
-
+ if(!wishlist.length){container.innerHTML='<div class="panel">Your wishlist is empty.</div>';return}
  container.innerHTML=wishlist.map(id=>{
   const p=getProduct(id);
   if(!p)return "";
-  return `
-   <div class="item">
-    <img src="${escapeHTML(p.photo||p.image||"")}" onerror="this.style.display='none'">
-    <div class="iteminfo">
-     <b>${escapeHTML(p.name||p.productName||"Product")}</b>
-     ${money(p.price)}
-    </div>
-    <button class="btn" onclick="addToCart('${String(p.id)}')">Add</button>
-    <button class="btn secondary" onclick="toggleWishlist('${String(p.id)}')">Remove</button>
-   </div>
-  `;
+  return `<div class="item">
+   <img src="${escapeHTML(p.photo||p.image||"")}" onerror="this.style.display='none'">
+   <div class="iteminfo"><b>${escapeHTML(p.name||p.productName||"Product")}</b>${money(p.price)}</div>
+   <button class="btn" onclick="addToCart('${escapeHTML(p.id)}')">Add</button>
+   <button class="btn secondary" onclick="toggleWishlist('${escapeHTML(p.id)}')">Remove</button>
+  </div>`;
  }).join("");
 }
 
 function openProduct(id){
  const p=getProduct(id);
  if(!p)return;
-
  selectedProduct=p;
+ const visiblePage=document.querySelector(".section.show")?.id;
+ previousListingPage=visiblePage==="listing"?"listing":"home";
 
  $("detailContent").innerHTML=`
-  <div class="panel">
-   <div class="photo detail-photo">
-    ${p.photo||p.image?`<img src="${escapeHTML(p.photo||p.image)}">`:"♡"}
-   </div>
-   <h2>${escapeHTML(p.name||p.productName||"Product")}</h2>
-   <div class="price">${money(p.price)}</div>
-   <p>${escapeHTML(p.description||"")}</p>
-   <p class="muted">Category: ${escapeHTML(p.category||"")}</p>
-   <button class="btn" style="width:100%" onclick="addToCart('${String(p.id)}')">Add to Cart</button>
-   <button class="btn secondary" style="width:100%;margin-top:8px" onclick="toggleWishlist('${String(p.id)}')">♡ Wishlist</button>
-  </div>
-  <div class="panel">
-   <h3>Customer Reviews</h3>
-   <div id="productReviews"></div>
-  </div>
- `;
-
+ <div class="panel">
+  <div class="photo detail-photo">${p.photo||p.image?`<img src="${escapeHTML(p.photo||p.image)}">`:"♡"}</div>
+  <h2>${escapeHTML(p.name||p.productName||"Product")}</h2>
+  <div class="price">${money(p.price)}</div>
+  <p>${escapeHTML(p.description||"")}</p>
+  <p class="muted">Category: ${escapeHTML(p.category||"")}</p>
+  <button class="btn" style="width:100%" onclick="addToCart('${escapeHTML(p.id)}')">Add to Cart</button>
+  <button class="btn secondary" style="width:100%;margin-top:8px" onclick="toggleWishlist('${escapeHTML(p.id)}')">♡ Wishlist</button>
+ </div>
+ <div class="panel"><h3>Customer Reviews</h3><div id="productReviews"></div></div>`;
  showPage("detail");
  renderProductReviews(id);
+}
+
+function backFromDetail(){
+ if(previousListingPage==="listing")showPage("listing");
+ else showPage("home");
 }
 
 function renderCart(){
  const container=$("cartItems");
  if(!container)return;
-
  if(!cart.length){
   container.innerHTML='<div class="panel">Your cart is empty.</div>';
-  $("cartTotal").textContent="Total: ₹0";
-  return;
+  $("cartTotal").textContent="Total: ₹0";return;
  }
-
  let total=0;
-
  container.innerHTML=cart.map((item,index)=>{
   const p=getProduct(item.id);
   const price=Number(p?.price??item.price??0);
-  const qty=Number(item.qty||1);
-  total+=price*qty;
-
-  return `
-   <div class="item">
-    <img src="${escapeHTML(p?.photo||p?.image||item.photo||"")}" onerror="this.style.display='none'">
-    <div class="iteminfo">
-     <b>${escapeHTML(p?.name||p?.productName||item.productName||"Product")}</b>
-     ${money(price)}
-     <div class="row" style="margin-top:7px">
-      <button class="btn secondary" onclick="changeQty(${index},-1)">−</button>
-      <b>${qty}</b>
-      <button class="btn secondary" onclick="changeQty(${index},1)">+</button>
-     </div>
+  const qty=Number(item.qty||1);total+=price*qty;
+  return `<div class="item">
+   <img src="${escapeHTML(p?.photo||p?.image||item.photo||"")}" onerror="this.style.display='none'">
+   <div class="iteminfo">
+    <b>${escapeHTML(p?.name||p?.productName||item.productName||"Product")}</b>${money(price)}
+    <div class="row" style="margin-top:7px">
+     <button class="btn secondary" onclick="changeQty(${index},-1)">−</button>
+     <b>${qty}</b>
+     <button class="btn secondary" onclick="changeQty(${index},1)">+</button>
     </div>
-    <button class="btn secondary" onclick="removeCartItem(${index})">✕</button>
    </div>
-  `;
+   <button class="btn secondary" onclick="removeCartItem(${index})">✕</button>
+  </div>`;
  }).join("");
-
  $("cartTotal").textContent="Total: "+money(total);
 }
-
 function changeQty(index,change){
  if(!cart[index])return;
  cart[index].qty=Number(cart[index].qty||1)+change;
  if(cart[index].qty<=0)cart.splice(index,1);
- persist();
- renderCart();
+ persist();renderCart();
 }
-
-function removeCartItem(index){
- cart.splice(index,1);
- persist();
- renderCart();
-}
-
-/* =========================
-   CHECKOUT
-========================= */
+function removeCartItem(index){cart.splice(index,1);persist();renderCart()}
 
 function openCheckout(){
- if(!current){
-  alert("Please login first to place your order.");
-  showPage("account");
-  showAuth("login");
-  return;
- }
-
- if(!cart.length){
-  alert("Your cart is empty.");
-  return;
- }
-
- const userName=current.name||current.displayName||"";
- const userMobile=current.mobile||current.phone||"";
-
- if(!$("checkoutName").value)$("checkoutName").value=userName;
- if(!$("checkoutMobile").value)$("checkoutMobile").value=userMobile;
-
+ if(!current){alert("Please login first to place your order.");showPage("account");showAuth("login");return}
+ if(!cart.length){alert("Your cart is empty.");return}
+ if(!$("checkoutName").value)$("checkoutName").value=current.name||current.displayName||"";
+ if(!$("checkoutMobile").value)$("checkoutMobile").value=current.mobile||current.phone||"";
  if(addresses.length){
   const first=addresses[0];
   if(!$("checkoutAddress").value)$("checkoutAddress").value=first.address||"";
   if(!$("checkoutPin").value)$("checkoutPin").value=first.pin||"";
  }
-
  showPage("checkout");
 }
 
 async function checkout(){
- if(!current){
-  alert("Please login first.");
-  showPage("account");
-  showAuth("login");
-  return;
- }
-
- if(!cart.length){
-  alert("Your cart is empty.");
-  showPage("cart");
-  return;
- }
-
+ if(!current){alert("Please login first.");showPage("account");showAuth("login");return}
+ if(!cart.length){alert("Your cart is empty.");showPage("cart");return}
  const name=$("checkoutName").value.trim();
  const mobile=$("checkoutMobile").value.trim();
  const address=$("checkoutAddress").value.trim();
  const pin=$("checkoutPin").value.trim();
-
- if(!name||!mobile||!address||!pin){
-  alert("Please fill all delivery details.");
-  return;
- }
-
- if(!/^[0-9]{10}$/.test(mobile)){
-  alert("Please enter a valid 10 digit mobile number.");
-  return;
- }
-
- if(!/^[0-9]{6}$/.test(pin)){
-  alert("Please enter a valid 6 digit PIN code.");
-  return;
- }
+ if(!name||!mobile||!address||!pin){alert("Please fill all delivery details.");return}
+ if(!/^[0-9]{10}$/.test(mobile)){alert("Please enter a valid 10 digit mobile number.");return}
+ if(!/^[0-9]{6}$/.test(pin)){alert("Please enter a valid 6 digit PIN code.");return}
 
  const button=$("placeOrderBtn");
- if(button){
-  button.disabled=true;
-  button.textContent="Placing Order...";
- }
-
+ button.disabled=true;button.textContent="Placing Order...";
  try{
   const items=cart.map(item=>{
    const p=getProduct(item.id);
    return {
-    id:String(item.id),
-    qty:Number(item.qty||1),
+    id:String(item.id),qty:Number(item.qty||1),
     productName:p?.name||p?.productName||item.productName||"",
     price:Number(p?.price??item.price??0),
     photo:p?.photo||p?.image||item.photo||"",
-    variant:item.variant||"",
-    size:item.size||"",
-    colour:item.colour||""
+    variant:item.variant||"",size:item.size||"",colour:item.colour||""
    };
   });
-
   const total=items.reduce((sum,item)=>sum+item.price*item.qty,0);
-
   const order={
-   id:"CFU"+Date.now(),
-   uid:current.uid||current.id||"",
-   user:current.email||"",
-   name,
-   mobile,
-   address,
-   pin,
-   items,
-   productIds:items.map(x=>String(x.id)),
-   total,
-   status:"Order Placed",
-   paymentMethod:"Cash on Delivery",
+   id:"CFU"+Date.now(),uid:current.uid||current.id||"",
+   user:current.email||"",name,mobile,address,pin,items,
+   productIds:items.map(x=>String(x.id)),total,
+   status:"Order Placed",paymentMethod:"Cash on Delivery",
    createdAt:new Date().toISOString()
   };
-
   let saved=false;
-
-  if(typeof saveRemotePromise==="function"){
-   saved=await saveRemotePromise("orders",order.id,order);
-  }
-
-  if(saved===false){
-   throw new Error("Order could not be saved to server.");
-  }
-
-  orders.unshift(order);
-  cart=[];
-  persist();
-
+  if(typeof saveRemotePromise==="function")saved=await saveRemotePromise("orders",order.id,order);
+  if(saved===false)throw new Error("Order could not be saved to server.");
+  orders.unshift(order);cart=[];persist();
   alert("Order placed successfully! Order ID: "+order.id);
   showPage("orders");
-
  }catch(error){
   console.error(error);
   alert("Order place nahi hua. Internet check karke dobara try karein.");
  }finally{
-  if(button){
-   button.disabled=false;
-   button.textContent="Place Order · Cash on Delivery";
-  }
+  button.disabled=false;button.textContent="Place Order · Cash on Delivery";
  }
 }
 
-/* =========================
-   SAVED ADDRESSES
-========================= */
-
 function openSavedAddresses(){
- if(!$("addresses"))return;
- renderAddresses();
- showPage("addresses");
+ renderAddresses();showPage("addresses");
 }
-
 function renderAddresses(){
  const container=$("savedAddresses");
  if(!container)return;
-
- if(!addresses.length){
-  container.innerHTML='<div class="panel">No saved addresses yet. Add your first address above.</div>';
-  return;
- }
-
+ if(!addresses.length){container.innerHTML='<div class="panel">No saved addresses yet. Add your first address above.</div>';return}
  container.innerHTML=addresses.map((a,i)=>`
   <div class="address-card ${i===0?"default":""}">
    ${i===0?'<span class="badge">Saved Address</span>':""}
@@ -718,77 +565,38 @@ function renderAddresses(){
     <button class="btn" onclick="useAddress(${i})">Use This Address</button>
     <button class="btn secondary" onclick="deleteAddress(${i})">Delete</button>
    </div>
-  </div>
- `).join("");
+  </div>`).join("");
 }
-
 function saveAddress(){
  const name=$("addressName").value.trim();
  const mobile=$("addressMobile").value.trim();
  const address=$("addressText").value.trim();
  const pin=$("addressPin").value.trim();
-
- if(!name||!mobile||!address||!pin){
-  alert("Please fill all address details.");
-  return;
- }
-
- if(!/^[0-9]{10}$/.test(mobile)){
-  alert("Enter a valid 10 digit mobile number.");
-  return;
- }
-
- if(!/^[0-9]{6}$/.test(pin)){
-  alert("Enter a valid 6 digit PIN code.");
-  return;
- }
-
- addresses.push({name,mobile,address,pin});
- persist();
-
- $("addressName").value="";
- $("addressMobile").value="";
- $("addressText").value="";
- $("addressPin").value="";
-
- renderAddresses();
- alert("Address saved successfully.");
+ if(!name||!mobile||!address||!pin){alert("Please fill all address details.");return}
+ if(!/^[0-9]{10}$/.test(mobile)){alert("Enter a valid 10 digit mobile number.");return}
+ if(!/^[0-9]{6}$/.test(pin)){alert("Enter a valid 6 digit PIN code.");return}
+ addresses.push({name,mobile,address,pin});persist();
+ $("addressName").value="";$("addressMobile").value="";
+ $("addressText").value="";$("addressPin").value="";
+ renderAddresses();alert("Address saved successfully.");
 }
-
 function deleteAddress(index){
  if(!confirm("Delete this saved address?"))return;
-
- addresses.splice(index,1);
- persist();
- renderAddresses();
+ addresses.splice(index,1);persist();renderAddresses();
 }
-
 function useAddress(index){
- const a=addresses[index];
- if(!a)return;
-
+ const a=addresses[index];if(!a)return;
  $("checkoutName").value=a.name||"";
  $("checkoutMobile").value=a.mobile||"";
  $("checkoutAddress").value=a.address||"";
  $("checkoutPin").value=a.pin||"";
-
- showPage("checkout");
- alert("Address selected.");
+ showPage("checkout");alert("Address selected.");
 }
-
-/* =========================
-   ORDERS
-========================= */
 
 function renderOrders(){
  const container=$("ordersList");
  if(!container)return;
-
- if(!orders.length){
-  container.innerHTML='<div class="panel">You have not placed any orders yet.</div>';
-  return;
- }
-
+ if(!orders.length){container.innerHTML='<div class="panel">You have not placed any orders yet.</div>';return}
  container.innerHTML=orders.map(order=>`
   <div class="panel">
    <b>Order ID: ${escapeHTML(order.id)}</b>
@@ -798,40 +606,20 @@ function renderOrders(){
    <p class="muted">Payment: ${escapeHTML(order.paymentMethod||"Cash on Delivery")}</p>
    <p>${escapeHTML(order.name||"")} · ${escapeHTML(order.mobile||"")}</p>
    <p>${escapeHTML(order.address||"")} - ${escapeHTML(order.pin||"")}</p>
-   <div>
-    ${(order.items||[]).map(item=>`
-     <div class="item">
-      <div class="iteminfo">
-       <b>${escapeHTML(item.productName||"Product")}</b>
-       ${item.qty} × ${money(item.price)}
-      </div>
-     </div>
-    `).join("")}
-   </div>
-  </div>
- `).join("");
+   ${(order.items||[]).map(item=>`<div class="item"><div class="iteminfo"><b>${escapeHTML(item.productName||"Product")}</b>${item.qty} × ${money(item.price)}</div></div>`).join("")}
+  </div>`).join("");
 }
 
-/* =========================
-   PROFILE
-========================= */
-
 function renderAccount(){
- const container=$("accountInfo");
- if(!container)return;
-
+ const container=$("accountInfo");if(!container)return;
  if(!current){
   container.innerHTML=`
    <div class="panel">
-    <h3>Welcome to CARE FOR U</h3>
-    <p>Please login or create an account.</p>
+    <h3>Welcome to CARE FOR U</h3><p>Please login or create an account.</p>
     <button class="btn" style="width:100%" onclick="showAuth('login')">Login</button>
     <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('register')">Create Account</button>
-   </div>
-  `;
-  return;
+   </div>`;return;
  }
-
  container.innerHTML=`
   <div class="panel">
    <h3>${escapeHTML(current.name||current.displayName||"Customer")}</h3>
@@ -840,113 +628,56 @@ function renderAccount(){
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="openSavedAddresses()">📍 Saved Addresses</button>
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showPage('orders')">📦 My Orders</button>
    <button class="btn danger" style="width:100%;margin-top:8px" onclick="logout()">Logout</button>
-  </div>
- `;
+  </div>`;
 }
-
-/* =========================
-   REVIEWS
-========================= */
 
 function setRating(value){
  selectedRating=value;
- document.querySelectorAll(".rating-select button").forEach((b,i)=>{
-  b.classList.toggle("selected",i<value);
- });
+ document.querySelectorAll(".rating-select button").forEach((b,i)=>b.classList.toggle("selected",i<value));
 }
-
 function renderProductReviews(id){
- const container=$("productReviews");
- if(!container)return;
-
- const reviews=JSON.parse(localStorage.getItem("cfu_reviews")||"[]")
-  .filter(r=>String(r.productId)===String(id));
-
- if(!reviews.length){
-  container.innerHTML='<p class="muted">No reviews yet.</p>';
- }else{
-  container.innerHTML=reviews.map(r=>`
-   <div class="review-card">
-    <b>${escapeHTML(r.name||"Customer")}</b>
-    <div class="stars">${"★".repeat(Number(r.rating||5))}</div>
-    <p>${escapeHTML(r.text||"")}</p>
-   </div>
-  `).join("");
- }
-
+ const container=$("productReviews");if(!container)return;
+ const reviews=JSON.parse(localStorage.getItem("cfu_reviews")||"[]").filter(r=>String(r.productId)===String(id));
+ if(!reviews.length)container.innerHTML='<p class="muted">No reviews yet.</p>';
+ else container.innerHTML=reviews.map(r=>`
+  <div class="review-card">
+   <b>${escapeHTML(r.name||"Customer")}</b>
+   <div class="stars">${"★".repeat(Number(r.rating||5))}</div>
+   <p>${escapeHTML(r.text||"")}</p>
+  </div>`).join("");
  container.innerHTML+=`
   <h4>Write a Review</h4>
-  <div class="rating-select">
-   ${[1,2,3,4,5].map(n=>`<button class="${n<=selectedRating?"selected":""}" onclick="setRating(${n})">★</button>`).join("")}
-  </div>
+  <div class="rating-select">${[1,2,3,4,5].map(n=>`<button class="${n<=selectedRating?"selected":""}" onclick="setRating(${n})">★</button>`).join("")}</div>
   <textarea id="reviewText" placeholder="Write your review..." rows="3"></textarea>
-  <button class="btn" onclick="submitReview('${String(id)}')">Submit Review</button>
- `;
+  <button class="btn" onclick="submitReview('${String(id)}')">Submit Review</button>`;
 }
-
 function submitReview(id){
  const text=$("reviewText")?.value.trim()||"";
  if(!text)return alert("Please write your review.");
-
  const reviews=JSON.parse(localStorage.getItem("cfu_reviews")||"[]");
- reviews.unshift({
-  productId:String(id),
-  name:current?.name||"Customer",
-  rating:selectedRating,
-  text,
-  createdAt:new Date().toISOString()
- });
-
+ reviews.unshift({productId:String(id),name:current?.name||"Customer",rating:selectedRating,text,createdAt:new Date().toISOString()});
  localStorage.setItem("cfu_reviews",JSON.stringify(reviews));
- renderProductReviews(id);
- alert("Thank you for your review.");
+ renderProductReviews(id);alert("Thank you for your review.");
 }
 
-/* =========================
-   PART 3 CONTINUES HERE
-========================= */
-
-<script>
-/* =========================
-   PART 3: LOGIN + FIREBASE
-========================= */
-
+/* LOGIN + FIREBASE */
 function showAuth(type){
- const container=$("accountInfo");
- if(!container)return;
-
- const isRegister=type==="register";
- const isReset=type==="reset";
-
+ const container=$("accountInfo");if(!container)return;
+ const isRegister=type==="register",isReset=type==="reset";
  container.innerHTML=`
   <div class="panel">
    <h3>${isRegister?"Create Account":isReset?"Reset Password":"Customer Login"}</h3>
-
    ${isRegister?`
-    <label>Full Name</label>
-    <input class="input" id="authName" placeholder="Your full name">
-    <label>Mobile Number</label>
-    <input class="input" id="authMobile" type="tel" maxlength="10" placeholder="10 digit mobile number">
-   `:""}
-
-   <label>Email Address</label>
-   <input class="input" id="authEmail" type="email" placeholder="Enter email">
-
-   ${!isReset?`
-    <label>Password</label>
-    <input class="input" id="authPassword" type="password" placeholder="Enter password">
-   `:""}
-
-   <button class="btn" id="authSubmit" style="width:100%;margin-top:8px" onclick="submitAuth('${type}')">
-    ${isRegister?"Create Account":isReset?"Send Reset Link":"Login"}
-   </button>
-
+    <label>Full Name</label><input class="input" id="authName" placeholder="Your full name">
+    <label>Mobile Number</label><input class="input" id="authMobile" type="tel" maxlength="10" placeholder="10 digit mobile number">`:""}
+   <label>Email Address</label><input class="input" id="authEmail" type="email" placeholder="Enter email">
+   ${!isReset?`<label>Password</label><input class="input" id="authPassword" type="password" placeholder="Enter password">`:""}
+   <button class="btn" id="authSubmit" style="width:100%;margin-top:8px" onclick="submitAuth('${type}')">${isRegister?"Create Account":isReset?"Send Reset Link":"Login"}</button>
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('login')">Login</button>
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('register')">Create New Account</button>
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showAuth('reset')">Forgot Password?</button>
    <button class="btn secondary" style="width:100%;margin-top:8px" onclick="renderAccount()">Back</button>
-  </div>
- `;
+  </div>`;
 }
 
 async function submitAuth(type){
@@ -954,208 +685,94 @@ async function submitAuth(type){
  const password=$("authPassword")?.value||"";
  const name=$("authName")?.value.trim()||"";
  const mobile=$("authMobile")?.value.trim()||"";
-
- if(!email){
-  alert("Please enter your email.");
-  return;
- }
-
- if(type!=="reset"&&!password){
-  alert("Please enter your password.");
-  return;
- }
-
- if(type==="register"&&(!name||!/^[0-9]{10}$/.test(mobile))){
-  alert("Please enter your name and valid 10 digit mobile number.");
-  return;
- }
-
+ if(!email){alert("Please enter your email.");return}
+ if(type!=="reset"&&!password){alert("Please enter your password.");return}
+ if(type==="register"&&(!name||!/^[0-9]{10}$/.test(mobile))){alert("Please enter your name and valid 10 digit mobile number.");return}
  const button=$("authSubmit");
- if(button){
-  button.disabled=true;
-  button.textContent="Please wait...";
- }
-
+ if(button){button.disabled=true;button.textContent="Please wait..."}
  try{
   let result;
-
-  if(type==="login"){
-   result=await bridgeCall("signIn",email,password);
-  }else if(type==="register"){
-   result=await bridgeCall("createAccount",email,password,name,mobile);
-  }else{
-   result=await bridgeCall("resetPassword",email);
-  }
-
-  if(!result||result.success===false){
-   throw new Error(result?.error||"Authentication failed.");
-  }
-
-  if(type==="reset"){
-   alert("Password reset email sent. Please check your inbox.");
-   showAuth("login");
-   return;
-  }
-
+  if(type==="login")result=await bridgeCall("signIn",email,password);
+  else if(type==="register")result=await bridgeCall("createAccount",email,password,name,mobile);
+  else result=await bridgeCall("resetPassword",email);
+  if(!result||result.success===false)throw new Error(result?.error||"Authentication failed.");
+  if(type==="reset"){alert("Password reset email sent. Please check your inbox.");showAuth("login");return}
   if(type==="register"){
-   current={
-    uid:result.uid||result.user?.uid||"",
-    email,
-    name,
-    mobile
-   };
+   current={uid:result.uid||result.user?.uid||"",email,name,mobile};
   }else{
    const user=result.user||result;
-   current={
-    uid:user.uid||result.uid||"",
-    email:user.email||email,
-    name:user.displayName||user.name||"",
-    mobile:user.phoneNumber||""
-   };
+   current={uid:user.uid||result.uid||"",email:user.email||email,name:user.displayName||user.name||"",mobile:user.phoneNumber||""};
   }
-
-  persist();
-  alert(type==="register"?"Account created successfully.":"Login successful.");
-  renderAccount();
-
-  await refreshCloudData();
-
+  persist();alert(type==="register"?"Account created successfully.":"Login successful.");
+  renderAccount();await refreshCloudData();
  }catch(error){
-  console.error(error);
-  alert(error.message||"Login failed. Please try again.");
+  console.error(error);alert(error.message||"Login failed. Please try again.");
  }finally{
-  if(button){
-   button.disabled=false;
-   button.textContent=type==="register"?"Create Account":type==="reset"?"Send Reset Link":"Login";
-  }
+  if(button){button.disabled=false;button.textContent=type==="register"?"Create Account":type==="reset"?"Send Reset Link":"Login"}
  }
 }
 
 async function logout(){
- try{
-  await bridgeCall("signOut");
- }catch(e){
-  console.log(e);
- }
-
- current=null;
- persist();
- renderAccount();
- alert("You have been logged out.");
- showPage("account");
+ try{await bridgeCall("signOut")}catch(e){console.log(e)}
+ current=null;persist();renderAccount();alert("You have been logged out.");showPage("account");
 }
-
-/* =========================
-   ANDROID FIREBASE BRIDGE
-========================= */
 
 function bridgeCall(method,...args){
  return new Promise((resolve,reject)=>{
   try{
    if(!window.AndroidFirebase||typeof window.AndroidFirebase[method]!=="function"){
-    resolve({success:false,error:"Firebase connection not available."});
-    return;
+    resolve({success:false,error:"Firebase connection not available."});return;
    }
-
    const result=window.AndroidFirebase[method](...args);
-
    if(typeof result==="string"){
-    try{
-     resolve(JSON.parse(result));
-    }catch(e){
-     resolve(result);
-    }
-   }else{
-    resolve(result);
-   }
-  }catch(error){
-   reject(error);
-  }
+    try{resolve(JSON.parse(result))}catch(e){resolve(result)}
+   }else resolve(result);
+  }catch(error){reject(error)}
  });
 }
 
 async function saveRemotePromise(collection,id,data){
  try{
   const result=await bridgeCall("saveDocument",collection,String(id),JSON.stringify(data));
-
-  if(result===false||result?.success===false){
-   console.error("Firebase save failed:",result);
-   return false;
-  }
-
+  if(result===false||result?.success===false){console.error("Firebase save failed:",result);return false}
   return true;
- }catch(error){
-  console.error("Firebase save error:",error);
-  return false;
- }
+ }catch(error){console.error("Firebase save error:",error);return false}
 }
 
 async function getRemoteCollection(collection){
  try{
   const result=await bridgeCall("getCollection",collection);
-
   if(Array.isArray(result))return result;
   if(Array.isArray(result?.data))return result.data;
   if(Array.isArray(result?.documents))return result.documents;
-
   return [];
- }catch(error){
-  console.error("Firebase collection error:",error);
-  return [];
- }
+ }catch(error){console.error("Firebase collection error:",error);return []}
 }
-
-/* =========================
-   CLOUD DATA REFRESH
-========================= */
 
 async function refreshCloudData(){
  try{
   const cloudProducts=await getRemoteCollection("products");
-
   if(Array.isArray(cloudProducts)&&cloudProducts.length){
-   products=cloudProducts.map(p=>{
-    if(p.data&&typeof p.data==="object"){
-     return {...p.data,id:p.id||p.data.id};
-    }
-    return p;
-   });
-
+   products=cloudProducts.map(p=>p.data&&typeof p.data==="object"?{...p.data,id:p.id||p.data.id}:p);
    localStorage.setItem("cfu_products",JSON.stringify(products));
   }
-
   if(current){
    const cloudOrders=await getRemoteCollection("orders");
-
    if(Array.isArray(cloudOrders)&&cloudOrders.length){
-    const userOrders=cloudOrders.map(o=>{
-     if(o.data&&typeof o.data==="object"){
-      return {...o.data,id:o.id||o.data.id};
-     }
-     return o;
-    }).filter(o=>
-     String(o.uid||"")===String(current.uid||current.id||"")
-    );
-
-    orders=userOrders;
+    orders=cloudOrders.map(o=>o.data&&typeof o.data==="object"?{...o.data,id:o.id||o.data.id}:o)
+     .filter(o=>String(o.uid||"")===String(current.uid||current.id||""));
     localStorage.setItem("cfu_orders",JSON.stringify(orders));
    }
   }
-
-  renderProducts();
-  renderCart();
-  renderWishlist();
-  renderOrders();
-  updateCounts();
-
- }catch(error){
-  console.error("Cloud refresh error:",error);
- }
+  renderProducts();renderCart();renderWishlist();renderOrders();updateCounts();
+  if($("listing").classList.contains("show")&&listingMode==="price"){
+   const title=$("listingTitle").textContent;
+   const ranges={"Under ₹99":[0,99],"₹100–₹199":[100,199],"₹200–₹299":[200,299],"₹300–₹399":[300,399],"₹400–₹499":[400,499]};
+   if(ranges[title])listingProducts=products.filter(p=>Number(p.price||0)>=ranges[title][0]&&Number(p.price||0)<=ranges[title][1]);
+   renderListing();
+  }
+ }catch(error){console.error("Cloud refresh error:",error)}
 }
-
-/* =========================
-   LOCAL DATA
-========================= */
 
 function loadLocalData(){
  try{
@@ -1165,50 +782,24 @@ function loadLocalData(){
   orders=JSON.parse(localStorage.getItem("cfu_orders")||"[]");
   addresses=JSON.parse(localStorage.getItem("cfu_addresses")||"[]");
   current=JSON.parse(localStorage.getItem("cfu_user")||"null");
- }catch(error){
-  console.error("Local data error:",error);
- }
-
- updateCounts();
- renderProducts();
- renderCart();
- renderWishlist();
- renderOrders();
- renderAccount();
+ }catch(error){console.error("Local data error:",error)}
+ updateCounts();renderProducts();renderCart();renderWishlist();renderOrders();renderAccount();
 }
-
-/* =========================
-   START APP
-========================= */
 
 document.addEventListener("DOMContentLoaded",async()=>{
  loadLocalData();
-
  try{
   if(window.AndroidFirebase&&typeof window.AndroidFirebase.currentUser==="function"){
    const result=await bridgeCall("currentUser");
-
    if(result&&result.uid){
-    current={
-     uid:result.uid,
-     email:result.email||"",
-     name:result.displayName||result.name||"",
-     mobile:result.phoneNumber||""
-    };
-    persist();
-    renderAccount();
+    current={uid:result.uid,email:result.email||"",name:result.displayName||result.name||"",mobile:result.phoneNumber||""};
+    persist();renderAccount();
    }
   }
- }catch(error){
-  console.log("Current user check:",error);
- }
-
+ }catch(error){console.log("Current user check:",error)}
  await refreshCloudData();
  showPage("home");
 });
-
 </script>
 </body>
 </html>
-
-
