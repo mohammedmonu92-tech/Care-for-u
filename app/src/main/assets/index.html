@@ -1832,7 +1832,13 @@ function useAddress(index){
  if(addressReturnPage==="checkout")setCheckoutStep(1);
  alert("Address selected.");
 }
+function toggleOrderTracking(index) {
+    const panel = document.getElementById("orderTracking_" + index);
 
+    if (panel) {
+        panel.classList.toggle("hidden");
+    }
+}
 function getOrderTrackingStep(status){
  const s=String(status||"Order Placed").toLowerCase().trim();
 
@@ -1861,7 +1867,7 @@ function renderOrders(){
   "Delivered"
  ];
 
- container.innerHTML=orders.map(order=>{
+ container.innerHTML=orders.map((order,index)=>{
   const step=getOrderTrackingStep(order.status);
   const progress=step*25;
 
@@ -1872,7 +1878,15 @@ function renderOrders(){
 
    <span class="badge">${escapeHTML(order.status||"Order Placed")}</span>
 
-   <div class="order-tracking">
+   <button class="btn secondary"
+    style="width:100%;margin:10px 0"
+    onclick="toggleOrderTracking(${index})">
+    📍 Track Order
+</button>
+
+<div id="orderTracking_${index}"
+     class="order-tracking hidden">
+
     <h3>🚚 Track Your Order</h3>
 
     <div class="tracking-road">
