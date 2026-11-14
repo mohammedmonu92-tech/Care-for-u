@@ -1011,7 +1011,6 @@ public void stopCustomerOrders() {
         
   
 }
-
   
 @Override
 protected void onDestroy() {
