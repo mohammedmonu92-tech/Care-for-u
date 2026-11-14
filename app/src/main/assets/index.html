@@ -1285,40 +1285,123 @@ function setRating(value){
  document.querySelectorAll(".rating-select button").forEach((b,i)=>b.classList.toggle("selected",i<value));
 }
 
+function hasPurchasedProduct(id){
+ if(!current)return false;
+
+ const userEmail=String(current.email||"").toLowerCase();
+
+ return orders.some(order=>{
+  const orderEmail=String(order.email||"").toLowerCase();
+
+  const belongsToUser=
+   orderEmail && userEmail && orderEmail===userEmail;
+
+  const hasProduct=(order.items||[]).some(item=>
+   String(item.productId||item.id)===String(id)
+  );
+
+  return belongsToUser && hasProduct;
+ });
+}
+
 function renderProductReviews(id){
  const container=$("productReviews");
  if(!container)return;
- const reviews=JSON.parse(localStorage.getItem("cfu_reviews")||"[]").filter(r=>String(r.productId)===String(id));
- if(!reviews.length)container.innerHTML='<p class="muted">No reviews yet.</p>';
- else container.innerHTML=reviews.map(r=>`
-  <div class="review-card">
-   <b>${escapeHTML(r.name||"Customer")}</b>
-   <div class="stars">${"★".repeat(Number(r.rating||5))}</div>
-   <p>${escapeHTML(r.text||"")}</p>
-  </div>`).join("");
+
+ const reviews=JSON.parse(
+  localStorage.getItem("cfu_reviews")||"[]"
+ ).filter(r=>String(r.productId)===String(id));
+
+ if(!reviews.length){
+  container.innerHTML='<p class="muted">No reviews yet.</p>';
+ }else{
+  container.innerHTML=reviews.map(r=>`
+   <div class="review-card">
+    <b>${escapeHTML(r.name||"Customer")}</b>
+    <div class="stars">${"★".repeat(Number(r.rating||5))}</div>
+    <p>${escapeHTML(r.text||"")}</p>
+   </div>
+  `).join("");
+ }
+
+ if(!current){
+  container.innerHTML+=`
+   <p class="muted">Please login to write a review.</p>`;
+  return;
+ }
+
+ if(!hasPurchasedProduct(id)){
+  container.innerHTML+=`
+   <p class="muted">
+    Only customers who purchased this product can write a review.
+   </p>`;
+  return;
+ }
+
+ const alreadyReviewed=reviews.some(r=>
+  String(r.userEmail||"").toLowerCase()===
+  String(current.email||"").toLowerCase()
+ );
+
+ if(alreadyReviewed){
+  container.innerHTML+=`
+   <p class="muted">You have already reviewed this product.</p>`;
+  return;
+ }
+
  container.innerHTML+=`
   <h4>Write a Review</h4>
-  <div class="rating-select">${[1,2,3,4,5].map(n=>`
-   <button class="${n<=selectedRating?"selected":""}" onclick="setRating(${n})">★</button>`).join("")}</div>
-  <textarea id="reviewText" placeholder="Write your review..." rows="3"></textarea>
-  <button class="btn" onclick="submitReview('${String(id)}')">Submit Review</button>`;
+  <div class="rating-select">
+   ${[1,2,3,4,5].map(n=>`
+    <button class="${n<=selectedRating?"selected":""}"
+     onclick="setRating(${n})">★</button>
+   `).join("")}
+  </div>
+  <textarea id="reviewText"
+   placeholder="Write your review..."
+   rows="3"></textarea>
+  <button class="btn"
+   onclick="submitReview('${String(id)}')">
+   Submit Review
+  </button>`;
 }
 
 function submitReview(id){
+ if(!hasPurchasedProduct(id)){
+  return alert("Only customers who purchased this product can review it.");
+ }
+
  const text=$("reviewText")?.value.trim()||"";
  if(!text)return alert("Please write your review.");
- const reviews=JSON.parse(localStorage.getItem("cfu_reviews")||"[]");
+
+ const reviews=JSON.parse(
+  localStorage.getItem("cfu_reviews")||"[]"
+ );
+
+ const email=String(current.email||"").toLowerCase();
+
+ if(reviews.some(r=>
+  String(r.productId)===String(id) &&
+  String(r.userEmail||"").toLowerCase()===email
+ )){
+  return alert("You have already reviewed this product.");
+ }
+
  reviews.unshift({
   productId:String(id),
-  name:current?.name||"Customer",
+  userEmail:email,
+  name:current.name||"Customer",
   rating:selectedRating,
-  text,
+  text:text,
   createdAt:new Date().toISOString()
  });
+
  localStorage.setItem("cfu_reviews",JSON.stringify(reviews));
+
  renderProductReviews(id);
  alert("Thank you for your review.");
 }
+
 
 /* LOGIN + FIREBASE */
 function showAuth(type){
