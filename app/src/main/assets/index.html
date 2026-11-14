@@ -259,6 +259,20 @@ select option{background:white;color:#292027}
  font-size:13px;
  margin:18px 0 0;
 }
+ #products.grid,
+#products {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+
+#products > * {
+  width: 100% !important;
+  min-width: 0 !important;
+  grid-column: auto !important;
+  box-sizing: border-box !important;
+}
 </style>
 </head>
 <body>
