@@ -114,6 +114,51 @@ select option{background:white;color:#292027}
 .gallery-thumbs button.active{border-color:#800020}
 .gallery-thumbs img{width:100%;height:100%;object-fit:contain}
 @media(min-width:650px){.photo{height:185px}main{padding:20px}}
+ /* FORCE 2 PRODUCTS IN EVERY ROW */
+#products,
+#listingProducts,
+.grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  width: 100% !important;
+  align-items: start;
+}
+
+.grid > .card,
+#products > .card,
+#listingProducts > .card {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+ 
+/* RELATED PRODUCTS SECTION */
+.related-section {
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.related-section h3 {
+  color: #7b1835;
+  font-size: 19px;
+  margin-bottom: 14px;
+}
+
+.related-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  width: 100%;
+}
+
+.related-grid .card {
+  width: 100% !important;
+  min-width: 0;
+}
+ 
 </style>
 </head>
 <body>
@@ -611,6 +656,7 @@ function renderWishlist(){
  }).join("");
 }
 
+
 function openProduct(id){
  const p=getProduct(id);
  if(!p)return;
@@ -619,6 +665,7 @@ function openProduct(id){
  previousListingPage=visiblePage==="listing"?"listing":"home";
  selectedDetailImages=productImages(p);
  const photo=selectedDetailImages[0]||"";
+
  $("detailContent").innerHTML=`
  <div class="panel">
   <div class="photo detail-photo" id="detailMainPhoto">
@@ -639,10 +686,44 @@ function openProduct(id){
   <button class="btn" style="width:100%;margin-top:8px" onclick="buyNow('${escapeHTML(p.id)}')">Buy Now</button>
   <button class="btn secondary" style="width:100%;margin-top:8px" onclick="toggleWishlist('${escapeHTML(p.id)}')">♡ Wishlist</button>
  </div>
- <div class="panel"><h3>Customer Reviews</h3><div id="productReviews"></div></div>`;
+ <div class="panel"><h3>Customer Reviews</h3><div id="productReviews"></div></div>
+ <div class="panel related-section">
+  <h3>Related Products</h3>
+  <div id="relatedProducts" class="related-grid"></div>
+ </div>`;
+
  showPage("detail");
  renderProductReviews(id);
+ renderRelatedProducts(p);
 }
+
+function renderRelatedProducts(currentProduct){
+ const container=document.getElementById("relatedProducts");
+ if(!container || !currentProduct)return;
+
+ const category=String(currentProduct.category||"").toLowerCase();
+
+ let related=products.filter(p=>
+  String(p.id)!==String(currentProduct.id) &&
+  category &&
+  String(p.category||"").toLowerCase()===category
+ );
+
+ if(related.length<4){
+  const extra=products.filter(p=>
+   String(p.id)!==String(currentProduct.id) &&
+   !related.some(r=>String(r.id)===String(p.id))
+  );
+  related=[...related,...extra];
+ }
+
+ related=related.slice(0,8);
+
+ container.innerHTML=related.length
+  ? related.map(p=>productCard(p)).join("")
+  : "<p>Abhi related products available nahi hain.</p>";
+}
+
 
 function selectDetailImage(index,button){
  const image=selectedDetailImages[index];
