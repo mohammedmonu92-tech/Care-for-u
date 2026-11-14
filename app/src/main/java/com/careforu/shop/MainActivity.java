@@ -1,6 +1,6 @@
 
 package com.careforu.shop;
-
+import com.google.firebase.firestore.ListenerRegistration;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,9 +31,11 @@ public class MainActivity extends Activity {
 
     private WebView webView;
     private ValueCallback<Uri[]> fileCallback;
-
+    
     private FirebaseAuth auth;
     private FirebaseFirestore db;
+
+    private ListenerRegistration productsListener;
 
     private static final int FILE_REQUEST = 501;
 
@@ -366,6 +368,28 @@ public class MainActivity extends Activity {
 
         return list;
     }
+    private void sendProductsUpdate(
+    String listenerId,
+    JSONObject result
+) {
+
+    runOnUiThread(() -> {
+
+        if (webView == null) return;
+
+        webView.evaluateJavascript(
+            "(function() {" +
+            "if (window.onProductsSnapshot) {" +
+            "window.onProductsSnapshot(" +
+            JSONObject.quote(listenerId) + "," +
+            result.toString() +
+            ");" +
+            "}" +
+            "})()",
+            null
+        );
+    });
+}
 
     public class FirebaseBridge {
 
@@ -707,6 +731,58 @@ public class MainActivity extends Activity {
                     sendError(callbackId, error.getMessage())
                 );
         }
+        @JavascriptInterface
+public void listenProducts(String listenerId) {
+
+    if (productsListener != null) {
+        productsListener.remove();
+        productsListener = null;
+    }
+
+    productsListener = db.collection("products")
+        .addSnapshotListener((snapshot, error) -> {
+
+            try {
+                if (error != null) {
+                    JSONObject result =
+                        makeResult(false, error.getMessage());
+
+                    sendProductsUpdate(listenerId, result);
+                    return;
+                }
+
+                if (snapshot == null) return;
+
+                JSONArray array = new JSONArray();
+
+                for (DocumentSnapshot document : snapshot.getDocuments()) {
+
+                    Map<String, Object> data = document.getData();
+
+                    JSONObject item = data == null
+                        ? new JSONObject()
+                        : new JSONObject(data);
+
+                    item.put("id", document.getId());
+                    array.put(item);
+                }
+
+                JSONObject result =
+                    makeResult(true, "Products updated");
+
+                result.put("data", array);
+
+                sendProductsUpdate(listenerId, result);
+
+            } catch (Exception e) {
+                android.util.Log.e(
+                    "Firebase",
+                    "Product listener error",
+                    e
+                );
+            }
+        });
+}
 
         @JavascriptInterface
         public void deleteDocument(
@@ -857,4 +933,8 @@ public class MainActivity extends Activity {
 
         super.onDestroy();
     }
+}
+if (productsListener != null) {
+    productsListener.remove();
+    productsListener = null;
 }
