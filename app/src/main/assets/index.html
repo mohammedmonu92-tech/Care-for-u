@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -1296,9 +1297,10 @@ function renderProducts(){
  if(!container)return;
  let list=[...products];
  if(selectedCategory)list=list.filter(p=>(p.category||"").toLowerCase()===selectedCategory.toLowerCase());
- container.innerHTML=list.length?list.map(productCard).join():'<div class="panel">No products available.</div>';
+ container.innerHTML = list.length
+  ? list.map(productCard).join("")
+  : '<div class="panel">No products available.</div>';
 }
-
 function getProduct(id){return products.find(p=>String(p.id)===String(id))}
 
 function openPriceSlab(min,max,title){
