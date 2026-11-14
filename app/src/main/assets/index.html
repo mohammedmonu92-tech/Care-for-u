@@ -273,6 +273,29 @@ select option{background:white;color:#292027}
   grid-column: auto !important;
   box-sizing: border-box !important;
 }
+
+/* HOME + SEARCH + CATEGORY PRODUCT GRID */
+#products,
+#listingProducts,
+.related-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  width: 100% !important;
+  align-items: start !important;
+}
+
+#products > .card,
+#listingProducts > .card,
+.related-grid > .card {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  grid-column: auto !important;
+  box-sizing: border-box !important;
+}
+ 
 </style>
 </head>
 <body>
