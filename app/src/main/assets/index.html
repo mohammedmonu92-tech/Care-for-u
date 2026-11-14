@@ -117,13 +117,26 @@ select option{background:white;color:#292027}
  /* FORCE 2 PRODUCTS IN EVERY ROW */
 #products,
 #listingProducts,
+
 .grid {
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  grid-auto-flow: row !important;
   gap: 10px !important;
   width: 100% !important;
-  align-items: start;
+  align-items: start !important;
 }
+
+.grid > .card {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  float: none !important;
+  box-sizing: border-box !important;
+}
+
 
 .grid > .card,
 #products > .card,
