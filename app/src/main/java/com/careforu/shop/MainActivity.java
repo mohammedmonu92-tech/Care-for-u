@@ -36,7 +36,8 @@ public class MainActivity extends Activity {
     private FirebaseFirestore db;
 
     private ListenerRegistration productsListener;
-
+    
+private ListenerRegistration customerOrdersListener;
     private static final int FILE_REQUEST = 501;
 
     private long backPressedTime = 0;
@@ -202,6 +203,26 @@ public class MainActivity extends Activity {
                 null
             );
         });
+    }
+    private void sendCustomerOrdersUpdate(
+        String listenerId,
+        JSONObject result
+) {
+    runOnUiThread(() -> {
+        if (webView == null) return;
+
+        webView.evaluateJavascript(
+            "(function() {" +
+            "if (window.onCustomerOrdersSnapshot) {" +
+            "window.onCustomerOrdersSnapshot(" +
+            JSONObject.quote(listenerId) + "," +
+            result.toString() +
+            ");" +
+            "}" +
+            "})()",
+            null
+        );
+    });
     }
 
     private JSONObject makeResult(
@@ -783,7 +804,78 @@ public void listenProducts(String listenerId) {
             }
         });
 }
+@JavascriptInterface
+public void listenCustomerOrders(String listenerId) {
 
+    FirebaseUser user = auth.getCurrentUser();
+
+    if (user == null) return;
+
+    if (customerOrdersListener != null) {
+        customerOrdersListener.remove();
+        customerOrdersListener = null;
+    }
+
+    customerOrdersListener = db.collection("orders")
+        .whereEqualTo("uid", user.getUid())
+        .addSnapshotListener((snapshot, error) -> {
+
+            try {
+                if (error != null) {
+                    sendCustomerOrdersUpdate(
+                        listenerId,
+                        makeResult(false, error.getMessage())
+                    );
+                    return;
+                }
+
+                if (snapshot == null) return;
+
+                JSONArray array = new JSONArray();
+
+                for (DocumentSnapshot document :
+                        snapshot.getDocuments()) {
+
+                    Map<String, Object> data =
+                        document.getData();
+
+                    JSONObject item = data == null
+                        ? new JSONObject()
+                        : new JSONObject(data);
+
+                    item.put("id", document.getId());
+
+                    array.put(item);
+                }
+
+                JSONObject result =
+                    makeResult(true, "Orders updated");
+
+                result.put("data", array);
+
+                sendCustomerOrdersUpdate(
+                    listenerId,
+                    result
+                );
+
+            } catch (Exception e) {
+                android.util.Log.e(
+                    "Firebase",
+                    "Order listener error",
+                    e
+                );
+            }
+        });
+}
+
+@JavascriptInterface
+public void stopCustomerOrders() {
+
+    if (customerOrdersListener != null) {
+        customerOrdersListener.remove();
+        customerOrdersListener = null;
+    }
+}
         @JavascriptInterface
         public void deleteDocument(
             String collection,
@@ -916,9 +1008,12 @@ public void listenProducts(String listenerId) {
                 }
             }
         );
-    }
+        
+    }if (customerOrdersListener != null) {
+    customerOrdersListener.remove();
+    customerOrdersListener = null;
+}
 
-    @Override
     @Override
     protected void onDestroy() {
 
