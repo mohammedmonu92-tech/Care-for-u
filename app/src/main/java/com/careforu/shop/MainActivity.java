@@ -919,22 +919,24 @@ public void listenProducts(String listenerId) {
     }
 
     @Override
+    @Override
     protected void onDestroy() {
 
-        if (fileCallback != null) {
-            fileCallback.onReceiveValue(null);
-            fileCallback = null;
-        }
-
-        if (webView != null) {
-            webView.destroy();
-            webView = null;
-        }
-
-        super.onDestroy();
+    if (productsListener != null) {
+        productsListener.remove();
+        productsListener = null;
     }
+
+    if (fileCallback != null) {
+        fileCallback.onReceiveValue(null);
+        fileCallback = null;
+    }
+
+    if (webView != null) {
+        webView.destroy();
+        webView = null;
+    }
+
+    super.onDestroy();
 }
-if (productsListener != null) {
-    productsListener.remove();
-    productsListener = null;
 }
