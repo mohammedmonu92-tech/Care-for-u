@@ -1009,9 +1009,7 @@ public void stopCustomerOrders() {
             }
         );
         
-    }if (customerOrdersListener != null) {
-    customerOrdersListener.remove();
-    customerOrdersListener = null;
+  
 }
 
     @Override
@@ -1026,6 +1024,9 @@ public void stopCustomerOrders() {
         fileCallback.onReceiveValue(null);
         fileCallback = null;
     }
+          }if (customerOrdersListener != null) {
+    customerOrdersListener.remove();
+    customerOrdersListener = null;
 
     if (webView != null) {
         webView.destroy();
