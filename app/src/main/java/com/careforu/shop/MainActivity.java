@@ -1012,21 +1012,24 @@ public void stopCustomerOrders() {
   
 }
 
-    @Override
-    protected void onDestroy() {
+  
+@Override
+protected void onDestroy() {
 
     if (productsListener != null) {
         productsListener.remove();
         productsListener = null;
     }
 
+    if (customerOrdersListener != null) {
+        customerOrdersListener.remove();
+        customerOrdersListener = null;
+    }
+
     if (fileCallback != null) {
         fileCallback.onReceiveValue(null);
         fileCallback = null;
     }
-          }if (customerOrdersListener != null) {
-    customerOrdersListener.remove();
-    customerOrdersListener = null;
 
     if (webView != null) {
         webView.destroy();
@@ -1035,4 +1038,4 @@ public void stopCustomerOrders() {
 
     super.onDestroy();
 }
-}
+
