@@ -1844,9 +1844,12 @@ function toggleOrderTracking(index) {
         panel.classList.toggle("hidden");
     }
 }
+
+
 function getOrderTrackingStep(status){
  const s=String(status||"Order Placed").toLowerCase().trim();
 
+ if(s.includes("cancel"))return -1;
  if(s.includes("delivered"))return 4;
  if(s.includes("out for delivery"))return 3;
  if(s.includes("shipped") || s.includes("dispatched"))return 2;
@@ -1874,46 +1877,59 @@ function renderOrders(){
 
  container.innerHTML=orders.map((order,index)=>{
   const step=getOrderTrackingStep(order.status);
-  const progress=step*25;
+  const cancelled=step===-1;
+  const progress=cancelled?0:step*25;
 
   return `
   <div class="panel">
    <b>Order ID: ${escapeHTML(order.id)}</b>
    <p class="muted">${escapeHTML(order.createdAt||"")}</p>
 
-   <span class="badge">${escapeHTML(order.status||"Order Placed")}</span>
+   ${cancelled?`
+    <div style="background:#ffe5e5;color:#c62828;padding:18px;border-radius:10px;font-weight:bold;text-align:center;font-size:20px;margin:12px 0">
+     ❌ ORDER CANCELLED
+    </div>
+   `:`
+    <span class="badge">${escapeHTML(order.status||"Order Placed")}</span>
+   `}
 
    <button class="btn secondary"
     style="width:100%;margin:10px 0"
     onclick="toggleOrderTracking(${index})">
     📍 Track Order
-</button>
+   </button>
 
-<div id="orderTracking_${index}"
-     class="order-tracking hidden">
+   <div id="orderTracking_${index}" class="order-tracking hidden">
 
-    <h3>🚚 Track Your Order</h3>
+    ${cancelled?`
+     <h3 style="color:#c62828">❌ Order Cancelled</h3>
+     <p class="tracking-message" style="color:#c62828;font-weight:bold">
+      This order has been cancelled by the admin.
+     </p>
+    `:`
+     <h3>🚚 Track Your Order</h3>
 
-    <div class="tracking-road">
-     <div class="tracking-line"></div>
-     <div class="tracking-progress" style="width:${progress}%"></div>
-     <div class="tracking-truck" style="left:${progress}%">🚚</div>
-    </div>
+     <div class="tracking-road">
+      <div class="tracking-line"></div>
+      <div class="tracking-progress" style="width:${progress}%"></div>
+      <div class="tracking-truck" style="left:${progress}%">🚚</div>
+     </div>
 
-    <div class="tracking-stages">
-     ${stages.map((stage,i)=>`
-      <div class="tracking-stage ${i<=step?"completed":""} ${i===step?"current":""}">
-       <div class="tracking-dot">${i<step?"✓":i===step?"●":"○"}</div>
-       <small>${stage}</small>
-      </div>
-     `).join("")}
-    </div>
+     <div class="tracking-stages">
+      ${stages.map((stage,i)=>`
+       <div class="tracking-stage ${i<=step?"completed":""} ${i===step?"current":""}">
+        <div class="tracking-dot">${i<step?"✓":i===step?"●":"○"}</div>
+        <small>${stage}</small>
+       </div>
+      `).join("")}
+     </div>
 
-    <p class="tracking-message">
-     ${step===4
+     <p class="tracking-message">
+      ${step===4
        ?"Your order has been delivered successfully!"
        :"Your order is at: "+stages[step]}
-    </p>
+     </p>
+    `}
    </div>
 
    <p><b>Total: ${money(order.total)}</b></p>
@@ -1921,29 +1937,27 @@ function renderOrders(){
    <p>${escapeHTML(order.name||"")} · ${escapeHTML(order.mobile||"")}</p>
    <p>${escapeHTML(order.address||"")} - ${escapeHTML(order.pin||"")}</p>
 
-   ${(order.billingAddress?`
+   ${order.billingAddress?`
     <p class="muted"><b>Billing:</b> ${escapeHTML(order.billingName||"")} · ${escapeHTML(order.billingMobile||"")}<br>
-    ${escapeHTML(order.billingAddress)} - ${escapeHTML(order.billingPin||"")}</p>`:"")}
+    ${escapeHTML(order.billingAddress)} - ${escapeHTML(order.billingPin||"")}</p>
+   `:""}
 
-   
    ${(order.items||[]).map(item=>`
     <div class="item">
      <div class="iteminfo">
-      
-<div style="display:flex;align-items:center;gap:12px">
- <img
-  src="${escapeHTML(item.image||item.imageUrl||"")}"
-  alt="${escapeHTML(item.productName||"Product")}"
-  onclick="openProduct('${escapeHTML(item.id||item.productId||"")}')"
-  style="width:85px;height:85px;object-fit:contain;border-radius:10px;cursor:pointer"
- >
- <div>
-  <b>${escapeHTML(item.productName||"Product")}</b>
-  <p>${item.qty} × ${money(item.price)}</p>
- </div>
-</div>
 
-      ${item.qty} × ${money(item.price)}
+      <div style="display:flex;align-items:center;gap:12px">
+       <img
+        src="${escapeHTML(item.image||item.imageUrl||"")}"
+        alt="${escapeHTML(item.productName||"Product")}"
+        onclick="openProduct('${escapeHTML(item.id||item.productId||"")}')"
+        style="width:85px;height:85px;object-fit:contain;border-radius:10px;cursor:pointer"
+       >
+       <div>
+        <b>${escapeHTML(item.productName||"Product")}</b>
+        <p>${item.qty} × ${money(item.price)}</p>
+       </div>
+      </div>
 
       ${step===4?`
        <button class="btn secondary"
@@ -1952,13 +1966,15 @@ function renderOrders(){
         ⭐ Write Review
        </button>
       `:""}
-     </div>
-    </div>`).join("")}
 
+     </div>
+    </div>
+   `).join("")}
 
   </div>`;
  }).join("");
 }
+
 
 function renderAccount(){
  const container=$("accountInfo");
