@@ -1924,7 +1924,20 @@ function renderOrders(){
    ${(order.items||[]).map(item=>`
     <div class="item">
      <div class="iteminfo">
-      <b>${escapeHTML(item.productName||"Product")}</b>
+      
+<div style="display:flex;align-items:center;gap:12px">
+ <img
+  src="${escapeHTML(item.image||item.imageUrl||"")}"
+  alt="${escapeHTML(item.productName||"Product")}"
+  onclick="openProduct('${escapeHTML(item.id||item.productId||"")}')"
+  style="width:85px;height:85px;object-fit:contain;border-radius:10px;cursor:pointer"
+ >
+ <div>
+  <b>${escapeHTML(item.productName||"Product")}</b>
+  <p>${item.qty} × ${money(item.price)}</p>
+ </div>
+</div>
+
       ${item.qty} × ${money(item.price)}
 
       ${step===4?`
