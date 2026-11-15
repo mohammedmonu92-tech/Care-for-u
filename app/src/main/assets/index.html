@@ -1282,7 +1282,12 @@ function productCard(p){
   <div class="cardbody">
    <h3>${name}</h3>
    <div class="price">${money(p.price)} ${p.mrp?`<span class="old">${money(p.mrp)}</span>`:""}</div>
-   <div class="muted">${escapeHTML(p.category||"")}</div>
+   
+<div class="muted">${escapeHTML(p.category||"")}</div>
+<div class="muted" style="color:${Number(p.stock||0)>0?'green':'red'};font-weight:600">
+ ${Number(p.stock||0)>0?'Only '+Number(p.stock)+' left':'Out of Stock'}
+</div>
+
    <div class="actions">
     <button class="btn" onclick="addToCart('${escapeHTML(id)}')">Add</button>
     <button class="btn secondary" onclick="buyNow('${escapeHTML(id)}')">Buy Now</button>
