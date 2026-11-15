@@ -1920,13 +1920,23 @@ function renderOrders(){
     <p class="muted"><b>Billing:</b> ${escapeHTML(order.billingName||"")} · ${escapeHTML(order.billingMobile||"")}<br>
     ${escapeHTML(order.billingAddress)} - ${escapeHTML(order.billingPin||"")}</p>`:"")}
 
+   
    ${(order.items||[]).map(item=>`
     <div class="item">
      <div class="iteminfo">
       <b>${escapeHTML(item.productName||"Product")}</b>
       ${item.qty} × ${money(item.price)}
+
+      ${step===4?`
+       <button class="btn secondary"
+        style="margin-top:8px"
+        onclick="openProduct('${escapeHTML(item.id||item.productId||"")}')">
+        ⭐ Write Review
+       </button>
+      `:""}
      </div>
     </div>`).join("")}
+
 
   </div>`;
  }).join("");
@@ -1961,22 +1971,28 @@ function setRating(value){
  document.querySelectorAll(".rating-select button").forEach((b,i)=>b.classList.toggle("selected",i<value));
 }
 
+
 function hasPurchasedProduct(id){
  if(!current)return false;
 
+ const userId=String(current.uid||current.id||"");
  const userEmail=String(current.email||"").toLowerCase();
 
  return orders.some(order=>{
-  const orderEmail=String(order.email||"").toLowerCase();
+  const orderUserId=String(order.uid||"");
+  const orderEmail=String(order.user||order.email||"").toLowerCase();
 
   const belongsToUser=
-   orderEmail && userEmail && orderEmail===userEmail;
+   (userId && orderUserId && userId===orderUserId) ||
+   (userEmail && orderEmail && userEmail===orderEmail);
+
+  const isDelivered=getOrderTrackingStep(order.status)===4;
 
   const hasProduct=(order.items||[]).some(item=>
    String(item.productId||item.id)===String(id)
   );
 
-  return belongsToUser && hasProduct;
+  return belongsToUser && isDelivered && hasProduct;
  });
 }
 
